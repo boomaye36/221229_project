@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.user-login {min-width: 100vh;}
+.user-login .login-area {padding: 0 20px;}
+.user-login .login-area .logo {padding: 250px 0 100px;}
+.user-login .login-area .logo > a {
+	font-size: 65px;
+}
+.user-login .login-area .input-box, .user-login .login-area .button-box {
+	margin: 0 auto;
+}
+
+.user-login .image-area {}
+.user-login .image-area > img {
+	width: 100%; 
+	min-height: 100vh; 
+	object-fit: cover;
+}
