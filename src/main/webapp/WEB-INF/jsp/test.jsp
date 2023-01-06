@@ -21,7 +21,7 @@
 	<div class="user-login d-flex">
 		<div class="login-area text-center w-50">
 			<!-- logo -->
-			<h1 class="logo"><a href="/">logo here</a></h1>
+			<h1 class="logo"><a href="/">logo here ^^</a></h1>
 			<!-- contents -->
 			<div class="input-box w-75">
 				<div class="d-flex">
