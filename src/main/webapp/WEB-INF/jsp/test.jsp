@@ -40,6 +40,7 @@
 					<button type="button" class="btn w-50">회원가입</button>
 				</div>
 				<button type="button" class="btn btn-block mt-2">소셜로그인</button>
+				아무거나 글쓰기
 			</div>
 		</div>
 		<div class="image-area w-50">
