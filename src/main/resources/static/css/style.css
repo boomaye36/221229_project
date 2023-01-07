@@ -3,14 +3,14 @@
 /*=========================================================================================로그인 시작 */
 .user-login {min-width: 100vh;}
 .user-login .login-area {padding: 0 20px;}
-.user-login .login-area .logo {padding: 250px 0 100px;}
+.user-login .login-area .logo {padding: 20vh 0 10vh;}
 .user-login .login-area .logo > a {
 	font-size: 65px;
 }
 .user-login .login-area .user-loginbox, .user-login .login-area .user-button-box {
 	margin: 0 auto;
 }
-
+.user-login-content {margin: auto; width: 320px;}
 .user-login .image-area > img {
 	width: 100%; 
 	min-height: 100vh; 
@@ -55,7 +55,6 @@
 }
 .user-button-box .user-login-kakao {
 	height: 48px;
-	width: 100%;
 	margin-top : 5px;
 }
 
@@ -176,3 +175,106 @@ color:#fff
 .showFalse{ color : pink;}
 .d-none {display: none;}
 
+
+
+/* ============================================================================================아이디 찾기 시작 */
+.id-body {
+	padding: 0;
+	margin: 0;
+	text-decoration:none !important;
+	font-size: 15px;
+}
+
+.id-body a {
+	color: #666;
+}
+
+.id-wrap {
+	width: 400px;
+	height: 350px;
+	padding: 40px;
+	box-sizing: border-box;
+	margin: auto;
+	margin-top: 100px;
+	
+}
+
+.id-wrap>h2 {
+	font-size: 30x;
+	font-weight: bold;
+	color: pink;
+	margin-bottom: 20px;
+}
+
+.id-form>input {
+	width: 100%;
+	height: 48px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-bottom: 16px;
+	border-radius: 6px;
+	background-color: #F8F8F8;
+	border: none;
+}
+
+.id-form>input::placeholder {
+	color: #666;
+}
+
+.id-form>input[type="submit"] {
+	color: #fff;
+	font-size: 16px;
+	background-color: pink;
+	margin-top: 20px;
+}
+
+.id-box {
+	display: none;
+}
+
+.id-box>span {
+	color: #6A24FE;
+}
+
+.id-box>input {
+	width: 100%;
+	height: 48px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-bottom: 16px;
+	border-radius: 6px;
+	background-color: #F8F8F8;
+	border: none;
+}
+
+
+.id-find {
+	
+	font-size: 12px;
+	text-align: center;
+	margin-top: 10px;
+}
+
+.id-find span {
+	padding-left: 10px;
+	
+	
+}
+
+.id-find span::before {
+	content: '|';
+	color: #333;
+	padding-right: 10px;
+}
+
+.id-find span:nth-child(1):before {
+	content: none;
+}
+
+.id-find span:nth-child(1) {
+	padding-left: 0px;
+}
+
+.id-find a:hover {
+	color: #707070;
+}

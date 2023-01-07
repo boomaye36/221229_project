@@ -16,7 +16,36 @@
 	<!-- css -->
 	<link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
+<body class="id-body">
+
+	<div class="id-wrap">
+        <h2 onclick="move('/user/sign-in')">화상영상통화 가제 아이디 찾기</h2>
+        <div class="id-form">
+            <input type="text" placeholder="회원정보에 등록한 이메일" id="user_email">
+            <div class="id-box">
+	            <span>등록하신 Id </span><br>
+	            <input type="text" placeholder="" id="user_id">
+            </div>
+            <input type="submit" value="아이디 찾기" id ="login">
+        </div>
+        <hr>
+        <p class="id-find">
+        <span><a href="/user/sign-in">홈</a></span>
+        <span><a href="/user/pwd">비밀번호 찾기</a></span>
+        <span><a href="/user/sign-up" >회원가입</a></span>
+    	</p>
+    </div>
 
 </body>
+<script type="text/javascript">
+
+//onclick 용
+function move(result){
+	
+	location.href = result;
+	
+}
+
+
+</script>
 </html>
