@@ -2,19 +2,33 @@
 
 /*=========================================================================================로그인 시작 */
 .user-login {min-width: 100vh;}
-.user-login .login-area {padding: 0 20px;}
-.user-login .login-area .logo {padding: 20vh 0 10vh;}
+.user-login .login-area {padding: 0 20px;
+	position: absolute;
+	top:16vh; left:25vw;}
+.user-login .login-area .logo {padding: 0 0 10vh;}
 .user-login .login-area .logo > a {
 	font-size: 65px;
 }
 .user-login .login-area .user-loginbox, .user-login .login-area .user-button-box {
 	margin: 0 auto;
 }
-.user-login-content {margin: auto; width: 320px;}
+
+.user-login-content-box {margin: auto; width:400px;
+	padding-top:35px;
+	height:450px;
+	border-radius: 10px;
+	background-color: white;}
+	
+.user-login-content {
+	margin: auto; 
+	width: 320px;}
+
+
 .user-login .image-area > img {
 	width: 100%; 
 	min-height: 100vh; 
 	object-fit: cover;
+	position: relative;
 }
 .user-loginbox >input {
 	width: 100%;
