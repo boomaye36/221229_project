@@ -1,81 +1,5 @@
 @charset "UTF-8";
 
-/*=========================================================================================로그인 시작 */
-.user-login {min-width: 100vh;}
-.user-login .login-area {padding: 0 20px;}
-.user-login .login-area .logo {padding: 250px 0 100px;}
-.user-login .login-area .logo > a {
-	font-size: 65px;
-}
-.user-login .login-area .user-loginbox, .user-login .login-area .user-button-box {
-	margin: 0 auto;
-}
-
-.user-login .image-area > img {
-	width: 100%; 
-	min-height: 100vh; 
-	object-fit: cover;
-}
-.user-loginbox >input {
-	width: 100%;
-	height: 48px;
-	padding: 0 10px;
-	box-sizing: border-box;
-	margin-bottom: 16px;
-	border-radius: 6px;
-	background-color: #eeeeee;
-	border: none;
-}
-.user-loginbox > label { color : #999999;}
-.user-remember-check >input[type="checkbox"] {
-	display: none;
-}
-.user-button-box .user-login-submit {
-	color: #fff;
-	font-size: 16px;
-	background-color: pink;
-	width: 100%;
-	height: 48px;
-	padding: 0 10px;
-	box-sizing: border-box;
-	border-radius: 6px;
-	border: none;
-}
-.user-button-box .user-login-social {
-	color: #fff;
-	font-size: 16px;
-	background-color: pink;
-	width: 100%;
-	height: 48px;
-	padding: 0 10px;
-	box-sizing: border-box;
-	margin-top : 5px;
-	border-radius: 6px;
-	border: none;
-}
-.user-button-box .user-login-kakao {
-	height: 48px;
-	width: 100%;
-	margin-top : 5px;
-}
-
-.user-find {text-align: center}
-.user-find a { 
-	color : #666;
-	text-decoration:none;
-	}
-.user-find span {padding-left: 10px;}
-
-
-
-
-
-
-
-
-/* ============================================================================================회원가입시작 */
-
-
 .signup-body{
     font-size:14px;
     background-color: #f5f6f7;
@@ -175,4 +99,3 @@ color:#fff
 .showLimit , .showTrue {color : red;}
 .showFalse{ color : pink;}
 .d-none {display: none;}
-
