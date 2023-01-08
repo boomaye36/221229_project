@@ -94,6 +94,7 @@
 			success : function(data){
 				if (data.code == 100){
 					alert("로그인되었습니다.");
+					document.location.href="/user/signup_addition";
 				}
 			}
 			});

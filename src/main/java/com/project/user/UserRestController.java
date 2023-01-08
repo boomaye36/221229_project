@@ -1,5 +1,6 @@
 package com.project.user;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,10 +64,23 @@ public class UserRestController {
 		if (user != null) {
 			result.put("code", 100);
 			session.setAttribute("user_loginid", user.getUser_loginid());
+			session.setAttribute("user_id", user.getId());
 
 		} else {
 			result.put("code", 400);
 		}
 		return result;
+	}
+	@PostMapping("/user_update")
+	public Map<String, Object> userUpdate(@RequestParam("user_birth") Date user_birth,HttpSession session,
+			@RequestParam("user_area") String user_area,
+			@RequestParam("user_intro") String user_intro,
+			@RequestParam("user_profilephoto") String user_profilephoto){
+		Map<String, Object> result = new HashMap<>();
+		Integer user_id = (Integer) session.getAttribute("user_id");
+		userBO.UpdateUser(user_birth, user_area, user_intro, user_profilephoto, user_id);
+		result.put("code", 100);
+		return result;
+
 	}
 }

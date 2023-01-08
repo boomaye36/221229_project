@@ -1,5 +1,7 @@
 package com.project.user.bo;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,8 @@ public class UserBO {
 	
 	public User getUserByLoginIdAndPassword(String user_loginid, String user_password) {
 		return userDAO.selectUserByLoginIdAndPassword(user_loginid, user_password);
+	}
+	public void UpdateUser(Date user_birth, String user_area, String user_intro, String user_profilephoto, int user_id) {
+		userDAO.UpdateUser(user_birth, user_area, user_intro, user_profilephoto, user_id);
 	}
 }

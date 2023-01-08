@@ -48,4 +48,17 @@
 		AND
 			`user_password` = #{user_password}
 	</select>
+	<update id="UpdateUser" parameterType="map">
+	UPDATE
+		`user`
+	SET
+		`user_birth` = #{user_birth}
+	,
+		`user_area` = #{user_area}
+	,	
+		`user_intro` = #{user_intro}
+	,
+		`user_profilephoto` = #{user_profilephoto}
+	WHERE `id` = #{user_id}
+	</update>
 </mapper>
