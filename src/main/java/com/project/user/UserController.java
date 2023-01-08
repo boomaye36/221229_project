@@ -2,11 +2,15 @@ package com.project.user;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class UserController {
 	
-	
+	@RequestMapping("/user/tos")
+	public String tos() {
+		return "/user/tos";
+	}
 	//로그인 페이지
 	@GetMapping("/user/sign-in")
 	public String signIn() {
@@ -36,6 +40,11 @@ public class UserController {
 	public String pwd() {
 		
 		return "/user/pwd";
+	}
+	
+	@RequestMapping("/user/signup_addition")
+	public String signUpAdd() {
+		return "/user/signup_addition";
 	}
 	
 	

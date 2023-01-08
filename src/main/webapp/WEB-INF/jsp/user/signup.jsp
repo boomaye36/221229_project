@@ -31,13 +31,12 @@
 			 <div  id="idcheckLength" class="ml-5 small text-danger d-none">4자 이상으로 입력하세요.</div>
 			 <div  id="duplicateNo" class="ml-5 small text-danger d-none">중복된 아이디입니다 .</div>
 			 <div id="confirmOk" class="ml-5 small text-success d-none">사용 가능한 아이디입니다 .</div>
-          <small id="limitText" class="showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</small>
-            <small id="isDuplicationText" class="showTrue d-none">이미 사용중이거나 탈퇴한 아이디입니다. </small>
-            <small id="availableText" class="showFalse d-none">멋진 아이디네요!</small>
         </div>
         <div class="signup-pwd">
             <b>비밀번호</b>
             <input class="userpw" type="password" id="user_password">
+            <small id="limitText" class="showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
+            
         </div>
         <div class="signup-repwd">
             <b>비밀번호 재확인</b>
@@ -107,6 +106,19 @@ function move(result){
 
 $(document).ready(
 		function(){
+			
+			function validEmail(user_email){
+				 var val_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+				 return val_email.test(user_email);
+			 }
+			function validpw(user_password){
+				 var val_pw = /^.*(?=^.{5,10}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
+				 return val_pw.test(user_password);
+			 }
+			function validPn(user_phonenumber){
+				 var val_pn = /^\d{3}-\d{3,4}-\d{4}$/;
+				 return val_pn.test(user_phonenumber);
+			 }
 			$('#duplicateBtn').on('click', function(){
 				let user_loginid = $('#user_id').val().trim();
 			if (user_id.length < 4){
@@ -157,6 +169,13 @@ $(document).ready(
 					 alert("비밀번호가 일치하지 않습니다");
 					 return false;
 				 }
+				if (!validpw(user_password)){
+					$('#limitText').removeClass('d-none');
+					$('#confirmOk').addClass('d-none'); 
+
+					
+					return false;
+				}
 				if ($("input[type=radio][name=gender]:checked").is(':checked')){
 					
 				}else{
@@ -168,11 +187,21 @@ $(document).ready(
 					alert("이메일을 입력하세요 ");
 					return false;
 				
+				}else {
+					 if (!validEmail(user_email)){
+						 alert("이메일 형식에 맞게 입력해주세요 ");
+						 return false;
+					 }
 				}
 				if (user_phonenumber==''){
 					alert("핸드폰 번호를 입력하세요 ");
 					return false;
-				}
+				}else {
+					 if (!validPn(user_phonenumber)){
+						 alert("형식에 맞지 않는 번호입니다. ")
+						 return false;
+					 }
+				 }
 				if (user_nickname==''){
 					alert("닉네임을 입력하세요 ");
 					return false;
