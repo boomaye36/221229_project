@@ -78,5 +78,6 @@ function move(result){
 	
 }
 
+
 </script>
 </html>

@@ -215,7 +215,7 @@ $(document).ready(
 						success : function(data) {
 							if (data.code == 100) {
 								alert("회원가입되었습니다.");
-								location.reload();
+								document.location.href="/user/sign-in"
 							} 
 						}	
 					

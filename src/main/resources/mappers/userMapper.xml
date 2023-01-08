@@ -38,5 +38,14 @@
 		NOW()
 		)
 	</insert>
-
+	<select id="selectUserByLoginIdAndPassword" parameterType="map" resultType="com.project.user.model.User">
+		SELECT
+			*
+		FROM
+			`user`
+		WHERE
+			`user_loginid` = #{user_loginid}
+		AND
+			`user_password` = #{user_password}
+	</select>
 </mapper>
