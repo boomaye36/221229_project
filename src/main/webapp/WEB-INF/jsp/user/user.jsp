@@ -39,13 +39,11 @@
 			<div class="login-area w-50">
 				<!-- 로고 -->
 				<h1 class="logo text-center">
-					<a href="/">랜덤화상채팅 가재</a>
+					<a href="#">랜덤화상채팅</a>
 				</h1>
-
-
+				
 				<div class="user-login-content-box">
 					<div class="user-login-content">
-
 						<!-- 데이터 입력 -->
 						<div class="user-loginbox">
 							<input type="text" placeholder="아이디"> <input
@@ -57,7 +55,7 @@
 						</div>
 						<!-- 버튼들 -->
 						<div class="user-button-box mt-3">
-							<input type="submit" value="Login" class="user-login-submit">
+							<input type="submit" value="로그인" class="user-login-submit">
 							<input type="button" value="소셜로그인" class="user-login-social">
 							<img src="/static/img/kakao_login_large_wide.png"
 								class="user-login-kakao">
@@ -65,16 +63,13 @@
 						<hr>
 						<!-- 아이디, 비밀번호찾기, 회원가입 -->
 						<p class="user-find">
-							<span><a href="/user/id">아이디 찾기</a></span> <span><a
-								href="/user/pwd">비밀번호 찾기</a></span> <span><a
-								href="/user/sign-up">회원가입</a></span>
+							<span><a href="/user/id">아이디 찾기</a></span> 
+							<span><a href="/user/pwd">비밀번호 찾기</a></span> 
+							<span><a href="/user/sign-up">회원가입</a></span>
 						</p>
-
 					</div>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 </body>
