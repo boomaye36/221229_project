@@ -16,7 +16,23 @@
 	<!-- css -->
 	<link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-
+<body class="pwd-body">
+	
+	<div class="pwd-wrap">
+        <h2 onclick="move('/user/sign-in')">비밀번호 찾기</h2>
+        <div class="pwd-form">
+        	<input type="text" placeholder="아이디" id="user_id">
+            <input type="text" placeholder="회원정보에 등록한 이메일" id="user_email">
+            <input type="submit" value="비밀번호 찾기" id ="login">
+        </div>
+        <hr>
+        <p class="id-find">
+        <span><a href="/user/sign-in">홈</a></span>
+        <span><a href="/user/pwd">비밀번호 찾기</a></span>
+        <span><a href="/user/sign-up" >회원가입</a></span>
+    	</p>
+    </div>
+    
+    
 </body>
 </html>

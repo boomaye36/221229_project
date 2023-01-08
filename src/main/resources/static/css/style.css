@@ -82,16 +82,66 @@
 .user-find span {padding-right: 10px;}
 
 
+/* ============================================================================================회원가입 약관동의 시작 */
 
 
+.tos-body {
+	padding-top : 20px;
+    font-size:14px;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+}
+.tos-body a{
+    text-decoration: none;
+    color: #222;
+}
+
+.tos{
+    width: 400px;
+    /* border: 1px solid #000; */
+    margin: auto; /*중앙 정렬*/
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
 
 
+.tos .tos-logo{
+    /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
+    font-size: 24px;
+	color: pink;
+	margin-bottom: 20px;
+	font-family: 'Roboto', sans-serif;
+}
 
+.tos input[type=button], .signup input[type=submit]{
+background-color: pink;
+color:#fff;
+border: 1px solid #dadada;
+padding: 15px;
+width: 100%;
+margin-bottom: 5px;
+}
 
+.tos-top { 
+	font-size: 25px;
+	margin-bottom: 40px;}
+.tos-middle, .tos-bottom, .tos-bottom2, .tos-bottom3, .tos-bottom4 {
+	font-size : 15px;
+	margin-bottom: 10px;
+}
+.tos-middle-small {
+	font-size: 12px;
+	color : grey;
+	margin-left: 15px;
+}
 /* ============================================================================================회원가입시작 */
 
 
+
 .signup-body{
+	padding-top : 20px;
     font-size:14px;
     background-color: #f5f6f7;
     line-height: 1.5em;
@@ -143,11 +193,6 @@ color:#fff
     border: 1px solid #2db400;
 }
 
-.signup-birth div{ /*field 이면서 birth*/
-    display: flex;
-    gap:10px; /*간격 벌려줄때 공식처럼 사용핟나 */
-}
-
 .signup-number div { display: flex;}
 .signup-number div input:nth-child(1){flex:2;}
 .signup-number div input:nth-child(2){flex:1;}
@@ -186,11 +231,39 @@ color:#fff
     transform: translateY(-1px);
 
 }
+
+.signup-id , .signup-pwd, .signup-repwd, .signup-nickname, .signup-gender, .signup-email, .signup-number {
+	margin-bottom: 10px;
+}
+
+
 .signup-footer div a:last-child:after{ display: none;}
 .showLimit , .showTrue {color : red;}
 .showFalse{ color : pink;}
 .d-none {display: none;}
+/* ============================================================================================회원가입 추가 시작  */
 
+
+
+.signup-birth div{ /*field 이면서 birth*/
+    display: flex;
+    gap:10px; /*간격 벌려줄때 공식처럼 사용핟나 */
+}
+
+.signup-profilephoto img {
+	width: 100%;
+	height: 250px;
+}
+
+
+.signup-birth , .signup-area , .signup-info, .signup-profilephoto {
+	margin-bottom: 10px;
+}
+
+.user_intro {
+	 border: 1px solid #dadada;
+	 width: 100%;
+}
 
 
 /* ============================================================================================아이디 찾기 시작 */
@@ -294,3 +367,57 @@ color:#fff
 .id-find a:hover {
 	color: #707070;
 }
+
+
+/* ============================================================================================비밀번호 찾기 시작 */
+
+.pwd-body {
+	padding: 0;
+	margin: 0;
+	text-decoration:none !important;
+	font-size: 15px;
+}
+
+.pwd-body a {
+	color: #666;
+}
+
+.pwd-wrap {
+	width: 400px;
+	height: 350px;
+	padding: 40px;
+	box-sizing: border-box;
+	margin: auto;
+	margin-top: 100px;
+	
+}
+
+.pwd-wrap>h2 {
+	font-size: 30x;
+	font-weight: bold;
+	color: pink;
+	margin-bottom: 20px;
+}
+
+.pwd-form>input {
+	width: 100%;
+	height: 48px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	margin-bottom: 16px;
+	border-radius: 6px;
+	background-color: #F8F8F8;
+	border: none;
+}
+
+.pwd-form>input::placeholder {
+	color: #666;
+}
+
+.pwd-form>input[type="submit"] {
+	color: #fff;
+	font-size: 16px;
+	background-color: pink;
+	margin-top: 20px;
+}
+
