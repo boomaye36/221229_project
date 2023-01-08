@@ -66,12 +66,60 @@
 .user-find span {padding-left: 10px;}
 
 
+/* ============================================================================================회원가입 약관동의 시작 */
 
 
+.tos-body {
+	padding-top : 20px;
+    font-size:14px;
+    background-color: #f5f6f7;
+    line-height: 1.5em;
+    color : #222;
+    margin: 0;
+}
+.tos-body a{
+    text-decoration: none;
+    color: #222;
+}
+
+.tos{
+    width: 400px;
+    /* border: 1px solid #000; */
+    margin: auto; /*중앙 정렬*/
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
 
 
+.tos .tos-logo{
+    /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
+    font-size: 24px;
+	color: pink;
+	margin-bottom: 20px;
+	font-family: 'Roboto', sans-serif;
+}
 
+.tos input[type=button], .signup input[type=submit]{
+background-color: pink;
+color:#fff;
+border: 1px solid #dadada;
+padding: 15px;
+width: 100%;
+margin-bottom: 5px;
+}
 
+.tos-top { 
+	font-size: 25px;
+	margin-bottom: 40px;}
+.tos-middle, .tos-bottom, .tos-bottom2, .tos-bottom3, .tos-bottom4 {
+	font-size : 15px;
+	margin-bottom: 10px;
+}
+.tos-middle-small {
+	font-size: 12px;
+	color : grey;
+	margin-left: 15px;
+}
 /* ============================================================================================회원가입시작 */
 
 

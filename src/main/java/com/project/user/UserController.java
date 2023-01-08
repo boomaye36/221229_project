@@ -15,6 +15,13 @@ public class UserController {
 	}
 	
 	
+	//회원가입 약관동의 페이지
+	@GetMapping("/user/tos")
+	public String tos() {
+		
+		return "/user/tos";
+	}
+	
 	
 	//회원가입 페이지
 	@GetMapping("/user/sign-up")
