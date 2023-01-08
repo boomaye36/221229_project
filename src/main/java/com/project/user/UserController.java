@@ -15,13 +15,6 @@ public class UserController {
 	}
 	
 	
-	//회원가입 약관동의 페이지
-	@GetMapping("/user/tos")
-	public String tos() {
-		
-		return "/user/tos";
-	}
-	
 	
 	//회원가입 페이지
 	@GetMapping("/user/sign-up")
@@ -30,12 +23,6 @@ public class UserController {
 		return "/user/signup";
 	}
 	
-	//회원가입 추가정보 페이지
-	@GetMapping("/user/sign-up-addition")
-	public String signUp_addition(){
-		
-		return "/user/signup_addition";
-	}
 	
 	
 	//아이디 찾기 페이지
