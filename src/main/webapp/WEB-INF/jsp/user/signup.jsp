@@ -20,7 +20,7 @@
 	
 	<div class="signup">
         <!-- 1. 로고 -->
-		<h2 class="signup-logo" onclick="move('/user/sign-in')">화상영상통화 가제</h2>
+		<h2 class="signup-logo" onclick="move('/user/sign-in')">회원가입</h2>
         <!-- 2. 필드 -->
         <div class="signup-id">
             <b>아이디</b>
@@ -33,45 +33,34 @@
             <b>비밀번호</b>
             <input class="userpw" type="password" id="user_password">
         </div>
-        <div class="signup=repwd">
+        <div class="signup-repwd">
             <b>비밀번호 재확인</b>
             <input class="userpw-confirm" type="password" id="user_repassword">
         </div>
         <div class="signup-nickname">
-            <b>이름</b>
+            <b>닉네임</b>
             <input type="text" id="user_nickname">
         </div>
-
-        <!-- 3. 필드(생년월일) -->
-        <div class="signup-birth">
-            <b>생년월일</b>
-            <div>
-                <input type="number" placeholder="년(4자)" id="yy" name="yy">                
-                <input type="number" placeholder="월" id="mm" name="mm">
-                <input type="number" placeholder="일" id="dd" name="dd">
-            </div>
-        </div>
-
-        <!-- 4. 필드(성별) -->
+        
+		<!-- 4. 필드(성별) -->
         <div class="signup-gender">
             <b>성별</b>
             <div>
                 <label><input type="radio" name="gender" value="male">남자</label>
                 <label><input type="radio" name="gender" value="female">여자</label>
+                <label><input type="radio" name="gender" value="private">비공개</label>
             </div>
         </div>
-
+        
         <!-- 5. 이메일_전화번호 -->
         <div class="signup-email">
-            <b>본인 확인 이메일<small>(선택)</small></b>
+            <b>본인 확인 이메일</b>
             <input type="email" placeholder="선택입력" id="user_email">
         </div>
         
+       <!-- 6. 휴대폰 번호  -->
         <div class="signup-number">
             <b>휴대전화</b>
-            <select>
-                <option value="">대한민국 +82</option>
-            </select>
             <div>
                 <input type="tel" placeholder="전화번호 입력">
                 <input type="button" value="인증번호 받기">
@@ -94,6 +83,11 @@
         </div>
     </div>
     
+    
+    
+    
+    	
+     	
     
 </body>
 <script type="text/javascript">
