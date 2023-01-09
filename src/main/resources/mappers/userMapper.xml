@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.user.dao.UserDAO">
+
+	<select id="existingLoginId" parameterType="string"
+		resultType="int">
+		SELECT
+		COUNT(1)
+		FROM
+		`user`
+		WHERE
+		`user_loginid`=#{user_loginid}
+	</select>
+
+	<insert id="insertUser" parameterType="map">
+		Insert Into `user`
+		(
+		`user_loginid`
+		,`user_password`
+		,`user_phonenumber`
+		,`user_nickname`
+		,`user_email`
+		,`user_gender`
+		,`createdat`
+		,`updatedat`
+		)
+		VALUES
+		(
+		#{user_loginid},
+		#{user_password},
+		#{user_phonenumber},
+		#{user_nickname},
+		#{user_email},
+		#{user_gender},
+		NOW(),
+		NOW()
+		)
+	</insert>
+	<select id="selectUserByLoginIdAndPassword" parameterType="map" resultType="com.project.user.model.User">
+		SELECT
+			*
+		FROM
+			`user`
+		WHERE
+			`user_loginid` = #{user_loginid}
+		AND
+			`user_password` = #{user_password}
+	</select>
+	<update id="UpdateUser" parameterType="map">
+	UPDATE
+		`user`
+	SET
+		`user_birth` = #{user_birth}
+	,
+		`user_area` = #{user_area}
+	,	
+		`user_intro` = #{user_intro}
+	,
+		`user_profilephoto` = #{user_profilephoto}
+	WHERE `id` = #{user_id}
+	</update>
+</mapper>

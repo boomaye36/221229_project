@@ -46,8 +46,8 @@
 					<div class="user-login-content">
 						<!-- 데이터 입력 -->
 						<div class="user-loginbox">
-							<input type="text" placeholder="아이디"> <input
-								type="password" placeholder="비밀번호" autoComplete="off">
+							<input type="text" placeholder="아이디" id="user_loginid"> <input
+								type="password" placeholder="비밀번호" autoComplete="off" id="user_password">
 							<!--label은 id값만 먹는 것 같아 input 값 아이디로 지정했음. 체크해야함. -->
 							<label for="user-remember-check"> <input type="checkbox"
 								id="user-remember-check"> 아이디 저장하기
@@ -73,4 +73,32 @@
 		</div>
 	</div>
 </body>
+<script>
+	$(document).ready(function(){
+		$('.user-login-submit').on('click', function(e){
+			e.preventDefault();
+			let user_loginid = $('#user_loginid').val().trim();
+			let user_password = $('#user_password').val().trim();
+			if (user_loginid==''){
+				alert("아이디를 입력해주세요.");
+				return false;
+			}
+			if (user_password==''){
+				alert("비밀번호를 입력해주세요.");
+				return false;
+			}
+			$.ajax({
+			type:"post",
+			url : "/user/sign_in",
+			data : {user_loginid, user_password},
+			success : function(data){
+				if (data.code == 100){
+					alert("로그인되었습니다.");
+					document.location.href="/user/signup_addition";
+				}
+			}
+			});
+		});
+	});
+</script>
 </html>

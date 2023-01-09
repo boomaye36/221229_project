@@ -24,14 +24,16 @@
         <!-- 2. 필드 -->
         <div class="signup-id">
             <b>아이디</b>
-            <span class="placehold-text"><input type="text" id="user_id"  onfocusout="duplicateCheck()"></span>
-            <small id="limitText" class="showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.</small>
-            <small id="isDuplicationText" class="showTrue d-none">이미 사용중이거나 탈퇴한 아이디입니다. </small>
-            <small id="availableText" class="showFalse d-none">멋진 아이디네요!</small>
+             <span class="placehold-text"><input type="text" id="user_id"  ></span>
+			 <div  id="idcheckLength" class="ml-5 small text-danger d-none">4자 이상으로 입력하세요.</div>
+			 <div  id="duplicateNo" class="ml-5 small text-danger d-none">중복된 아이디입니다 .</div>
+			 <div id="confirmOk" class="ml-5 small text-success d-none">사용 가능한 아이디입니다 .</div>
         </div>
         <div class="signup-pwd">
             <b>비밀번호</b>
             <input class="userpw" type="password" id="user_password">
+            <small id="limitText" class="showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
+            
         </div>
         <div class="signup-repwd">
             <b>비밀번호 재확인</b>
@@ -46,9 +48,9 @@
         <div class="signup-gender">
             <b>성별</b>
             <div>
-                <label><input type="radio" name="gender" value="male">남자</label>
-                <label><input type="radio" name="gender" value="female">여자</label>
-                <label><input type="radio" name="gender" value="private">비공개</label>
+                <label><input type="radio" name="gender" value="남자">남자</label>
+                <label><input type="radio" name="gender" value="여자">여자</label>
+                <label><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
@@ -62,14 +64,14 @@
         <div class="signup-number">
             <b>휴대전화</b>
             <div>
-                <input type="tel" placeholder="전화번호 입력">
+                <input type="tel" placeholder="전화번호 입력" id="user_phonenumber">
                 <input type="button" value="인증번호 받기">
             </div>
             <input type="number" placeholder="인증번호를 입력하세요">
         </div>
 
         <!-- 6. 가입하기 버튼 -->
-        <input type="button" value="가입하기" id="submit" name="submit">
+        <input type="button"class="btn submit-btn" value="가입하기" id="submit" name="submit">
 
         <!-- 7. 푸터 -->
         <div class="signup-footer">
@@ -99,8 +101,123 @@ function move(result){
 	
 }
 
+$(document).ready( function(){
+	
+	//아이디 중복확인 유효성 event
+	$('#user_id').on('focusout', function(){
+		let user_loginid = $('#user_id').val().trim();
+		if (user_loginid.length < 4){
+			$('#idcheckLength').removeClass('d-none');
+			$('#duplicateNo').addClass('d-none');
+			$('#confirmOk').addClass('d-none');
+			return false;
+		}
+		$.ajax({
+			url:"/user/is_duplicated_id"
+			,data:{user_loginid}
+			,success:function(data){
+				if (data.result == true){
+					$('#idcheckLength').addClass('d-none'); 
+					$('#duplicateNo').removeClass('d-none'); 
+					$('#confirmOk').addClass('d-none'); 
+				}else{
+					$('#idcheckLength').addClass('d-none'); 
+					$('#duplicateNo').addClass('d-none'); 
+					$('#confirmOk').removeClass('d-none'); 				
+				}
+			}
+			, error:function(e){
+				alert("아이디 중복확인에 실패했습니다.");
+			}
+		});
+	});
+	//회원가입 버튼 클릭 event
+	$('#submit').on('click', function(e){
+		e.preventDefault();
+		let user_loginid = $('#user_id').val().trim();
+ 		let user_password = $('#user_password').val().trim();
+		let userpw_confirm = $('#user_repassword').val().trim();
+		let user_nickname = $('#user_nickname').val().trim();
+		let user_gender = $('input[name="gender"]:checked').val();
+		let user_email = $('#user_email').val().trim();
+		let user_phonenumber = $('#user_phonenumber').val().trim();
+		//아이디 유효성 검사
+		if (user_loginid==''){
+			alert("아이디를 입력하세요 ");
+			$('#user_loginid').focus();
+			return false;
+		} 
+		
+		
+		//패스워드 및 패스워드 확인 검사
+		if (user_password=='' || userpw_confirm== ''){
+			alert("비밀번호를 입력하세요 ");
+			return false;
+		}
+		
+		//패스워드 및 패스워드 확인 일치 검사
+		if (user_password != userpw_confirm){
+			alert("비밀번호가 일치하지 않습니다");
+			return false;
+		}
+		
+		//비밀번호입력시 특수문자조합 검사
+		var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+		if (!reg.test(user_password)) {
+			$('#limitText').removeClass('d-none');
+			$('#user_password').focus();
+			return false;
+		} 
+		
+		//성별 검사
+		if(user_gender == undefined) {
+			alert('성별을 선택해주세요');
+			return false;
+		} 
+		
+		//이메일 유효성 검사
+		var regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+ 	 	if (!regEmail.test(user_email) || user_email == '') {
+ 	 		alert('이메일 주소를 확인하세요');
+ 	 		$('#user_email').focus();
+ 	 		return false;
+ 	 	}
+		
+		
+		//핸드폰 유효성 검사
+		var regPhone = /^\d{3}-\d{3,4}-\d{4}$/;
+		if(!regPhone.test(user_phonenumber) || user_phonenumber == '') {
+			alert('핸드폰 번호를 확인하세요');
+			$('#user_phonenumber').focus();
+			return false;
+		}
+		
+		//닉네임 검사
+		if (user_nickname==''){
+			alert("닉네임을 입력하세요 ");
+			$('#user_nickname').focus();
+			return false;
+		} 
+				
+		$.ajax({
+			type:"POST"
+			, url : "/user/user_insert"
+			, data : {user_loginid, user_password, user_nickname, user_gender, user_email,user_phonenumber }
 
+			, success : function(data) {
+				if (data.code == 100) {
+					alert("회원가입 되었습니다.");
+					document.location.href="/user/sign-in"
+				}
+			}	
+		});
+				
+	});	 //회원가입 버튼 event 닫기
 
-
+	
+	
+	
+	
+}); // document.ready 닫기
 </script>
 </html>
