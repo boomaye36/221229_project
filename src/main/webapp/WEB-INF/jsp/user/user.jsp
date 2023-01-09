@@ -30,10 +30,9 @@
 <body>
 	<!-- #wrap.section > .~~area > .~~box -->
 	<div class="user-login d-flex">
-
 		<div class="image-area w-100">
 			<!-- 이미지 들어가는 영역 -->
-			<img src="https://picsum.photos/1000" alt="">
+			<img src="https://picsum.photos/1000"  >
 
 
 			<div class="login-area w-50">
@@ -41,24 +40,22 @@
 				<h1 class="logo text-center">
 					<a href="#">랜덤화상채팅</a>
 				</h1>
-				
 				<div class="user-login-content-box">
 					<div class="user-login-content">
 						<!-- 데이터 입력 -->
 						<div class="user-loginbox">
-							<input type="text" placeholder="아이디" id="user_loginid"> <input
-								type="password" placeholder="비밀번호" autoComplete="off" id="user_password">
+							<input type="text" placeholder="아이디" id="user_loginid"> 
+							<input type="password" placeholder="비밀번호" autoComplete="off" id="user_password">
 							<!--label은 id값만 먹는 것 같아 input 값 아이디로 지정했음. 체크해야함. -->
-							<label for="user-remember-check"> <input type="checkbox"
-								id="user-remember-check"> 아이디 저장하기
+							<label for="user-remember-check"> 
+								<input type="checkbox" id="user-remember-check"> 아이디 저장하기
 							</label>
 						</div>
 						<!-- 버튼들 -->
 						<div class="user-button-box mt-3">
 							<input type="submit" value="로그인" class="user-login-submit">
 							<input type="button" value="소셜로그인" class="user-login-social">
-							<img src="/static/img/kakao_login_large_wide.png"
-								class="user-login-kakao">
+							<img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao">
 						</div>
 						<hr>
 						<!-- 아이디, 비밀번호찾기, 회원가입 -->
@@ -74,31 +71,51 @@
 	</div>
 </body>
 <script>
+
 	$(document).ready(function(){
+		//로그인 버튼 클릭 event
 		$('.user-login-submit').on('click', function(e){
 			e.preventDefault();
 			let user_loginid = $('#user_loginid').val().trim();
 			let user_password = $('#user_password').val().trim();
-			if (user_loginid==''){
+			if (user_loginid == ''){
 				alert("아이디를 입력해주세요.");
 				return false;
 			}
-			if (user_password==''){
+			if (user_password == ''){
 				alert("비밀번호를 입력해주세요.");
 				return false;
 			}
+			//ajax 전송
 			$.ajax({
-			type:"post",
-			url : "/user/sign_in",
-			data : {user_loginid, user_password},
-			success : function(data){
-				if (data.code == 100){
-					alert("로그인되었습니다.");
-					document.location.href="/user/signup_addition";
+				type:"POST"
+				, url : "/user/sign_in"
+				, data : {user_loginid, user_password}
+				, success : function(data){
+					if (data.code == 100){
+						alert("로그인되었습니다.");
+						document.location.href="/user/signup_addition";
+					} else {
+						//에러코드를 따로 잡아주세요.
+					}
 				}
-			}
+				, error : function(e) {
+					//에러코드를 따로 잡아주세요.
+				}
 			});
 		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	});
 </script>
 </html>
