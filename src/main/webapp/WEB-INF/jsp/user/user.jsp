@@ -71,51 +71,38 @@
 	</div>
 </body>
 <script>
-
-	$(document).ready(function(){
-		//로그인 버튼 클릭 event
-		$('.user-login-submit').on('click', function(e){
-			e.preventDefault();
-			let user_loginid = $('#user_loginid').val().trim();
-			let user_password = $('#user_password').val().trim();
-			if (user_loginid == ''){
-				alert("아이디를 입력해주세요.");
-				return false;
-			}
-			if (user_password == ''){
-				alert("비밀번호를 입력해주세요.");
-				return false;
-			}
-			//ajax 전송
-			$.ajax({
-				type:"POST"
-				, url : "/user/sign_in"
-				, data : {user_loginid, user_password}
-				, success : function(data){
-					if (data.code == 100){
-						alert("로그인되었습니다.");
-						document.location.href="/user/signup_addition";
-					} else {
-						//에러코드를 따로 잡아주세요.
-					}
-				}
-				, error : function(e) {
+$(document).ready(function(){
+	//로그인 버튼 클릭 event
+	$('.user-login-submit').on('click', function(e){
+		e.preventDefault();
+		let user_loginid = $('#user_loginid').val().trim();
+		let user_password = $('#user_password').val().trim();
+		if (user_loginid == ''){
+			alert("아이디를 입력해주세요.");
+			return false;
+		}
+		if (user_password == ''){
+			alert("비밀번호를 입력해주세요.");
+			return false;
+		}
+		//ajax 전송
+		$.ajax({
+			type:"POST"
+			, url : "/user/sign_in"
+			, data : {user_loginid, user_password}
+			, success : function(data){
+				if (data.code == 100){
+					alert("로그인되었습니다.");
+					document.location.href="/user/signup_addition";
+				} else {
 					//에러코드를 따로 잡아주세요.
 				}
-			});
+			}
+			, error : function(e) {
+				//에러코드를 따로 잡아주세요.
+			}
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	});
+	}); // 로그인 버튼 클릭 event 닫기
+}); // document.ready 닫기
 </script>
 </html>
