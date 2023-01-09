@@ -104,129 +104,123 @@ function move(result){
 	
 }
 
-$(document).ready(
-		function(){
-			
-			function validEmail(user_email){
-				 var val_email = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
-				 return val_email.test(user_email);
-			 }
-			function validpw(user_password){
-				 var val_pw = /^.*(?=^.{5,10}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%^&+=]).*$/;
-				 return val_pw.test(user_password);
-			 }
-			function validPn(user_phonenumber){
-				 var val_pn = /^\d{3}-\d{3,4}-\d{4}$/;
-				 return val_pn.test(user_phonenumber);
-			 }
-			$('#duplicateBtn').on('click', function(){
-				let user_loginid = $('#user_id').val().trim();
-			if (user_id.length < 4){
-				$('#idcheckLength').removeClass('d-none');
-				$('#duplicateNo').addClass('d-none');
-				$('#confirmOk').addClass('d-none');
-				return;
+$(document).ready( function(){
+	
+	//아이디 중복확인 유효성 event
+	$('#duplicateBtn').on('click', function(){
+		let user_loginid = $('#user_id').val().trim();
+		if (user_id.length < 4){
+			$('#idcheckLength').removeClass('d-none');
+			$('#duplicateNo').addClass('d-none');
+			$('#confirmOk').addClass('d-none');
+			return;
+		}
+		$.ajax({
+			url:"/user/is_duplicated_id"
+			,data:{user_loginid}
+			,success:function(data){
+				if (data.result == true){
+					$('#idCheckLength').addClass('d-none'); 
+					$('#duplicateNo').removeClass('d-none'); 
+					$('#confirmOk').addClass('d-none'); 
+				}else{
+					$('#idCheckLength').addClass('d-none'); 
+					$('#duplicateNo').addClass('d-none'); 
+					$('#confirmOk').removeClass('d-none'); 				
+				}
 			}
-			$.ajax({
-				url:"/user/is_duplicated_id"
-				,data:{"user_loginid":user_loginid}
-				,success:function(data){
-					if (data.result == true){
-						$('#idCheckLength').addClass('d-none'); 
-						$('#duplicateNo').removeClass('d-none'); 
-						$('#confirmOk').addClass('d-none'); 
-					}else{
-						$('#idCheckLength').addClass('d-none'); 
-						$('#duplicateNo').addClass('d-none'); 
-						$('#confirmOk').removeClass('d-none'); 				
-				}
-				}
 			, error:function(e){
 				alert("아이디 중복확인에 실패했습니다.");
 			}
-			});
 		});
-			
-			$('#submit').on('click', function(e){
-				e.preventDefault();
-				let user_loginid = $('#user_id').val().trim();
- 				let user_password = $('#user_password').val().trim();
-				let userpw_confirm = $('#user_repassword').val().trim();
-				let user_nickname = $('#user_nickname').val().trim();
-				let user_gender = $('input[name="gender"]:checked').val();
-				alert(user_gender);
-				let user_email = $('#user_email').val().trim();
-				let user_phonenumber = $('#user_phonenumber').val().trim();
-				 if (user_loginid==''){
-					alert("아이디를 입력하세요 ");
-					return false;
+	});
+	
+	//회원가입 버튼 클릭 event
+	$('#submit').on('click', function(e){
+		e.preventDefault();
+		let user_loginid = $('#user_id').val().trim();
+ 		let user_password = $('#user_password').val().trim();
+		let userpw_confirm = $('#user_repassword').val().trim();
+		let user_nickname = $('#user_nickname').val().trim();
+		let user_gender = $('input[name="gender"]:checked').val();
+		let user_email = $('#user_email').val().trim();
+		let user_phonenumber = $('#user_phonenumber').val().trim();
+		
+		/* //아이디 유효성 검사
+		if (user_loginid==''){
+			alert("아이디를 입력하세요 ");
+			$('#user_loginid').focus();
+			return false;
+		} 
+		
+		//패스워드 및 패스워드 확인 검사
+		if (user_password=='' || userpw_confirm== ''){
+			alert("비밀번호를 입력하세요 ");
+			return false;
+		}
+		
+		//패스워드 및 패스워드 확인 일치 검사
+		if (user_password != userpw_confirm){
+			alert("비밀번호가 일치하지 않습니다");
+			return false;
+		}
+		
+		//비밀번호입력시 특수문자조합 검사
+		var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+		if (!reg.test(user_password)) {
+			alert('비밀번호는 영문+숫자+특수문자 조합으로 8~16자리 사용해야 합니다.');
+			$('#user_password').focus();
+			return false;
+		} 
+		
+		//성별 검사
+		if(user_gender == undefined) {
+			alert('성별을 선택해주세요');
+			return false;
+		} 
+		
+		//이메일 유효성 검사
+		var regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
+ 	 	if (!regEmail.test(user_email) || user_email == '') {
+ 	 		alert('이메일 주소를 확인하세요');
+ 	 		$('#user_email').focus();
+ 	 		return false;
+ 	 	}
+		
+		
+		//핸드폰 유효성 검사
+		var regPhone = /^\d{3}-\d{3,4}-\d{4}$/;
+		if(!regPhone.test(user_phonenumber) || user_phonenumber == '') {
+			alert('핸드폰 번호를 확인하세요');
+			$('#user_phonenumber').focus();
+			return false;
+		}
+		
+		//닉네임 검사
+		if (user_nickname==''){
+			alert("닉네임을 입력하세요 ");
+			$('#user_nickname').focus();
+			return false;
+		} 
+				
+		$.ajax({
+			type:"POST"
+			, url : "/user/user_insert"
+			, data : {user_loginid, user_password, user_nickname, user_gender, user_email,user_phonenumber }
+			, success : function(data) {
+				if (data.code == 100) {
+					alert("회원가입 되었습니다.");
+					document.location.href="/user/sign-in"
 				} 
-				if (user_password=='' || userpw_confirm==''){
-					alert("비밀번호를 입력하세요 ");
-					return false;
-				}
-				 if (user_password != userpw_confirm){
-					 alert("비밀번호가 일치하지 않습니다");
-					 return false;
-				 }
-				if (!validpw(user_password)){
-					$('#limitText').removeClass('d-none');
-					$('#confirmOk').addClass('d-none'); 
-
-					
-					return false;
-				}
-				if ($("input[type=radio][name=gender]:checked").is(':checked')){
-					
-				}else{
-					alert("성별을 입력하세요 ");
-					return false;
-				}
-				
-				if (user_email==''){
-					alert("이메일을 입력하세요 ");
-					return false;
-				
-				}else {
-					 if (!validEmail(user_email)){
-						 alert("이메일 형식에 맞게 입력해주세요 ");
-						 return false;
-					 }
-				}
-				if (user_phonenumber==''){
-					alert("핸드폰 번호를 입력하세요 ");
-					return false;
-				}else {
-					 if (!validPn(user_phonenumber)){
-						 alert("형식에 맞지 않는 번호입니다. ")
-						 return false;
-					 }
-				 }
-				if (user_nickname==''){
-					alert("닉네임을 입력하세요 ");
-					return false;
-				}
-				
-				$.ajax({
-					type:"post",
-					url : "/user/user_insert",
-					data : {"user_loginid" : user_loginid,"user_password" : user_password, "user_nickname" : user_nickname, 
-						"user_gender" : user_gender, "user_email" : user_email,  "user_phonenumber" : user_phonenumber },
-						success : function(data) {
-							if (data.code == 100) {
-								alert("회원가입되었습니다.");
-								document.location.href="/user/sign-in"
-							} 
-						}	
-					
-				});
-				
-			});	
-			
+			}	
 		});
+				
+	});	 //회원가입 버튼 event 닫기
 
-
-
-
+	
+	
+	
+	
+}); // document.ready 닫기
 </script>
 </html>
