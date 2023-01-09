@@ -1,11 +1,11 @@
 @charset "UTF-8";
 
 /*=========================================================================================로그인 시작 */
-.user-login {min-width: 100vh;}
+.user-login {max-height: 100vh;}
 
 .user-login .image-area > img {
 	width: 100%; 
-	min-height: 100vh; 
+	max-height: 100vh; 
 	object-fit: cover;
 	position: relative;
 }

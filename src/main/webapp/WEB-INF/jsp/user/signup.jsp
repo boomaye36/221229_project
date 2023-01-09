@@ -202,7 +202,7 @@ $(document).ready( function(){
 		$.ajax({
 			type:"POST"
 			, url : "/user/user_insert"
-			, data : {user_loginid, user_password, user_nickname, user_gender, user_email,user_phonenumber }
+			, data : {user_loginid, user_password, user_nickname, user_gender, user_email, user_phonenumber }
 
 			, success : function(data) {
 				if (data.code == 100) {
