@@ -32,7 +32,7 @@ public class UserRestController {
 			result.put("code", 100);
 		} else {
 			result.put("errorMessege", false);
-			result.put("code", 100);
+			result.put("code", 400);
 		}
 		return result;
 	}

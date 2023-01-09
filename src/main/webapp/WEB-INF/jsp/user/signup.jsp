@@ -24,10 +24,7 @@
         <!-- 2. 필드 -->
         <div class="signup-id">
             <b>아이디</b>
-            <div class="d-flex">
              <span class="placehold-text"><input type="text" id="user_id"  ></span>
-             <button type="button" id="duplicateBtn" class="btn btn-info ml-3">중복 확인 </button>
-            </div>
 			 <div  id="idcheckLength" class="ml-5 small text-danger d-none">4자 이상으로 입력하세요.</div>
 			 <div  id="duplicateNo" class="ml-5 small text-danger d-none">중복된 아이디입니다 .</div>
 			 <div id="confirmOk" class="ml-5 small text-success d-none">사용 가능한 아이디입니다 .</div>
@@ -74,7 +71,7 @@
         </div>
 
         <!-- 6. 가입하기 버튼 -->
-        <input type="button"class="btn" value="가입하기" id="submit" name="submit">
+        <input type="button"class="btn submit-btn" value="가입하기" id="submit" name="submit">
 
         <!-- 7. 푸터 -->
         <div class="signup-footer">
@@ -107,24 +104,24 @@ function move(result){
 $(document).ready( function(){
 	
 	//아이디 중복확인 유효성 event
-	$('#duplicateBtn').on('click', function(){
+	$('#user_id').on('focusout', function(){
 		let user_loginid = $('#user_id').val().trim();
-		if (user_id.length < 4){
+		if (user_loginid.length < 4){
 			$('#idcheckLength').removeClass('d-none');
 			$('#duplicateNo').addClass('d-none');
 			$('#confirmOk').addClass('d-none');
-			return;
+			return false;
 		}
 		$.ajax({
 			url:"/user/is_duplicated_id"
 			,data:{user_loginid}
 			,success:function(data){
 				if (data.result == true){
-					$('#idCheckLength').addClass('d-none'); 
+					$('#idcheckLength').addClass('d-none'); 
 					$('#duplicateNo').removeClass('d-none'); 
 					$('#confirmOk').addClass('d-none'); 
 				}else{
-					$('#idCheckLength').addClass('d-none'); 
+					$('#idcheckLength').addClass('d-none'); 
 					$('#duplicateNo').addClass('d-none'); 
 					$('#confirmOk').removeClass('d-none'); 				
 				}
@@ -134,7 +131,6 @@ $(document).ready( function(){
 			}
 		});
 	});
-	
 	//회원가입 버튼 클릭 event
 	$('#submit').on('click', function(e){
 		e.preventDefault();
@@ -145,13 +141,13 @@ $(document).ready( function(){
 		let user_gender = $('input[name="gender"]:checked').val();
 		let user_email = $('#user_email').val().trim();
 		let user_phonenumber = $('#user_phonenumber').val().trim();
-		
 		//아이디 유효성 검사
 		if (user_loginid==''){
 			alert("아이디를 입력하세요 ");
 			$('#user_loginid').focus();
 			return false;
 		} 
+		
 		
 		//패스워드 및 패스워드 확인 검사
 		if (user_password=='' || userpw_confirm== ''){
@@ -207,11 +203,12 @@ $(document).ready( function(){
 			type:"POST"
 			, url : "/user/user_insert"
 			, data : {user_loginid, user_password, user_nickname, user_gender, user_email,user_phonenumber }
+
 			, success : function(data) {
 				if (data.code == 100) {
 					alert("회원가입 되었습니다.");
 					document.location.href="/user/sign-in"
-				} 
+				}
 			}	
 		});
 				
