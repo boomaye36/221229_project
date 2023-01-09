@@ -168,7 +168,7 @@ $(document).ready( function(){
 		//비밀번호입력시 특수문자조합 검사
 		var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
 		if (!reg.test(user_password)) {
-			alert('비밀번호는 영문+숫자+특수문자 조합으로 8~16자리 사용해야 합니다.');
+			$('#limitText').removeClass('d-none');
 			$('#user_password').focus();
 			return false;
 		} 

@@ -107,7 +107,6 @@
 				let user_area = $('#selectedRegion option:selected').val();
 				let user_intro = $('.user_intro').val().trim();
 				let user_profilephoto = $('.signup-profilephoto').val().trim();
-				alert(user_birth);
 						
 			$.ajax({
 				type : 'post',
