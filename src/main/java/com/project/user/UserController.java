@@ -48,4 +48,10 @@ public class UserController {
 	}
 	
 	
+	//테스트
+	@GetMapping("/test")
+	public String test() {
+		return "/main/main";
+	}
+	
 }
