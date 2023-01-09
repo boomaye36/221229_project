@@ -146,7 +146,7 @@ $(document).ready( function(){
 		let user_email = $('#user_email').val().trim();
 		let user_phonenumber = $('#user_phonenumber').val().trim();
 		
-		/* //아이디 유효성 검사
+		//아이디 유효성 검사
 		if (user_loginid==''){
 			alert("아이디를 입력하세요 ");
 			$('#user_loginid').focus();
