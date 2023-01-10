@@ -64,7 +64,7 @@
         <div class="signup-number">
             <b>휴대전화</b>
             <div>
-                <input type="tel" placeholder="전화번호 입력" id="user_phonenumber">
+                <input type="tel" placeholder="전화번호 입력" id="user_phonenumber" maxlength="13">
                 <input type="button" value="인증번호 받기">
             </div>
             <input type="number" placeholder="인증번호를 입력하세요">
@@ -131,6 +131,12 @@ $(document).ready( function(){
 			}
 		});
 	});
+
+	// 휴대폰번호 하이픈 자동 추가 정규식
+	$(document).on('keyup', '#user_phonenumber', function() {
+		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
+	});
+	
 	//회원가입 버튼 클릭 event
 	$('#submit').on('click', function(e){
 		e.preventDefault();
@@ -214,7 +220,6 @@ $(document).ready( function(){
 				
 	});	 //회원가입 버튼 event 닫기
 
-	
 	
 	
 	
