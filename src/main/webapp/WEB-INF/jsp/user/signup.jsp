@@ -64,10 +64,14 @@
         <div class="signup-number">
             <b>휴대전화</b>
             <div>
-                <input type="tel" placeholder="전화번호 입력" id="user_phonenumber" maxlength="13">
-                <input type="button" value="인증번호 받기">
+                <input type="tel" placeholder="전화번호 입력(-없이 숫자만 입력해주세요)" id="user_phonenumber" maxlength="11">
+                <input type="button" value="인증번호 받기" id="valid-phone">
             </div>
-            <input type="number" placeholder="인증번호를 입력하세요">
+            
+            <div class="d-flex">
+            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
+            <button id="cofirm-pn">인증하기 </button>
+            </div>
         </div>
 
         <!-- 6. 가입하기 버튼 -->
@@ -93,6 +97,8 @@
     
 </body>
 <script type="text/javascript">
+// 핸드폰 숫자 방지 정규식
+var replaceNotInt = /[^0-9]/gi;
 
 //onclick 용
 function move(result){
@@ -133,11 +139,62 @@ $(document).ready( function(){
 	});
 
 	// 휴대폰번호 하이픈 자동 추가 정규식
-	$(document).on('keyup', '#user_phonenumber', function() {
+	/* $(document).on('keyup', '#user_phonenumber', function() {
 		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
-	});
+	}); */
 	
-	//회원가입 버튼 클릭 event
+	//휴대폰 숫자 방지 정규식 이용하여 특수문자 작성시 자동으로 지워짐 
+	$('#user_phonenumber').on("focusout", function() {
+		let user_phonenumber = $('#user_phonenumber').val().trim();
+		if (user_phonenumber.length > 0){
+			if (user_phonenumber.match(replaceNotInt)){
+				user_phonenumber = user_phonenumber.replace(replaceNotInt, "");
+			}
+			$(this).val(user_phonenumber);
+		}
+	}).on('keyup', function() {
+            $(this).val($(this).val().replace(replaceNotInt, ""));
+        });
+		
+	//인증문자 보내는 코드 
+	$('#valid-phone').on('click', function(e){
+		e.preventDefault();
+		let user_phonenumber = $('#user_phonenumber').val().trim();
+
+		//let user_phonenumber = '01064934287';
+		
+		$.ajax({
+			type:"POST"
+			, url : "/user/sendMessage"
+			, data : {user_phonenumber }
+			, success : function(data) {
+				if (data.code == 100) {
+					alert("인증메세지가 보내졌습니다.");
+					
+				}
+			}	
+		});
+	});
+	//인증하기 버튼 눌렀을 때 인증번호 비교 
+	$('#cofirm-pn').on('click', function(e){
+		let pnconfirm = $('#pnconfirm').val().trim();
+		let user_phonenumber = $('#user_phonenumber').val().trim();
+
+		$.ajax({
+			type:"POST"
+			, url : "/user/confirmMessage"
+			, data : {pnconfirm, user_phonenumber}
+			, success : function(data) {
+				if (data.code == 100) {
+					alert("인증이 완료되었습니다.");
+					
+				}else{
+					alert("인증번호를 다시 입력해주세요.");
+					return false;
+				}
+			}	
+		});
+	});
 	$('#submit').on('click', function(e){
 		e.preventDefault();
 		let user_loginid = $('#user_id').val().trim();
@@ -191,10 +248,10 @@ $(document).ready( function(){
 		
 		
 		//핸드폰 유효성 검사
-		var regPhone = /^\d{3}-\d{3,4}-\d{4}$/;
-		if(!regPhone.test(user_phonenumber) || user_phonenumber == '') {
+/* 		var regPhone = /^\d{3}-\d{3,4}-\d{4}$/;
+ */		if( user_phonenumber == '') {
 			alert('핸드폰 번호를 확인하세요');
-			$('#user_phonenumber').focus();
+			//$('#user_phonenumber').focus();
 			return false;
 		}
 		

@@ -1,6 +1,7 @@
 package com.project.user.bo;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,10 +10,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.common.FileManagerService;
 import com.project.user.dao.UserDAO;
 import com.project.user.model.User;
+import com.project.util.Naver_Sens_V2;
 
 @Service
 public class UserBO {
 
+	@Autowired
+	private UserBO userBO;
 	@Autowired
 	private UserDAO userDAO;
 	@Autowired
@@ -36,5 +40,28 @@ public class UserBO {
 		}
 		userDAO.UpdateUser(user_birth, user_area, user_intro, imagePath, user_id);
 		
+	}
+	public String sendRandomMessage(String tel) {
+	    Naver_Sens_V2 message = new Naver_Sens_V2();
+	    Random rand = new Random();
+	    String numStr = "";
+	    for (int i = 0; i < 6; i++) {
+	        String ran = Integer.toString(rand.nextInt(10));
+	        numStr += ran;
+	    }
+	    System.out.println("회원가입 문자 인증 => " + numStr);
+
+	    message.send_msg(tel, numStr);
+
+	    return numStr;
+	}
+	
+	public boolean ConfirmSMS(String pnconfirm, String user_phonenumber){
+		String numStr = userBO.sendRandomMessage(user_phonenumber);
+		if (pnconfirm == numStr) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

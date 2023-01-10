@@ -98,11 +98,7 @@
 	}
 	$(document).ready(
 		function() {
-			/* 
-			 $('#fileUploadBtn').on('click', function(e) {
-				e.preventDefault(); 
-				$('#file').click(); 
-			}); */
+			
 			$('#file').on('click',
 					function(e) {
 						let fileName = e.target.files[0].name; 
@@ -130,7 +126,6 @@
 					var d = date.substr(6,2);
 					return new Date(y, m-1, d);
 				} */
-				//alert(date);
 				let user_birth = new Date(date);
 				let user_area = $('#selectedRegion option:selected').val();
 				let user_intro = $('.user_intro').val().trim();
@@ -139,7 +134,6 @@
 				alert(user_birth);
 
 				let user_profilephoto = $('#file')[0].files[0];
-				//let user_profilephoto = "12"
 				let formData = new FormData();
 
 				formData.append("user_birth", user_birth);
