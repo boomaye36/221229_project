@@ -66,7 +66,11 @@
 
 		<!-- 5.프로필 사진 -->
 		<div class="signup-profilephoto">
-			<b>프로필사진</b> <img src="/static/img/no.png"> <input type="file">
+			<b>프로필사진</b> <img src="/static/img/no.png"> <input type="file"
+				accept=".gif, .jpg, .png, .jpeg" id="file">
+
+			<div id="fileName" class="ml-2"></div>
+
 		</div>
 
 		<!-- 6. 가입하기 버튼 -->
@@ -94,8 +98,31 @@
 	}
 	$(document).ready(
 		function() {
+			/* 
+			 $('#fileUploadBtn').on('click', function(e) {
+				e.preventDefault(); 
+				$('#file').click(); 
+			}); */
+			$('#file').on('click',
+					function(e) {
+						let fileName = e.target.files[0].name; 
+						alert(fileName);
+						let ext = fileName.split('.').pop().toLowerCase();
+
+						if (fileName.split('.').length < 2
+								|| (ext != 'gif' && ext != 'png'
+										&& ext != 'jpg' && ext != 'jpeg')) {
+							alert("이미지 파일만 업로드 할 수 있습니다.");
+							$(this).val(''); 
+							$('#fileName').text(''); 
+							return;
+						}
+
+				$('#fileName').text(fileName);
+					});		 
+			
 			$('#submit').on('click',function(e) {
-				e.preventDefault();
+				//e.preventDefault();
 				let date = $('#yy').val().trim().concat("-", $('#mm').val().trim(), "-", $('#dd').val().trim());
 				/* function parse(date){
 					var y = date.substr(0,4);
@@ -103,15 +130,30 @@
 					var d = date.substr(6,2);
 					return new Date(y, m-1, d);
 				} */
+				//alert(date);
 				let user_birth = new Date(date);
 				let user_area = $('#selectedRegion option:selected').val();
 				let user_intro = $('.user_intro').val().trim();
-				let user_profilephoto = $('.signup-profilephoto').val().trim();
-						
+				let file = $('#file').val();
+				let ext = file.split('.').pop().toLowerCase();
+				alert(user_birth);
+
+				let user_profilephoto = $('#file')[0].files[0];
+				//let user_profilephoto = "12"
+				let formData = new FormData();
+
+				formData.append("user_birth", user_birth);
+				formData.append("user_area", user_area);
+				formData.append("user_intro", user_intro);
+				formData.append("user_profilephoto", $('#file')[0].files[0]);
+
 			$.ajax({
 				type : 'post',
 				url : '/user/user_update',
-				data : {user_birth,user_area,user_intro,user_profilephoto},
+				data : formData,
+				enctype : "multipart/form-data" ,
+
+				processData: false, contentType: false,
 				success : function(data){
 					if (data.code == 100){
 						alert("추가되었습니다.");

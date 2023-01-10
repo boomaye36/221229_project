@@ -16,6 +16,8 @@ public interface UserDAO {
 
 	public User selectUserByLoginIdAndPassword(@Param("user_loginid")String user_loginid, @Param("user_password")String user_password);
 
-	public void UpdateUser(@Param("user_birth")Date user_birth, @Param("user_area")String user_area, @Param("user_intro")String user_intro,@Param("user_profilephoto") String user_profilephoto, @Param("user_id") int user_id);
+	public void UpdateUser(@Param("user_birth")Date user_birth, @Param("user_area")String user_area, @Param("user_intro")String user_intro,@Param("imagePath") String imagePath, @Param("user_id") int user_id);
+	
+	
 
 }

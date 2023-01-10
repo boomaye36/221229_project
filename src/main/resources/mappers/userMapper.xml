@@ -58,7 +58,9 @@
 	,	
 		`user_intro` = #{user_intro}
 	,
-		`user_profilephoto` = #{user_profilephoto}
+		`user_profilephoto` = #{imagePath}
+	,	
+		`updatedat` = NOW()
 	WHERE `id` = #{user_id}
 	</update>
 </mapper>

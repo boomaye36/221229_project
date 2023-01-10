@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.project.common.EncryptUtils;
 import com.project.user.bo.UserBO;
@@ -75,9 +76,10 @@ public class UserRestController {
 	public Map<String, Object> userUpdate(@RequestParam("user_birth") Date user_birth,HttpSession session,
 			@RequestParam("user_area") String user_area,
 			@RequestParam("user_intro") String user_intro,
-			@RequestParam("user_profilephoto") String user_profilephoto){
+			@RequestParam("user_profilephoto") MultipartFile user_profilephoto){
 		Map<String, Object> result = new HashMap<>();
 		Integer user_id = (Integer) session.getAttribute("user_id");
+		System.out.println("user_birth ################" + user_birth);
 		userBO.UpdateUser(user_birth, user_area, user_intro, user_profilephoto, user_id);
 		result.put("code", 100);
 		return result;
