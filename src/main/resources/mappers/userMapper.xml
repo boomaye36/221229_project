@@ -11,18 +11,19 @@
 		FROM
 		`user`
 		WHERE
-		`user_loginid`=#{user_loginid}
+		`loginid`=#{user_loginid}
 	</select>
 
 	<insert id="insertUser" parameterType="map">
 		Insert Into `user`
 		(
-		`user_loginid`
-		,`user_password`
-		,`user_phonenumber`
-		,`user_nickname`
-		,`user_email`
-		,`user_gender`
+		`loginid`
+		,`password`
+		,`phonenumber`
+		,`nickname`
+		,`email`
+		,`path`
+		,`gender`
 		,`createdat`
 		,`updatedat`
 		)
@@ -33,6 +34,7 @@
 		#{user_phonenumber},
 		#{user_nickname},
 		#{user_email},
+		#{path},
 		#{user_gender},
 		NOW(),
 		NOW()
@@ -44,21 +46,21 @@
 		FROM
 			`user`
 		WHERE
-			`user_loginid` = #{user_loginid}
+			`loginid` = #{user_loginid}
 		AND
-			`user_password` = #{user_password}
+			`password` = #{user_password}
 	</select>
 	<update id="UpdateUser" parameterType="map">
 	UPDATE
 		`user`
 	SET
-		`user_birth` = #{user_birth}
+		`birth` = #{user_birth}
 	,
-		`user_area` = #{user_area}
+		`area` = #{user_area}
 	,	
-		`user_intro` = #{user_intro}
+		`intro` = #{user_intro}
 	,
-		`user_profilephoto` = #{imagePath}
+		`profilephoto` = #{imagePath}
 	,	
 		`updatedat` = NOW()
 	WHERE `id` = #{user_id}

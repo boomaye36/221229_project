@@ -1,18 +1,35 @@
 package com.project.user;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
+
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.project.common.EncryptUtils;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
@@ -42,14 +59,14 @@ public class UserRestController {
 	public Map<String, Object> addUser(@RequestParam("user_loginid") String user_loginid,
 			@RequestParam("user_password") String user_password, @RequestParam("user_nickname") String user_nickname,
 			@RequestParam("user_phonenumber") String user_phonenumber, @RequestParam("user_gender") String user_gender,
-			@RequestParam("user_email") String user_email, HttpSession session
+			@RequestParam("user_email") String user_email,@RequestParam("path") String path, HttpSession session
 
 	) {
 
 		String encryptPassword = EncryptUtils.md5(user_password);
 
 		Map<String, Object> result = new HashMap<>();
-		userBO.addUser(user_loginid, encryptPassword, user_nickname, user_gender, user_email, user_phonenumber);
+		userBO.addUser(user_loginid, encryptPassword, user_nickname, user_gender, user_email, user_phonenumber, path);
 		result.put("code", 100);
 		return result;
 	}
@@ -140,4 +157,5 @@ public class UserRestController {
 		}
 		return result;
 	}
+	
 }

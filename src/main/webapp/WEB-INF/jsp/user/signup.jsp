@@ -204,6 +204,7 @@ $(document).ready( function(){
 		let user_gender = $('input[name="gender"]:checked').val();
 		let user_email = $('#user_email').val().trim();
 		let user_phonenumber = $('#user_phonenumber').val().trim();
+		let path = '일반';
 		//아이디 유효성 검사
 		if (user_loginid==''){
 			alert("아이디를 입력하세요 ");
@@ -265,7 +266,7 @@ $(document).ready( function(){
 		$.ajax({
 			type:"POST"
 			, url : "/user/user_insert"
-			, data : {user_loginid, user_password, user_nickname, user_gender, user_email, user_phonenumber }
+			, data : {user_loginid, user_password, user_nickname, user_gender, user_email, user_phonenumber, path }
 
 			, success : function(data) {
 				if (data.code == 100) {

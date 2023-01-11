@@ -12,5 +12,6 @@ spring:
   main:
     allow-circular-references: true    
 
+
 server:
   port: 80
