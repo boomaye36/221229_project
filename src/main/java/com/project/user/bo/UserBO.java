@@ -37,14 +37,19 @@ public class UserBO {
 	public User getUserByLoginIdAndPassword(User user) {
 		return userDAO.selectUserByLoginIdAndPassword(user);
 	}
-	public void UpdateUser(Date user_birth, String user_area, String user_intro, MultipartFile user_profilephoto, int user_id) {
+	
+	//회원가입 선택정보 insert
+	public int updateUser(User user , MultipartFile user_profilephoto) {
 		String imagePath = null;
 		if (user_profilephoto != null) {
 			imagePath = fileManagerService.saveFile( user_profilephoto);
+			user.setProfilephoto(imagePath);
 		}
-		userDAO.UpdateUser(user_birth, user_area, user_intro, imagePath, user_id);
+		return userDAO.updateUser(user);
 		
 	}
+	
+	//문자메세지 만들기
 	public String sendRandomMessage(String tel) {
 	    Naver_Sens_V2 message = new Naver_Sens_V2();
 	    Random rand = new Random();

@@ -159,17 +159,17 @@ $(document).ready( function(){
 	//인증문자 보내는 코드 
 	$('#valid-phone').on('click', function(e){
 		e.preventDefault();
-		let user_phonenumber = $('#user_phonenumber').val().trim();
+		let phoneNumber = $('#user_phonenumber').val().trim();
 
 		//let user_phonenumber = '01064934287';
 		
 		$.ajax({
 			type:"POST"
 			, url : "/user/sendMessage"
-			, data : {user_phonenumber }
+			, data : {phoneNumber}
 			, success : function(data) {
 				if (data.code == 100) {
-					alert("인증메세지가 보내졌습니다.");
+					alert("인증번호를 발송했습니다.");
 					
 				}
 			}	
@@ -178,12 +178,12 @@ $(document).ready( function(){
 	//인증하기 버튼 눌렀을 때 인증번호 비교 
 	$('#cofirm-pn').on('click', function(e){
 		let pnconfirm = $('#pnconfirm').val().trim();
-		let user_phonenumber = $('#user_phonenumber').val().trim();
+		let phoneNumber = $('#user_phonenumber').val().trim();
 
 		$.ajax({
 			type:"POST"
 			, url : "/user/confirmMessage"
-			, data : {pnconfirm, user_phonenumber}
+			, data : {pnconfirm, phoneNumber}
 			, success : function(data) {
 				if (data.code == 100) {
 					alert("인증이 완료되었습니다.");
@@ -197,13 +197,13 @@ $(document).ready( function(){
 	});
 	$('#submit').on('click', function(e){
 		e.preventDefault();
-		let user_loginid = $('#user_id').val().trim();
- 		let user_password = $('#user_password').val().trim();
-		let userpw_confirm = $('#user_repassword').val().trim();
-		let user_nickname = $('#user_nickname').val().trim();
-		let user_gender = $('input[name="gender"]:checked').val();
-		let user_email = $('#user_email').val().trim();
-		let user_phonenumber = $('#user_phonenumber').val().trim();
+		let loginid = $('#user_id').val().trim();
+ 		let password = $('#user_password').val().trim();
+		let confirm = $('#user_repassword').val().trim();
+		let nickname = $('#user_nickname').val().trim();
+		let gender = $('input[name="gender"]:checked').val();
+		let email = $('#user_email').val().trim();
+		let phonenumber = $('#user_phonenumber').val().trim();
 		let path = '일반';
 		//아이디 유효성 검사
 		if (user_loginid==''){
@@ -214,34 +214,34 @@ $(document).ready( function(){
 		
 		
 		//패스워드 및 패스워드 확인 검사
-		if (user_password=='' || userpw_confirm== ''){
+		if (password=='' || confirm== ''){
 			alert("비밀번호를 입력하세요 ");
 			return false;
 		}
 		
 		//패스워드 및 패스워드 확인 일치 검사
-		if (user_password != userpw_confirm){
+		if (password != confirm){
 			alert("비밀번호가 일치하지 않습니다");
 			return false;
 		}
 		
 		//비밀번호입력시 특수문자조합 검사
 		var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-		if (!reg.test(user_password)) {
+		if (!reg.test(password)) {
 			$('#limitText').removeClass('d-none');
 			$('#user_password').focus();
 			return false;
 		} 
 		
 		//성별 검사
-		if(user_gender == undefined) {
+		if(gender == undefined) {
 			alert('성별을 선택해주세요');
 			return false;
 		} 
 		
 		//이메일 유효성 검사
 		var regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
- 	 	if (!regEmail.test(user_email) || user_email == '') {
+ 	 	if (!regEmail.test(email) || email == '') {
  	 		alert('이메일 주소를 확인하세요');
  	 		$('#user_email').focus();
  	 		return false;
@@ -249,15 +249,13 @@ $(document).ready( function(){
 		
 		
 		//핸드폰 유효성 검사
-/* 		var regPhone = /^\d{3}-\d{3,4}-\d{4}$/;
- */		if( user_phonenumber == '') {
+		if( phonenumber == '') {
 			alert('핸드폰 번호를 확인하세요');
-			//$('#user_phonenumber').focus();
 			return false;
 		}
 		
 		//닉네임 검사
-		if (user_nickname==''){
+		if (nickname == ''){
 			alert("닉네임을 입력하세요 ");
 			$('#user_nickname').focus();
 			return false;
@@ -266,14 +264,18 @@ $(document).ready( function(){
 		$.ajax({
 			type:"POST"
 			, url : "/user/user_insert"
-			, data : {user_loginid, user_password, user_nickname, user_gender, user_email, user_phonenumber, path }
+			, data : {loginid, password, nickname, gender, email, phonenumber, path }
 
 			, success : function(data) {
 				if (data.code == 100) {
-					alert("회원가입 되었습니다.");
 					document.location.href="/user/sign-in"
+				} else if(data.code == 400) {
+					alert("회원가입에 실패하였습니다");
 				}
-			}	
+			}
+			, error : function(e) {
+				alert("관리자에게 문의 하세요");
+			}
 		});
 				
 	});	 //회원가입 버튼 event 닫기
