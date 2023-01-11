@@ -28,20 +28,14 @@ public class UserController {
 	//로그인 페이지
 	@GetMapping("/user/sign-in")
 	public String signIn() {
-		
 		return "/user/user";
 	}
 	
-	
-	
 	//회원가입 페이지
 	@GetMapping("/user/sign-up")
-	public String singUp() {
-		
+	public String signUp() {
 		return "/user/signup";
 	}
-	
-	
 	
 	//아이디 찾기 페이지
 	@GetMapping("/user/id")
@@ -52,17 +46,17 @@ public class UserController {
 	//비밀번호 찾기 페이지
 	@GetMapping("/user/pwd")
 	public String pwd() {
-		
 		return "/user/pwd";
 	}
 	
-	@RequestMapping("/user/signup_addition")
+	//회원가입 추가정보 페이지
+	@GetMapping("/user/signup_addition")
 	public String signUpAdd() {
 		return "/user/signup_addition";
 	}
 	
 	//약관 동의 페이지
-	@RequestMapping("/user/tos")
+	@GetMapping("/user/tos")
 	public String tos() {
 		return "/user/tos";
 	}
@@ -77,11 +71,9 @@ public class UserController {
 			
 		//아이디
 		Object id = (Object) userInfo.get("id");
-		String kakaoId = String.valueOf(id);
+		String loginid = String.valueOf(id);
 		//닉네임
-		String userNickName = (String) userInfo.get("nickname");
-		//이메일
-		String userEmail = (String) userInfo.get("email");
+		String nickname = (String) userInfo.get("nickname");
 			 
 		/*
 		//로그인하는 정보가 있는경우 메인페이지로 
