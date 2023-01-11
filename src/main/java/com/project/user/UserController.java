@@ -25,10 +25,6 @@ public class UserController {
 	private MemberService ms;
 	
 	
-	@RequestMapping("/user/tos")
-	public String tos() {
-		return "/user/tos";
-	}
 	//로그인 페이지
 	@GetMapping("/user/sign-in")
 	public String signIn() {
@@ -65,6 +61,11 @@ public class UserController {
 		return "/user/signup_addition";
 	}
 	
+	//약관 동의 페이지
+	@RequestMapping("/user/tos")
+	public String tos() {
+		return "/user/tos";
+	}
 	
 	//테스트
 	@GetMapping("/test")
@@ -76,9 +77,7 @@ public class UserController {
 	//카카오로 로그인 접속
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session, 
-			@RequestParam Map<String, String> params,
-			RedirectAttributes redirect
-			) throws Exception {
+			@RequestParam Map<String, String> params, RedirectAttributes redirect ) throws Exception {
 			
 		String access_Token = ms.getAccessToken(code);
 		HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);

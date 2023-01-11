@@ -53,19 +53,21 @@
 		AND
 			`password` = #{password}
 	</select>
-	<update id="UpdateUser" parameterType="map">
+	
+	<!-- 회원가입시 추가정보 업데이트 -->
+	<update id="UpdateUser" parameterType="com.project.user.model.User">
 	UPDATE
 		`user`
 	SET
-		`birth` = #{user_birth}
+		`birth` = #{birth}
 	,
-		`area` = #{user_area}
+		`area` = #{area}
 	,	
-		`intro` = #{user_intro}
+		`intro` = #{intro}
 	,
-		`profilephoto` = #{imagePath}
+		`profilephoto` = #{profilephoto}
 	,	
 		`updatedat` = NOW()
-	WHERE `id` = #{user_id}
+	WHERE `loginid` = #{loginid}
 	</update>
 </mapper>
