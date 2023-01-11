@@ -63,7 +63,7 @@ public class UserController {
 	
 	//카카오로 로그인 접속
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session, 
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session,Model model, 
 			@RequestParam Map<String, String> params, RedirectAttributes redirect ) throws Exception {
 			
 		String access_Token = ms.getAccessToken(code);
@@ -73,8 +73,17 @@ public class UserController {
 		Object id = (Object) userInfo.get("id");
 		String loginid = String.valueOf(id);
 		//닉네임
+<<<<<<< HEAD
+		String userNickName = (String) userInfo.get("nickname");
+		//이메일
+		String userEmail = (String) userInfo.get("email");
+		
+		//redirect.addAttribute(kakaoId, params);	 
+		//redirect.addAttribute(userNickName, params);	 
+=======
 		String nickname = (String) userInfo.get("nickname");
 			 
+>>>>>>> f6679fd8dbee52e3e07b4aceb7a85c895f8dd35b
 		/*
 		//로그인하는 정보가 있는경우 메인페이지로 
 		 int row = userBo.existKakaoUserByKakaoId(kakaoId); 
@@ -90,7 +99,10 @@ public class UserController {
 		 }
 		*/
 		
-		return "/main/main";
+		model.addAttribute("nickname", userNickName);
+		model.addAttribute("loginid", kakaoId);
+	
+		return "/user/kakaosignup";
 	}
 	
 	
@@ -101,13 +113,13 @@ public class UserController {
 			
 		Map<String, ?> result = RequestContextUtils.getInputFlashMap(request);
 		params= (Map<String, String>) result.get("map");
-		String userEmail = params.get("userEmail");
-		String userNickName = params.get("userNickName");
-		String kakaoId = params.get("kakaoId");
+		//String email = params.get("userEmail");
+		String nickname = params.get("userNickName");
+		String loginid = params.get("kakaoId");
 			
-		model.addAttribute("userEmail", userEmail);
-		model.addAttribute("userNickName", userNickName);
-		model.addAttribute("kakaoId", kakaoId);
+		//model.addAttribute("userEmail", email);
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("loginid", loginid);
 		return "kakaosignup";
 	}
 }

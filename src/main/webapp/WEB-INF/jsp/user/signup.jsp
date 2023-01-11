@@ -109,39 +109,7 @@ function move(result){
 
 $(document).ready( function(){
 	
-	//아이디 중복확인 유효성 event
-	$('#user_id').on('focusout', function(){
-		let loginid = $('#user_id').val().trim();
-		if (loginid.length < 4){
-			$('#idcheckLength').removeClass('d-none');
-			$('#duplicateNo').addClass('d-none');
-			$('#confirmOk').addClass('d-none');
-			return false;
-		}
-		$.ajax({
-			url:"/user/is_duplicated_id"
-			,data:{loginid}
-			,success:function(data){
-				if (data.result == true){
-					$('#idcheckLength').addClass('d-none'); 
-					$('#duplicateNo').removeClass('d-none'); 
-					$('#confirmOk').addClass('d-none'); 
-				}else{
-					$('#idcheckLength').addClass('d-none'); 
-					$('#duplicateNo').addClass('d-none'); 
-					$('#confirmOk').removeClass('d-none'); 				
-				}
-			}
-			, error:function(e){
-				alert("아이디 중복확인에 실패했습니다.");
-			}
-		});
-	});
-
-	// 휴대폰번호 하이픈 자동 추가 정규식
-	/* $(document).on('keyup', '#user_phonenumber', function() {
-		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
-	}); */
+	
 	
 	//휴대폰 숫자 방지 정규식 이용하여 특수문자 작성시 자동으로 지워짐 
 	$('#user_phonenumber').on("focusout", function() {
@@ -197,7 +165,7 @@ $(document).ready( function(){
 	});
 	$('#submit').on('click', function(e){
 		e.preventDefault();
-		let loginid = $('#user_id').val().trim();
+		let loginid = $('')
  		let password = $('#user_password').val().trim();
 		let confirm = $('#user_repassword').val().trim();
 		let nickname = $('#user_nickname').val().trim();

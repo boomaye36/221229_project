@@ -65,7 +65,7 @@
 						<p class="user-find">
 							<span><a href="/user/id">아이디 찾기</a></span> 
 							<span><a href="/user/pwd">비밀번호 찾기</a></span> 
-							<span><a href="/user/sign-up">회원가입</a></span>
+							<span><a href="/user/tos">회원가입</a></span>
 						</p>
 					</div>
 				</div>
