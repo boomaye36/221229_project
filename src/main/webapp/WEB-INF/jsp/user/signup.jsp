@@ -111,8 +111,8 @@ $(document).ready( function(){
 	
 	//아이디 중복확인 유효성 event
 	$('#user_id').on('focusout', function(){
-		let user_loginid = $('#user_id').val().trim();
-		if (user_loginid.length < 4){
+		let loginid = $('#user_id').val().trim();
+		if (loginid.length < 4){
 			$('#idcheckLength').removeClass('d-none');
 			$('#duplicateNo').addClass('d-none');
 			$('#confirmOk').addClass('d-none');
@@ -120,7 +120,7 @@ $(document).ready( function(){
 		}
 		$.ajax({
 			url:"/user/is_duplicated_id"
-			,data:{user_loginid}
+			,data:{loginid}
 			,success:function(data){
 				if (data.result == true){
 					$('#idcheckLength').addClass('d-none'); 

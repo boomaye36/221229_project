@@ -22,16 +22,20 @@ public class UserBO {
 	@Autowired
 	private FileManagerService fileManagerService;
 
-	public int existingLoginId(String user_loginid) {
-		return userDAO.existingLoginId(user_loginid);
-
-	}
-	public void addUser(String user_loginid, String user_password, String user_nickname, String user_gender, String user_email, String user_phonenumber, String path) {
-		userDAO.insertUser(user_loginid, user_password, user_nickname, user_gender, user_email, user_phonenumber, path);
+	//회원가입 필수정보 insert
+	public int addUser(User user) {
+		return userDAO.insertUser(user);
 	}
 	
-	public User getUserByLoginIdAndPassword(String user_loginid, String user_password) {
-		return userDAO.selectUserByLoginIdAndPassword(user_loginid, user_password);
+	//회원가입시 id 중복 event
+	public int existingLoginId(String loginid) {
+		return userDAO.existingLoginId(loginid);
+
+	}
+	
+	//로그인시 아이디 및 비밀번호 일치여부 확인 event
+	public User getUserByLoginIdAndPassword(User user) {
+		return userDAO.selectUserByLoginIdAndPassword(user);
 	}
 	public void UpdateUser(Date user_birth, String user_area, String user_intro, MultipartFile user_profilephoto, int user_id) {
 		String imagePath = null;
