@@ -55,14 +55,6 @@
 						<div class="user-button-box mt-3">
 							<input type="submit" value="로그인" class="user-login-submit">
 							<input type="button" value="소셜로그인" class="user-login-social">
-							<ul>
-      <li onclick="kakaoLogin();">
-        <a href="javascript:void(0)">
-            <span>카카오 로그인</span>
-        </a>
-      </li>
-  </ul>
-							 <a href="#"><img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao"></a>
 							<!-- 카카오 로그인 -->
 							<a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=32ecb1a2899644d9618755f0e599c459&redirect_uri=http://localhost/oauth/kakao&response_type=code">
 								<img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao">
@@ -81,8 +73,6 @@
 		</div>
 	</div>
 </body>
-<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-  <script>
 <script>
 $(document).ready(function(){
 	//로그인 버튼 클릭 event
@@ -116,36 +106,6 @@ $(document).ready(function(){
 			}
 		});
 	}); // 로그인 버튼 클릭 event 닫기
-	function kakaoLogin() {
-
-	    $.ajax({
-	        url: '/login/getKakaoAuthUrl',
-	        type: 'get',
-	        async: false,
-	        dataType: 'text',
-	        success: function (res) {
-	            location.href = res;
-	        }
-	    });
-
-	  }
-
-	  $(document).ready(function() {
-
-	      var kakaoInfo = '${kakaoInfo}';
-
-	      if(kakaoInfo != ""){
-	          var data = JSON.parse(kakaoInfo);
-
-	          alert("카카오로그인 성공 \n accessToken : " + data['accessToken']);
-	          alert(
-	          "user : \n" + "email : "
-	          + data['email']  
-	          + "\n nickname : " 
-	          + data['nickname']);
-	      }
-	  });  
-	//$('.user-login-kakao').on
 }); // document.ready 닫기
 </script>
 </html>
