@@ -76,14 +76,8 @@ public class UserController {
 	
 	//카카오로 로그인 접속
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session, 
-<<<<<<< HEAD
-			@RequestParam Map<String, String> params, Model model,
-			RedirectAttributes redirect
-			) throws Exception {
-=======
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session,Model model, 
 			@RequestParam Map<String, String> params, RedirectAttributes redirect ) throws Exception {
->>>>>>> d6042b569579c6735ef97a763a0311669eaabedc
 			
 		String access_Token = ms.getAccessToken(code);
 		HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
@@ -112,11 +106,10 @@ public class UserController {
 		 	return "redirect:/user/sign-up/kakao"; 
 		 }
 		*/
-		//System.out.println("##########kakaoId" + kakaoId);
-		//System.out.println("###########userNickName" + userNickName);
-		//return "/main/main";
+		
 		model.addAttribute("nickname", userNickName);
 		model.addAttribute("loginid", kakaoId);
+	
 		return "/user/kakaosignup";
 	}
 	
