@@ -66,13 +66,6 @@ public class UserController {
 	}
 	
 	
-	//테스트
-	@GetMapping("/test")
-	public String test() {
-		return "/main/main";
-	}
-	
-	
 	//카카오로 로그인 접속
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session, 
