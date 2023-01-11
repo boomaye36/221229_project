@@ -19,7 +19,7 @@
 <body>
 	<!-- nav메뉴 -->
 	<nav class="navbar fixed-top">
-		<div class="container px-5">
+		<div class="container">
 			<a href="#page-top" class="logo">La destinee</a>
 			
             <div class="menu-box d-flex">
@@ -37,11 +37,11 @@
 		</div>
 	</nav>
 	<!-- visual -->
-	<section class="main-visual bg-dark">
-		<div class="container p-5">
-			<h1 class="mb-0">La destinee</h1>
-			<h2 class="mb-0">다양한 사람들을 만나보세요!</h2>
-			<a class="btn btn-primary btn-xl rounded-pill mt-5" href="#scroll">랜덤화상채팅 시작!</a>
+	<section class="main-visual">
+		<div class="container">
+			<h1>La destinee</h1>
+			<h2>다양한 사람들을 만나보세요!</h2>
+			<a class="btn btn-custom btn-xl rounded-pill mt-5" href="#scroll">랜덤화상채팅 시작!</a>
 		</div>
 	</section>
 </body>

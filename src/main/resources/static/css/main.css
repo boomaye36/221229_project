@@ -3,8 +3,19 @@
 /* reset */
 @import "reset.css";
 
+/* btn */
+.btn-custom {
+	background: #ee0979;
+	color: #fff;
+}
+.btn-custom:hover {
+	background: #be0761;
+	color: #fff;
+}
+
 /* nav */
 .navbar {
+	height: 60px;
 	background: #000;
 }
 .navbar .logo {
@@ -13,4 +24,14 @@
 }
 .navbar .menu-box .menu a {
 	color: #fff;
+}
+
+/* visual */
+.main-visual {
+	background: #000;
+	padding: 150px 0;
+}
+.main-visual h1, .main-visual h2 {
+	color: #fff;
+	font-size: 50px;
 }
