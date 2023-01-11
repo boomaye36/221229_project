@@ -1,29 +1,11 @@
 package com.project.user;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.json.simple.JSONObject;
-import org.json.simple.parser.*;
-
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.project.common.EncryptUtils;
@@ -92,22 +74,30 @@ public class UserRestController {
 		
 		return result;
 	}
+	
+	
+	//추가 선택정보 회원가입 event
 	@PostMapping("/user_update")
-	public Map<String, Object> userUpdate(@RequestParam("user_birth") Date user_birth,HttpSession session,
-			@RequestParam("user_area") String user_area,
-			@RequestParam("user_intro") String user_intro,
-			@RequestParam("user_profilephoto") MultipartFile user_profilephoto){
+	public Map<String, Object> userUpdate(User user, MultipartFile profilephoto, HttpSession session){
 		Map<String, Object> result = new HashMap<>();
-		Integer user_id = (Integer) session.getAttribute("user_id");
-		System.out.println("user_birth ################" + user_birth);
-		userBO.UpdateUser(user_birth, user_area, user_intro, user_profilephoto, user_id);
-		result.put("code", 100);
+		//세션객체 가져오기
+		User loginUser = (User) session.getAttribute("loginUser");
+		
+		//user 객체에 아이디 셋팅해주기
+		user.setLoginid(loginUser.getLoginid());
+		int row  = userBO.updateUser(user, profilephoto);
+		if ( row > 0) {
+			result.put("code", 100);
+		} else {
+			result.put("code", 400);
+		}
 		return result;
 
 	}
 	
+	//인증번호 보내기 event
 	@PostMapping("/sendMessage")
-	public Map<String, Object> sendSMS(@RequestParam("user_phonenumber")String phoneNumber, HttpSession session) {
+	public Map<String, Object> sendSMS(@RequestParam("phoneNumber")String phoneNumber, HttpSession session) {
 		String confirmNo = userBO.sendRandomMessage(phoneNumber);
 		session.setAttribute("confirmNo", confirmNo);
 		
@@ -116,8 +106,9 @@ public class UserRestController {
 		return result;
 	}
 	
+	//인증번호 일치여부 event
 	@PostMapping("/confirmMessage")
-	public Map<String, Object> confirmSMS(@RequestParam("pnconfirm")String pnconfirm, @RequestParam("user_phonenumber")String phoneNumber, HttpSession session) {
+	public Map<String, Object> confirmSMS(@RequestParam("pnconfirm")String pnconfirm, @RequestParam("phoneNumber")String phoneNumber, HttpSession session) {
 	    String confirmNo = (String) session.getAttribute("confirmNo");
 
 		
