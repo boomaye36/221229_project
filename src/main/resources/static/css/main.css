@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+/* reset */
+@import "reset.css";
+
+/* nav */
+.navbar {
+	background: #000;
+}
+.navbar .logo {
+	font-size: 28px;
+	color: #fff;
+}
+.navbar .menu-box .menu a {
+	color: #fff;
+}
