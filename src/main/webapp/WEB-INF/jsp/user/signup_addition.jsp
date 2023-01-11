@@ -96,67 +96,78 @@
 		location.href = result;
 
 	}
-	$(document).ready(
-		function() {
-			
-			$('#file').on('click',
-					function(e) {
-						let fileName = e.target.files[0].name; 
-						alert(fileName);
-						let ext = fileName.split('.').pop().toLowerCase();
+	$(document).ready( function() {
+		
+		//파일선택 클릭 event
+		$('#file').on('click', function(e) {
+			let fileName = e.target.files[0].name; 
+			alert(fileName);
+			let ext = fileName.split('.').pop().toLowerCase();
 
-						if (fileName.split('.').length < 2
-								|| (ext != 'gif' && ext != 'png'
-										&& ext != 'jpg' && ext != 'jpeg')) {
-							alert("이미지 파일만 업로드 할 수 있습니다.");
-							$(this).val(''); 
-							$('#fileName').text(''); 
-							return;
-						}
+			if (fileName.split('.').length < 2
+					|| (ext != 'gif' && ext != 'png'
+							&& ext != 'jpg' && ext != 'jpeg')) {
+				alert("이미지 파일만 업로드 할 수 있습니다.");
+				$(this).val(''); 
+				$('#fileName').text(''); 
+				return;
+			}
 
-				$('#fileName').text(fileName);
-					});		 
-			
-			$('#submit').on('click',function(e) {
-				//e.preventDefault();
-				let date = $('#yy').val().trim().concat("-", $('#mm').val().trim(), "-", $('#dd').val().trim());
-				/* function parse(date){
-					var y = date.substr(0,4);
-					var m = date.substr(4,2);
-					var d = date.substr(6,2);
-					return new Date(y, m-1, d);
-				} */
-				let user_birth = new Date(date);
-				let user_area = $('#selectedRegion option:selected').val();
-				let user_intro = $('.user_intro').val().trim();
-				let file = $('#file').val();
-				let ext = file.split('.').pop().toLowerCase();
-				alert(user_birth);
+			$('#fileName').text(fileName);
+		});		 
+		
+		//회원가입 event
+		$('#submit').on('click',function(e) {
+			//e.preventDefault();
+			let date = $('#yy').val().trim().concat("-", $('#mm').val().trim(), "-", $('#dd').val().trim());
+			let birth = new Date(date);
+			let area = $('#selectedRegion option:selected').val();
+			let intro = $('.user_intro').val().trim();
+			let file = $('#file').val();
+			let ext = file.split('.').pop().toLowerCase();
+			let profilephoto = $('#file')[0].files[0];
+			let formData = new FormData();
 
-				let user_profilephoto = $('#file')[0].files[0];
-				let formData = new FormData();
-
-				formData.append("user_birth", user_birth);
-				formData.append("user_area", user_area);
-				formData.append("user_intro", user_intro);
-				formData.append("user_profilephoto", $('#file')[0].files[0]);
+			formData.append("birth", birth);
+			formData.append("area", area);
+			formData.append("intro", intro);
+			formData.append("profilephoto", $('#file')[0].files[0]);
 
 			$.ajax({
-				type : 'post',
-				url : '/user/user_update',
-				data : formData,
-				enctype : "multipart/form-data" ,
-
-				processData: false, contentType: false,
-				success : function(data){
+				type : 'POST'
+				,url : '/user/user_update'
+				,data : formData
+				,enctype : "multipart/form-data"
+				,processData: false 
+				,contentType: false
+				,success : function(data){
 					if (data.code == 100){
-						alert("추가되었습니다.");
+						alert("회원가입이 완료 되었습니다.");
 						
+					} else if ( data.code == 400) {
+						alert('회원가입에 실패하였습니다.')
 					}
+				}
+				,error : function(e) {
+					alert("관리자에게 문의해주세요.")
 				}
 				
 			});
-			});
-		});
+		});//회원가입 event 닫기
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}); //document 닫기
 </script>
 </html>
