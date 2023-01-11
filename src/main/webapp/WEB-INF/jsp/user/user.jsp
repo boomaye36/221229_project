@@ -63,6 +63,10 @@
       </li>
   </ul>
 							 <a href="#"><img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao"></a>
+							<!-- 카카오 로그인 -->
+							<a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=32ecb1a2899644d9618755f0e599c459&redirect_uri=http://localhost/oauth/kakao&response_type=code">
+								<img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao">
+							</a>
 						</div>
 						<hr>
 						<!-- 아이디, 비밀번호찾기, 회원가입 -->
