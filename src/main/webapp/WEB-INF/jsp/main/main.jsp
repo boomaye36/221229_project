@@ -13,36 +13,73 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
+	<!-- material icons -->
+	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+	
 	<!-- css -->
 	<link href="/static/css/main.css" rel="stylesheet" />
 </head>
 <body>
-	<!-- nav메뉴 -->
-	<nav class="navbar fixed-top">
-		<div class="container">
-			<a href="#page-top" class="logo">La destinee</a>
-			
-            <div class="menu-box d-flex">
-            	<ul class="menu d-flex">
-                    <li class="nav-item"><a class="nav-link" href="#!">랜덤통화</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">친구추천</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">친구목록</a></li>
-                </ul>
-                <ul class="menu d-flex">
-               		<li class="nav-item"><a class="nav-link" href="#!">종모양이미지</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
-               		<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
-                </ul>
-            </div>
-		</div>
-	</nav>
-	<!-- visual -->
-	<section class="main-visual">
-		<div class="container">
-			<h1>La destinee</h1>
-			<h2>다양한 사람들을 만나보세요!</h2>
-			<a class="btn btn-custom btn-xl rounded-pill mt-5" href="#scroll">랜덤화상채팅 시작!</a>
-		</div>
-	</section>
+	<div class="main-wrap">
+	
+		<!-- navigation -->
+		<jsp:include page="../include/nav.jsp" />
+		
+		<!-- visual -->
+		<section class="main-visual d-flex align-items-center">
+			<div class="container">
+				<h1>La destinee</h1>
+				<h2>다양한 사람들을 만나보세요!</h2>
+				<div class="main-visual-btn-box text-center">
+					<a href="#scroll" class="btn btn-custom">랜덤화상채팅 시작!</a>
+				</div>
+			</div>
+		</section>
+		
+		<!-- contents -->
+		<section class="main-content-area">
+			<div class="container py-5">
+            	<!-- content 1 -->
+                <div class="main-content d-flex align-items-center justify-content-between">
+                    <div class="order-2">
+                        <div class="p-5"><img class="rounded-circle" src="https://picsum.photos/500" alt="image" /></div>
+                    </div>
+                    <div class="order-1">
+                        <div class="py-5">
+                            <h2 class="display-4 title">랜덤화상채팅</h2>
+                            <p>랜덤화상채팅 쓸 수 있어!</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- content 2 -->
+                <div class="main-content d-flex align-items-center">
+                    <div>
+                        <div class="py-5 pr-5"><img class="img-fluid rounded-circle" src="https://picsum.photos/500" alt="image" /></div>
+                    </div>
+                    <div class="ml-5">
+                        <div class="py-5">
+                            <h2 class="display-4 title">친구추천</h2>
+                            <p>친구추천 가능합니다.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- content 3 -->
+                <div class="main-content d-flex align-items-center justify-content-between">
+                    <div class="order-2">
+                        <div class="p-5"><img class="img-fluid rounded-circle" src="https://picsum.photos/500" alt="image" /></div>
+                    </div>
+                    <div class="order-1">
+                        <div class="py-5">
+                            <h2 class="display-4 title">친구와 채팅하기</h2>
+                            <p>친구와 채팅까지 할 수 있다.</p>
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</section>
+		
+		<!-- footer -->
+		<jsp:include page="../include/footer.jsp" />
+	</div>
 </body>
 </html>

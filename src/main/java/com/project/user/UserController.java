@@ -73,17 +73,14 @@ public class UserController {
 		Object id = (Object) userInfo.get("id");
 		String loginid = String.valueOf(id);
 		//닉네임
-<<<<<<< HEAD
 		String userNickName = (String) userInfo.get("nickname");
 		//이메일
 		String userEmail = (String) userInfo.get("email");
 		
 		//redirect.addAttribute(kakaoId, params);	 
 		//redirect.addAttribute(userNickName, params);	 
-=======
 		String nickname = (String) userInfo.get("nickname");
 			 
->>>>>>> f6679fd8dbee52e3e07b4aceb7a85c895f8dd35b
 		/*
 		//로그인하는 정보가 있는경우 메인페이지로 
 		 int row = userBo.existKakaoUserByKakaoId(kakaoId); 
@@ -100,7 +97,7 @@ public class UserController {
 		*/
 		
 		model.addAttribute("nickname", userNickName);
-		model.addAttribute("loginid", kakaoId);
+		model.addAttribute("loginid", loginid);
 	
 		return "/user/kakaosignup";
 	}
