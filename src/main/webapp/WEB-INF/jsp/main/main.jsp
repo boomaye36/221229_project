@@ -31,7 +31,7 @@
                 <ul class="menu d-flex">
                		<li class="nav-item"><a class="nav-link" href="#!">종모양이미지</a></li>
                     <li class="nav-item"><a class="nav-link" href="#!">마이페이지</a></li>
-               		<li class="nav-item"><a class="nav-link" href="#!">로그아웃</a></li>
+               		<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
                 </ul>
             </div>
 		</div>

@@ -28,20 +28,14 @@ public class UserController {
 	//로그인 페이지
 	@GetMapping("/user/sign-in")
 	public String signIn() {
-		
 		return "/user/user";
 	}
 	
-	
-	
 	//회원가입 페이지
 	@GetMapping("/user/sign-up")
-	public String singUp() {
-		
+	public String signUp() {
 		return "/user/signup";
 	}
-	
-	
 	
 	//아이디 찾기 페이지
 	@GetMapping("/user/id")
@@ -52,24 +46,24 @@ public class UserController {
 	//비밀번호 찾기 페이지
 	@GetMapping("/user/pwd")
 	public String pwd() {
-		
 		return "/user/pwd";
 	}
 	
-	@RequestMapping("/user/signup_addition")
+	//회원가입 추가정보 페이지
+	@GetMapping("/user/signup_addition")
 	public String signUpAdd() {
 		return "/user/signup_addition";
 	}
 	
 	//약관 동의 페이지
-	@RequestMapping("/user/tos")
+	@GetMapping("/user/tos")
 	public String tos() {
 		return "/user/tos";
 	}
 	
 	//카카오로 로그인 접속
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
-	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session, 
+	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session,Model model, 
 			@RequestParam Map<String, String> params, RedirectAttributes redirect ) throws Exception {
 			
 		String access_Token = ms.getAccessToken(code);
@@ -77,12 +71,19 @@ public class UserController {
 			
 		//아이디
 		Object id = (Object) userInfo.get("id");
-		String kakaoId = String.valueOf(id);
+		String loginid = String.valueOf(id);
 		//닉네임
+<<<<<<< HEAD
 		String userNickName = (String) userInfo.get("nickname");
 		//이메일
 		String userEmail = (String) userInfo.get("email");
+		
+		//redirect.addAttribute(kakaoId, params);	 
+		//redirect.addAttribute(userNickName, params);	 
+=======
+		String nickname = (String) userInfo.get("nickname");
 			 
+>>>>>>> f6679fd8dbee52e3e07b4aceb7a85c895f8dd35b
 		/*
 		//로그인하는 정보가 있는경우 메인페이지로 
 		 int row = userBo.existKakaoUserByKakaoId(kakaoId); 
@@ -98,7 +99,10 @@ public class UserController {
 		 }
 		*/
 		
-		return "/main/main";
+		model.addAttribute("nickname", userNickName);
+		model.addAttribute("loginid", kakaoId);
+	
+		return "/user/kakaosignup";
 	}
 	
 	
@@ -109,13 +113,13 @@ public class UserController {
 			
 		Map<String, ?> result = RequestContextUtils.getInputFlashMap(request);
 		params= (Map<String, String>) result.get("map");
-		String userEmail = params.get("userEmail");
-		String userNickName = params.get("userNickName");
-		String kakaoId = params.get("kakaoId");
+		//String email = params.get("userEmail");
+		String nickname = params.get("userNickName");
+		String loginid = params.get("kakaoId");
 			
-		model.addAttribute("userEmail", userEmail);
-		model.addAttribute("userNickName", userNickName);
-		model.addAttribute("kakaoId", kakaoId);
+		//model.addAttribute("userEmail", email);
+		model.addAttribute("nickname", nickname);
+		model.addAttribute("loginid", loginid);
 		return "kakaosignup";
 	}
 }
