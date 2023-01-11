@@ -59,14 +59,14 @@ public class UserRestController {
 	public Map<String, Object> addUser(@RequestParam("user_loginid") String user_loginid,
 			@RequestParam("user_password") String user_password, @RequestParam("user_nickname") String user_nickname,
 			@RequestParam("user_phonenumber") String user_phonenumber, @RequestParam("user_gender") String user_gender,
-			@RequestParam("user_email") String user_email, HttpSession session
+			@RequestParam("user_email") String user_email,@RequestParam("path") String path, HttpSession session
 
 	) {
 
 		String encryptPassword = EncryptUtils.md5(user_password);
 
 		Map<String, Object> result = new HashMap<>();
-		userBO.addUser(user_loginid, encryptPassword, user_nickname, user_gender, user_email, user_phonenumber);
+		userBO.addUser(user_loginid, encryptPassword, user_nickname, user_gender, user_email, user_phonenumber, path);
 		result.put("code", 100);
 		return result;
 	}

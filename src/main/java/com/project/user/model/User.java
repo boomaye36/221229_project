@@ -5,17 +5,18 @@ import java.util.Date;
 public class User {
 
 	private int id;
-	private String user_loginid;
-	private String user_password;
-	private String user_phonenumber;
-	private String user_nickname;
-	private String user_intro;
-	private String user_email;
-	private String user_gender;
-	private String user_profilephoto;
-	private Date user_birth;
-	private String user_area;
-	private String user_state;
+	private String loginid;
+	private String password;
+	private String phonenumber;
+	private String nickname;
+	private String intro;
+	private String email;
+	private String path;
+	private String gender;
+	private String profilephoto;
+	private Date birth;
+	private String area;
+	private String state;
 	private Date createdat;
 	private Date updatedat;
 	public int getId() {
@@ -24,71 +25,71 @@ public class User {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getUser_loginid() {
-		return user_loginid;
+	public String getLoginid() {
+		return loginid;
 	}
-	public void setUser_loginid(String user_id) {
-		this.user_loginid = user_id;
+	public void setLoginid(String loginid) {
+		this.loginid = loginid;
 	}
-	public String getUser_password() {
-		return user_password;
+	public String getPassword() {
+		return password;
 	}
-	public void setUser_password(String user_password) {
-		this.user_password = user_password;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getUser_phonenumber() {
-		return user_phonenumber;
+	public String getPhonenumber() {
+		return phonenumber;
 	}
-	public void setUser_phonenumber(String user_phonenumber) {
-		this.user_phonenumber = user_phonenumber;
+	public void setPhonenumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
-	public String getUser_nickname() {
-		return user_nickname;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setUser_nickname(String user_nickname) {
-		this.user_nickname = user_nickname;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
-	public String getUser_intro() {
-		return user_intro;
+	public String getIntro() {
+		return intro;
 	}
-	public void setUser_intro(String user_intro) {
-		this.user_intro = user_intro;
+	public void setIntro(String intro) {
+		this.intro = intro;
 	}
-	public String getUser_email() {
-		return user_email;
+	public String getEmail() {
+		return email;
 	}
-	public void setUser_email(String user_email) {
-		this.user_email = user_email;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	public String getUser_gender() {
-		return user_gender;
+	public String getGender() {
+		return gender;
 	}
-	public void setUser_gender(String user_gender) {
-		this.user_gender = user_gender;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
-	public String getUser_profilephoto() {
-		return user_profilephoto;
+	public String getProfilephoto() {
+		return profilephoto;
 	}
-	public void setUser_profilephoto(String user_profilephoto) {
-		this.user_profilephoto = user_profilephoto;
+	public void setProfilephoto(String profilephoto) {
+		this.profilephoto = profilephoto;
 	}
-	public Date getUser_birth() {
-		return user_birth;
+	public Date getBirth() {
+		return birth;
 	}
-	public void setUser_birth(Date user_birth) {
-		this.user_birth = user_birth;
+	public void setBirth(Date birth) {
+		this.birth = birth;
 	}
-	public String getUser_area() {
-		return user_area;
+	public String getArea() {
+		return area;
 	}
-	public void setUser_area(String user_area) {
-		this.user_area = user_area;
+	public void setArea(String area) {
+		this.area = area;
 	}
-	public String getUser_state() {
-		return user_state;
+	public String getState() {
+		return state;
 	}
-	public void setUser_state(String user_state) {
-		this.user_state = user_state;
+	public void setState(String state) {
+		this.state = state;
 	}
 	public Date getCreatedat() {
 		return createdat;
@@ -101,6 +102,12 @@ public class User {
 	}
 	public void setUpdatedat(Date updatedat) {
 		this.updatedat = updatedat;
+	}
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	
