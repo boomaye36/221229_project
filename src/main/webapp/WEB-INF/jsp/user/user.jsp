@@ -78,13 +78,13 @@ $(document).ready(function(){
 	//로그인 버튼 클릭 event
 	$('.user-login-submit').on('click', function(e){
 		e.preventDefault();
-		let user_loginid = $('#user_loginid').val().trim();
-		let user_password = $('#user_password').val().trim();
-		if (user_loginid == ''){
+		let loginid = $('#user_loginid').val().trim();
+		let password = $('#user_password').val().trim();
+		if (loginid == ''){
 			alert("아이디를 입력해주세요.");
 			return false;
 		}
-		if (user_password == ''){
+		if (password == ''){
 			alert("비밀번호를 입력해주세요.");
 			return false;
 		}
@@ -92,7 +92,7 @@ $(document).ready(function(){
 		$.ajax({
 			type:"POST"
 			, url : "/user/sign_in"
-			, data : {user_loginid, user_password}
+			, data : {loginid, password}
 			, success : function(data){
 				if (data.code == 100){
 					alert("로그인되었습니다.");

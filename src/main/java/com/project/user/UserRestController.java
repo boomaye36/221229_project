@@ -26,10 +26,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.project.common.EncryptUtils;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
@@ -41,10 +37,30 @@ public class UserRestController {
 	@Autowired
 	private UserBO userBO;
 
-	@RequestMapping("/is_duplicated_id")
-	public Map<String, Object> isDuplicatedId(@RequestParam("user_loginid") String user_loginid) {
+	//회원가입 (필수정보) insert
+	@PostMapping("/user_insert")
+	public Map<String, Object> addUser(User user, HttpSession session) {
+		
+		//암호화
+		String encryptPassword = EncryptUtils.md5(user.getPassword());
+		//암호화 된 정보 셋팅
+		user.setPassword(encryptPassword);
+		
 		Map<String, Object> result = new HashMap<>();
-		int existRowCount = userBO.existingLoginId(user_loginid);
+		int row = userBO.addUser(user);
+		if ( row > 0 ) {
+			result.put("code", 100);
+		} else {
+			result.put("code", 400);
+		}
+		return result;
+	}
+	
+	//회원가입 id 중복확인 event
+	@RequestMapping("/is_duplicated_id")
+	public Map<String, Object> isDuplicatedId(@RequestParam("loginid") String loginid) {
+		Map<String, Object> result = new HashMap<>();
+		int existRowCount = userBO.existingLoginId(loginid);
 		if (existRowCount > 0) {
 			result.put("result", true);
 			result.put("code", 100);
@@ -54,39 +70,26 @@ public class UserRestController {
 		}
 		return result;
 	}
-
-	@PostMapping("/user_insert")
-	public Map<String, Object> addUser(@RequestParam("user_loginid") String user_loginid,
-			@RequestParam("user_password") String user_password, @RequestParam("user_nickname") String user_nickname,
-			@RequestParam("user_phonenumber") String user_phonenumber, @RequestParam("user_gender") String user_gender,
-			@RequestParam("user_email") String user_email,@RequestParam("path") String path, HttpSession session
-
-	) {
-
-		String encryptPassword = EncryptUtils.md5(user_password);
-
-		Map<String, Object> result = new HashMap<>();
-		userBO.addUser(user_loginid, encryptPassword, user_nickname, user_gender, user_email, user_phonenumber, path);
-		result.put("code", 100);
-		return result;
-	}
-
+	
+	
+	//로그인 아이디 및 비밀번호 일치 event
 	@PostMapping("/sign_in")
-	public Map<String, Object> signIn(@RequestParam("user_loginid") String user_loginid,
-			@RequestParam("user_password") String user_password, HttpSession session) {
-
-		String encryptPassword = EncryptUtils.md5(user_password);
-
+	public Map<String, Object> signIn(User user, HttpSession session) {
+		
+		//암호화
+		String encryptPassword = EncryptUtils.md5(user.getPassword());
+		//암호화 
+		user.setPassword(encryptPassword);
+		
 		Map<String, Object> result = new HashMap<>();
-		User user = userBO.getUserByLoginIdAndPassword(user_loginid, encryptPassword);
-		if (user != null) {
+		User loginUser = userBO.getUserByLoginIdAndPassword(user);
+		if (loginUser != null) {
+			session.setAttribute("loginUser", loginUser);
 			result.put("code", 100);
-			session.setAttribute("user_loginid", user.getUser_loginid());
-			session.setAttribute("user_id", user.getId());
-
 		} else {
 			result.put("code", 400);
 		}
+		
 		return result;
 	}
 	@PostMapping("/user_update")
@@ -102,36 +105,7 @@ public class UserRestController {
 		return result;
 
 	}
-//	@PostMapping("/phoneAuth")
-//	public Boolean phoneAuth(String tel) {
-//
-//	    try { // 이미 가입된 전화번호가 있으면
-//	        if(memberService.memberTelCount(tel) > 0) 
-//	            return true; 
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//
-//	    String code = memberService.sendRandomMessage(tel);
-//	    session.setAttribute("rand", code);
-//	    
-//	    return false;
-//	}
-//
-//	@PostMapping("/phoneAuthOk")
-//	public Boolean phoneAuthOk() {
-//	    String rand = (String) session.getAttribute("rand");
-//	    String code = (String) request.getParameter("code");
-//
-//	    System.out.println(rand + " : " + code);
-//
-//	    if (rand.equals(code)) {
-//	        session.removeAttribute("rand");
-//	        return false;
-//	    } 
-//
-//	    return true;
-//	}
+	
 	@PostMapping("/sendMessage")
 	public Map<String, Object> sendSMS(@RequestParam("user_phonenumber")String phoneNumber, HttpSession session) {
 		String confirmNo = userBO.sendRandomMessage(phoneNumber);

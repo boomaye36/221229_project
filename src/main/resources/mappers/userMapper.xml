@@ -3,7 +3,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.project.user.dao.UserDAO">
-
+	
+	<!--  회원가입 id 중복확인 select -->
 	<select id="existingLoginId" parameterType="string"
 		resultType="int">
 		SELECT
@@ -11,44 +12,46 @@
 		FROM
 		`user`
 		WHERE
-		`loginid`=#{user_loginid}
+		`loginid`=#{loginid}
 	</select>
-
-	<insert id="insertUser" parameterType="map">
-		Insert Into `user`
+	
+	<!-- 회원가입 필수정보 insert -->
+	<insert id="insertUser" parameterType="com.project.user.model.User">
+		INSERT INTO `user`
 		(
-		`loginid`
-		,`password`
-		,`phonenumber`
-		,`nickname`
-		,`email`
-		,`path`
-		,`gender`
-		,`createdat`
-		,`updatedat`
+			`loginid`
+			,`password`
+			,`phonenumber`
+			,`nickname`
+			,`email`
+			,`path`
+			,`gender`
+			,`createdat`
+			,`updatedat`
 		)
 		VALUES
 		(
-		#{user_loginid},
-		#{user_password},
-		#{user_phonenumber},
-		#{user_nickname},
-		#{user_email},
-		#{path},
-		#{user_gender},
-		NOW(),
-		NOW()
+			#{loginid}
+			,#{password}
+			,#{phonenumber}
+			,#{nickname}
+			,#{email}
+			,#{path}
+			,#{gender}
+			,NOW()
+			,NOW()
 		)
 	</insert>
-	<select id="selectUserByLoginIdAndPassword" parameterType="map" resultType="com.project.user.model.User">
+	<!-- 로그인시 아이디 및 비밀번호 일치여부 확인 event -->
+	<select id="selectUserByLoginIdAndPassword" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
 		SELECT
 			*
 		FROM
 			`user`
 		WHERE
-			`loginid` = #{user_loginid}
+			`loginid` = #{loginid}
 		AND
-			`password` = #{user_password}
+			`password` = #{password}
 	</select>
 	<update id="UpdateUser" parameterType="map">
 	UPDATE
