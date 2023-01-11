@@ -68,6 +68,14 @@
 		`profilephoto` = #{profilephoto}
 	,	
 		`updatedat` = NOW()
-	WHERE `loginid` = #{loginid}
+	WHERE `id` = #{id}
 	</update>
+	<select id="selectUserByLoginId" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
+	SELECT 
+		*
+	FROM
+		`user`
+	WHERE
+		`loginid` = #{loginid}
+	</select>
 </mapper>

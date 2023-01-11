@@ -127,7 +127,7 @@
 			let ext = file.split('.').pop().toLowerCase();
 			let profilephoto = $('#file')[0].files[0];
 			let formData = new FormData();
-
+			
 			formData.append("birth", birth);
 			formData.append("area", area);
 			formData.append("intro", intro);

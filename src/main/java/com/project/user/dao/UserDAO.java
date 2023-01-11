@@ -1,5 +1,7 @@
 package com.project.user.dao;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
 import com.project.user.model.User;
 
 @Repository
@@ -17,6 +19,7 @@ public interface UserDAO {
 	//회원가입 선택정보 insert
 	public int updateUser(User user);
 	
-	
+	public User selectUserByLoginId(@Param("loginid")String loginid);
+
 
 }

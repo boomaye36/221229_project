@@ -1,6 +1,5 @@
 package com.project.user.bo;
 
-import java.util.Date;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +31,9 @@ public class UserBO {
 		return userDAO.existingLoginId(loginid);
 
 	}
-	
+	public User getUserByLoginId(String loginid) {
+		return userDAO.selectUserByLoginId(loginid);
+	}
 	//로그인시 아이디 및 비밀번호 일치여부 확인 event
 	public User getUserByLoginIdAndPassword(User user) {
 		return userDAO.selectUserByLoginIdAndPassword(user);
