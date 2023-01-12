@@ -18,7 +18,6 @@ import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.project.user.bo.MemberService;
 import com.project.user.bo.UserBO;
-import com.project.user.model.User;
 
 @Controller
 public class UserController {

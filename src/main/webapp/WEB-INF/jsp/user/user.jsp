@@ -26,6 +26,9 @@
 
 <!-- css -->
 <link rel="stylesheet" href="/static/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gurajada&display=swap" rel="stylesheet">
 </head>
 <body>
 	<!-- #wrap.section > .~~area > .~~box -->
@@ -38,7 +41,7 @@
 			<div class="login-area w-50">
 				<!-- 로고 -->
 				<h1 class="logo text-center">
-					<a href="#">랜덤화상채팅</a>
+					La destinee
 				</h1>
 				<div class="user-login-content-box">
 					<div class="user-login-content">
