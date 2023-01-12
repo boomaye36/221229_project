@@ -24,16 +24,15 @@
         <!-- 2. 필드 -->
         <div class="signup-id">
             <b>아이디</b>
-             <span class="placehold-text"><input type="text" id="user_id"  ></span>
-			 <div  id="idcheckLength" class="ml-5 small text-danger d-none">4자 이상으로 입력하세요.</div>
-			 <div  id="duplicateNo" class="ml-5 small text-danger d-none">중복된 아이디입니다 .</div>
-			 <div id="confirmOk" class="ml-5 small text-success d-none">사용 가능한 아이디입니다 .</div>
+             <span class="placehold-text"><input type="text" id="user_id"></span>
+			 <div id="idcheckLength" class="ml-1 small text-danger d-none">4자 이상으로 입력하세요.</div>
+			 <div id="duplicateNo" class="ml-1 small text-danger d-none">중복된 아이디입니다 .</div>
+			 <div id="confirmOk" class="ml-1 small text-success d-none">사용 가능한 아이디입니다 .</div>
         </div>
         <div class="signup-pwd">
             <b>비밀번호</b>
             <input class="userpw" type="password" id="user_password">
-            <small id="limitText" class="showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
-            
+            <small id="limitText" class="ml-1 showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
         </div>
         <div class="signup-repwd">
             <b>비밀번호 재확인</b>
@@ -48,16 +47,16 @@
         <div class="signup-gender">
             <b>성별</b>
             <div>
-                <label><input type="radio" name="gender" value="남자">남자</label>
-                <label><input type="radio" name="gender" value="여자">여자</label>
-                <label><input type="radio" name="gender" value="비공개">비공개</label>
+                <label class="mb-0"><input type="radio" name="gender" value="남자">남자</label>
+                <label class="mb-0 ml-2"><input type="radio" name="gender" value="여자">여자</label>
+                <label class="mb-0 ml-2"><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
         <!-- 5. 이메일_전화번호 -->
         <div class="signup-email">
             <b>본인 확인 이메일</b>
-            <input type="email" placeholder="선택입력" id="user_email">
+            <input type="email" placeholder="ex) address@naver.com" id="user_email">
         </div>
         
        <!-- 6. 휴대폰 번호  -->
@@ -69,8 +68,8 @@
             </div>
             
             <div class="d-flex">
-            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
-            <button id="cofirm-pn">인증하기 </button>
+	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
+	            <input type="button" value="인증하기" id="cofirm-pn">
             </div>
         </div>
 

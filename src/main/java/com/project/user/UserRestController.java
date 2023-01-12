@@ -1,4 +1,5 @@
 package com.project.user;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
@@ -8,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import com.project.common.EncryptUtils;
+import com.project.common.SHA256;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
 
@@ -21,13 +22,17 @@ public class UserRestController {
 
 	//회원가입 (필수정보) insert
 	@PostMapping("/user_insert")
-	public Map<String, Object> addUser(User user, HttpSession session) {
+	public Map<String, Object> addUser(User user, HttpSession session) throws NoSuchAlgorithmException {
 		
+		//회원 비밀번호가 null이 아닐 때 암호화시킴
+		if (user.getPassword() != null) {
+
 		//암호화
-		String encryptPassword = EncryptUtils.md5(user.getPassword());
+		SHA256 sha256 = new SHA256();
+		String encryptPassword = sha256.encrypt(user.getPassword());
 		//암호화 된 정보 셋팅
 		user.setPassword(encryptPassword);
-		
+		}
 		Map<String, Object> result = new HashMap<>();
 		int row = userBO.addUser(user);
 		User loginUser = userBO.getUserByLoginIdAndPassword(user);
@@ -58,10 +63,11 @@ public class UserRestController {
 	
 	//로그인 아이디 및 비밀번호 일치 event
 	@PostMapping("/sign_in")
-	public Map<String, Object> signIn(User user, HttpSession session) {
+	public Map<String, Object> signIn(User user, HttpSession session) throws NoSuchAlgorithmException {
 		
 		//암호화
-		String encryptPassword = EncryptUtils.md5(user.getPassword());
+		SHA256 sha256 = new SHA256();
+		String encryptPassword = sha256.encrypt(user.getPassword());
 		//암호화 
 		user.setPassword(encryptPassword);
 		
@@ -93,6 +99,8 @@ public class UserRestController {
 		session.setAttribute("loginUser", loginUser);
 		if ( row > 0) {
 			result.put("code", 100);
+			session.setAttribute("loginid", loginUser.getLoginid());
+			
 		} else {
 			result.put("code", 400);
 		}

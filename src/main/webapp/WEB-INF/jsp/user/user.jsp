@@ -56,7 +56,7 @@
 						</div>
 						<!-- 버튼들 -->
 						<div class="user-button-box mt-3">
-							<input type="submit" value="로그인" class="user-login-submit">
+							<input type="button" value="로그인" class="btn user-login-submit">
 							<input type="button" value="소셜로그인" class="user-login-social">
 							<!-- 카카오 로그인 -->
 							<a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=32ecb1a2899644d9618755f0e599c459&redirect_uri=http://localhost/oauth/kakao&response_type=code">
@@ -99,7 +99,7 @@ $(document).ready(function(){
 			, success : function(data){
 				if (data.code == 100){
 					alert("로그인되었습니다.");
-					document.location.href="/user/signup_addition";
+					document.location.href="/main";
 				} else {
 					//에러코드를 따로 잡아주세요.
 				}

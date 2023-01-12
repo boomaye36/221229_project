@@ -29,34 +29,21 @@
 	<div class="signup">
         <!-- 1. 로고 -->
 		<h2 class="signup-logo" onclick="move('/user/sign-in')">회원가입</h2>
-        <!-- 2. 필드 -->
-        
-        <div class="signup-pwd">
-            <b>비밀번호</b>
-            <input class="userpw" type="password" id="user_password">
-            <small id="limitText" class="showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
-            
-        </div>
-        <div class="signup-repwd">
-            <b>비밀번호 재확인</b>
-            <input class="userpw-confirm" type="password" id="user_repassword">
-        </div>
-        
-        
+ 
 		<!-- 4. 필드(성별) -->
         <div class="signup-gender">
             <b>성별</b>
             <div>
-                <label><input type="radio" name="gender" value="남자">남자</label>
-                <label><input type="radio" name="gender" value="여자">여자</label>
-                <label><input type="radio" name="gender" value="비공개">비공개</label>
+                <label class="mb-0"><input type="radio" name="gender" value="남자">남자</label>
+                <label class="mb-0 ml-2"><input type="radio" name="gender" value="여자">여자</label>
+                <label class="mb-0 ml-2"><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
         <!-- 5. 이메일_전화번호 -->
         <div class="signup-email">
             <b>본인 확인 이메일</b>
-            <input type="email" placeholder="선택입력" id="user_email">
+            <input type="email" placeholder="ex) address@naver.com" id="user_email">
         </div>
         
        <!-- 6. 휴대폰 번호  -->
@@ -68,8 +55,8 @@
             </div>
             
             <div class="d-flex">
-            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
-            <button id="cofirm-pn">인증하기 </button>
+	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
+	            <input type="button" value="인증하기" id="cofirm-pn">
             </div>
         </div>
 
@@ -136,10 +123,6 @@ $(document).ready( function(){
 		});
 	});
 
-	// 휴대폰번호 하이픈 자동 추가 정규식
-	/* $(document).on('keyup', '#user_phonenumber', function() {
-		$(this).val( $(this).val().replace(/[^0-9]/g, "").replace(/(^02|^0505|^1[0-9]{3}|^0[0-9]{2})([0-9]+)?([0-9]{4})$/,"$1-$2-$3").replace("--", "-") ); 
-	}); */
 	
 	//휴대폰 숫자 방지 정규식 이용하여 특수문자 작성시 자동으로 지워짐 
 	$('#user_phonenumber').on("focusout", function() {
@@ -196,35 +179,11 @@ $(document).ready( function(){
 	$('#submit').on('click', function(e){
 		e.preventDefault();
 		let loginid = ${loginid};
- 		let password = $('#user_password').val().trim();
-		let confirm = $('#user_repassword').val().trim();
 		let nickname = '${nickname}';
 		let gender = $('input[name="gender"]:checked').val();
 		let email = $('#user_email').val().trim();
 		let phonenumber = $('#user_phonenumber').val().trim();
 		let path = '카카오';
-		
-		
-		
-		//패스워드 및 패스워드 확인 검사
-		if (password=='' || confirm== ''){
-			alert("비밀번호를 입력하세요 ");
-			return false;
-		}
-		
-		//패스워드 및 패스워드 확인 일치 검사
-		if (password != confirm){
-			alert("비밀번호가 일치하지 않습니다");
-			return false;
-		}
-		
-		//비밀번호입력시 특수문자조합 검사
-		var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-		if (!reg.test(password)) {
-			$('#limitText').removeClass('d-none');
-			$('#user_password').focus();
-			return false;
-		} 
 		
 		//성별 검사
 		if(gender == undefined) {
@@ -257,11 +216,11 @@ $(document).ready( function(){
 		$.ajax({
 			type:"POST"
 			, url : "/user/user_insert"
-			, data : {loginid, password, nickname, gender, email, phonenumber, path }
+			, data : {loginid, nickname, gender, email, phonenumber, path }
 
 			, success : function(data) {
 				if (data.code == 100) {
-					document.location.href="/main"
+					document.location.href="/user/test?loginid=" + loginid
 				} else if(data.code == 400) {
 					alert("회원가입에 실패하였습니다");
 				}

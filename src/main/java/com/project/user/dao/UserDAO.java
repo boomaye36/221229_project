@@ -21,5 +21,7 @@ public interface UserDAO {
 	
 	public User selectUserByLoginId(@Param("loginid")String loginid);
 
+	public int existingUserAddition(@Param("loginid")String loginid);
+
 
 }

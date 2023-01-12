@@ -78,4 +78,15 @@
 	WHERE
 		`loginid` = #{loginid}
 	</select>
+
+	<select id="existingUserAddition"  parameterType="string" resultType="int">
+		SELECT 
+		COUNT(`area`  or `birth` or `profilephoto`)
+		FROM
+			`user`
+		WHERE
+			`loginid` = #{loginid}
+		
+			
+	</select>
 </mapper>
