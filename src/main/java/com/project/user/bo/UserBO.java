@@ -43,7 +43,7 @@ public class UserBO {
 	public int updateUser(User user , MultipartFile file) {
 		String imagePath = null;
 		if (file != null) {
-			imagePath = fileManagerService.saveFile(file);
+			imagePath = fileManagerService.saveFile(file, user.getLoginid());
 			user.setProfilephoto(imagePath);
 		}
 		return userDAO.updateUser(user);

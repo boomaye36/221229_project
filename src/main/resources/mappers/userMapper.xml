@@ -68,7 +68,7 @@
 		`profilephoto` = #{profilephoto}
 	,	
 		`updatedat` = NOW()
-	WHERE `id` = #{id}
+	WHERE `loginid` = #{loginid}
 	</update>
 	<select id="selectUserByLoginId" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
 	SELECT 
