@@ -46,8 +46,8 @@
 
 		<!-- 3.지역 -->
 		<div class="signup-area">
-			<b>지역</b> <select class="m-3 " id="selectedRegion"
-				name="selectedRegion">
+			<b>지역</b>
+			<select id="selectedRegion" name="selectedRegion">
 				<option value="서울">서울특별시</option>
 				<option value="경기">경기도</option>
 				<option value="전라">전라도</option>
@@ -67,7 +67,9 @@
 		<!-- 5.프로필 사진 -->
 		<div class="signup-profilephoto">
 			<b>프로필사진</b> 
-			<img src="/static/img/no.png" id="modifyimg"> 
+			<div class="d-flex justify-content-center pb-3">
+				<img src="/static/img/no.png" id="modifyimg"> 
+			</div>
 			<input type="file" accept=".gif, .jpg, .png, .jpeg" id="file" onchange="readURL2(this);">
 			<div id="fileName" class="ml-2"></div>
 		</div>
