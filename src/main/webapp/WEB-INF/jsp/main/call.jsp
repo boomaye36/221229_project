@@ -30,7 +30,38 @@
 			<div class="container">
 				<!-- content -->
 				<div class="content">
-					랜덤통화
+					<div class="call-area border">
+						<div class="call-top">
+						
+							<!-- 카메라 표시 마이크 카메라 설정 -->
+							<div class="call-check-status">
+								
+							</div>
+							
+							<!-- 매칭 옵션 체크 -->
+							<div class="call-search-option">
+								
+								<div class="call-gender-option-subject">
+								 <span>성별 선택</span>
+								 </div>
+								<div class="d-flex mt-5 justify-content-between">
+									<div class="call-gender-option-content">모두</div>
+									<div class="call-gender-option-content">남성</div>
+									<div class="call-gender-option-content">여성</div>
+								</div>
+								
+								<div class="call-btn-box">
+									<a href="#scroll" class="btn btn-custom">영상통화</a>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="call-bottom">
+						
+						<!-- 매칭 이력 -->
+						
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
