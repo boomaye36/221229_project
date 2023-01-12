@@ -158,6 +158,7 @@
 				,success : function(data){
 					if (data.code == 100){
 						alert("회원가입이 완료 되었습니다.");
+						location.href = "/user/sign-in";
 						
 					} else if ( data.code == 400) {
 						alert('회원가입에 실패하였습니다.')
