@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.project.user.bo.MemberService;
+import com.project.user.bo.UserBO;
+import com.project.user.model.User;
 
 @Controller
 public class UserController {
@@ -24,7 +26,8 @@ public class UserController {
 	@Autowired
 	private MemberService ms;
 	
-	
+	@Autowired
+	private UserBO userBO;
 	//로그인 페이지
 	@GetMapping("/user/sign-in")
 	public String signIn() {
@@ -65,7 +68,7 @@ public class UserController {
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session,Model model, 
 			@RequestParam Map<String, String> params, RedirectAttributes redirect ) throws Exception {
-			
+		String result = null;	
 		String access_Token = ms.getAccessToken(code);
 		HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
 			
@@ -74,32 +77,19 @@ public class UserController {
 		String loginid = String.valueOf(id);
 		//닉네임
 		String userNickName = (String) userInfo.get("nickname");
-		//이메일
-		String userEmail = (String) userInfo.get("email");
 		
-		//redirect.addAttribute(kakaoId, params);	 
-		//redirect.addAttribute(userNickName, params);	 
-		String nickname = (String) userInfo.get("nickname");
-			 
-		/*
 		//로그인하는 정보가 있는경우 메인페이지로 
-		 int row = userBo.existKakaoUserByKakaoId(kakaoId); 
+		 int row = userBO.existingLoginId(loginid); 
 		 if ( row > 0) { 
-			 User checkingUser = userBo.getKakaoUserByKakaoId(kakaoId);
-			 session.setAttribute("loginUser", checkingUser); 
-			 return "/main"; 
+			 result =  "main/main"; 
 		 } else if (row == 0) { 
-		 	Map<String, String> map = new HashMap<String, String>();
-		 	map.put("kakaoId", kakaoId); map.put("userNickName", userNickName);
-		 	map.put("userEmail", userEmail); redirect.addFlashAttribute("map", map);
-		 	return "redirect:/user/sign-up/kakao"; 
+			 model.addAttribute("nickname", userNickName);
+				model.addAttribute("loginid", loginid);
+		 	result = "user/kakaosignup"; 
 		 }
-		*/
 		
-		model.addAttribute("nickname", userNickName);
-		model.addAttribute("loginid", loginid);
-	
-		return "/user/kakaosignup";
+		return result;
+		
 	}
 	
 	

@@ -30,6 +30,8 @@ public class UserRestController {
 		
 		Map<String, Object> result = new HashMap<>();
 		int row = userBO.addUser(user);
+		User loginUser = userBO.getUserByLoginIdAndPassword(user);
+		session.setAttribute("loginUser", loginUser);
 		if ( row > 0 ) {
 			result.put("code", 100);
 		} else {
@@ -78,14 +80,17 @@ public class UserRestController {
 	
 	//추가 선택정보 회원가입 event
 	@PostMapping("/user_update")
-	public Map<String, Object> userUpdate(User user, MultipartFile profilephoto, HttpSession session){
+	public Map<String, Object> userUpdate(User user,@RequestParam(value="file", required=false)MultipartFile file, HttpSession session){
 		Map<String, Object> result = new HashMap<>();
 		//세션객체 가져오기
-		User loginUser = (User) session.getAttribute("loginUser");
+		User loginUsers = (User) session.getAttribute("loginUser");
 		
 		//user 객체에 아이디 셋팅해주기
-		user.setLoginid(loginUser.getLoginid());
-		int row  = userBO.updateUser(user, profilephoto);
+		user.setLoginid(loginUsers.getLoginid());
+		int row  = userBO.updateUser(user, file);
+		session.removeAttribute("loginUser");
+		User loginUser = userBO.getUserByLoginId(user.getLoginid());
+		session.setAttribute("loginUser", loginUser);
 		if ( row > 0) {
 			result.put("code", 100);
 		} else {
