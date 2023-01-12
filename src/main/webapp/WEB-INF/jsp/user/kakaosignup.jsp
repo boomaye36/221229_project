@@ -30,23 +30,20 @@
         <!-- 1. 로고 -->
 		<h2 class="signup-logo" onclick="move('/user/sign-in')">회원가입</h2>
  
-        
-        
-        
 		<!-- 4. 필드(성별) -->
         <div class="signup-gender">
             <b>성별</b>
             <div>
-                <label><input type="radio" name="gender" value="남자">남자</label>
-                <label><input type="radio" name="gender" value="여자">여자</label>
-                <label><input type="radio" name="gender" value="비공개">비공개</label>
+                <label class="mb-0"><input type="radio" name="gender" value="남자">남자</label>
+                <label class="mb-0 ml-2"><input type="radio" name="gender" value="여자">여자</label>
+                <label class="mb-0 ml-2"><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
         <!-- 5. 이메일_전화번호 -->
         <div class="signup-email">
             <b>본인 확인 이메일</b>
-            <input type="email" placeholder="선택입력" id="user_email">
+            <input type="email" placeholder="ex) address@naver.com" id="user_email">
         </div>
         
        <!-- 6. 휴대폰 번호  -->
@@ -58,8 +55,8 @@
             </div>
             
             <div class="d-flex">
-            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
-            <button id="cofirm-pn">인증하기 </button>
+	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
+	            <input type="button" value="인증하기" id="cofirm-pn">
             </div>
         </div>
 
