@@ -66,11 +66,10 @@
 
 		<!-- 5.프로필 사진 -->
 		<div class="signup-profilephoto">
-			<b>프로필사진</b> <img src="/static/img/no.png"> <input type="file"
-				accept=".gif, .jpg, .png, .jpeg" id="file">
-
+			<b>프로필사진</b> 
+			<img src="/static/img/no.png"> 
+			<input type="file" accept=".gif, .jpg, .png, .jpeg" id="file">
 			<div id="fileName" class="ml-2"></div>
-
 		</div>
 
 		<!-- 6. 가입하기 버튼 -->
@@ -125,13 +124,12 @@
 			let intro = $('.user_intro').val().trim();
 			let file = $('#file').val();
 			let ext = file.split('.').pop().toLowerCase();
-			let profilephoto = $('#file')[0].files[0];
 			let formData = new FormData();
 			
 			formData.append("birth", birth);
 			formData.append("area", area);
 			formData.append("intro", intro);
-			formData.append("profilephoto", $('#file')[0].files[0]);
+			formData.append("file", $('#file')[0].files[0]);
 
 			$.ajax({
 				type : 'POST'

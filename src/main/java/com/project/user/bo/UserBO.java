@@ -40,10 +40,10 @@ public class UserBO {
 	}
 	
 	//회원가입 선택정보 insert
-	public int updateUser(User user , MultipartFile user_profilephoto) {
+	public int updateUser(User user , MultipartFile file) {
 		String imagePath = null;
-		if (user_profilephoto != null) {
-			imagePath = fileManagerService.saveFile( user_profilephoto);
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(file);
 			user.setProfilephoto(imagePath);
 		}
 		return userDAO.updateUser(user);
