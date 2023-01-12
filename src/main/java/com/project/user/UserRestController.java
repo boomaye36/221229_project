@@ -24,12 +24,15 @@ public class UserRestController {
 	@PostMapping("/user_insert")
 	public Map<String, Object> addUser(User user, HttpSession session) throws NoSuchAlgorithmException {
 		
+		//회원 비밀번호가 null이 아닐 때 암호화시킴
+		if (user.getPassword() != null) {
+
 		//암호화
 		SHA256 sha256 = new SHA256();
 		String encryptPassword = sha256.encrypt(user.getPassword());
 		//암호화 된 정보 셋팅
 		user.setPassword(encryptPassword);
-		
+		}
 		Map<String, Object> result = new HashMap<>();
 		int row = userBO.addUser(user);
 		User loginUser = userBO.getUserByLoginIdAndPassword(user);

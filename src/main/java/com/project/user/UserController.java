@@ -77,43 +77,23 @@ public class UserController {
 		String loginid = String.valueOf(id);
 		//닉네임
 		String userNickName = (String) userInfo.get("nickname");
-		
-		//로그인하는 정보가 있는경우 메인페이지로 
-		 //User loginUser = (User) session.getAttribute("loginUser");
-//		 int row = userBO.existingUserAddition(loginUser); 
-//		 if (loginUser != null) {
-//		 if ( row > 0) { 
-//			 result =  "main/main"; 
-//		 } else if (row == 0) { 
-//			 model.addAttribute("nickname", userNickName);
-//				model.addAttribute("loginid", loginid);
-//		 	result = "user/kakaosignup"; 
-//		 }
-//		 }else {
-//			 result = "";
-//		 }
 		model.addAttribute("nickname", userNickName);
 		model.addAttribute("loginid", loginid);
-		return "/user/kakaosignup";
+		return "/user/kakaotos";
 		
 	}
 	
 	
 	//카카오아이디로 로그인 하는사람 추가가입
-	@RequestMapping("/user/sign-up/kakao")
-	public String kakaoSignUp(@RequestParam Map<String, String> params,
-				HttpServletRequest request, Model model) {
+	@GetMapping("/user/kakao")
+	public String kakaoSignUp(@RequestParam ("nickname") String nickname, @RequestParam("loginid") String loginid,
+				 Model model) {
 			
-		Map<String, ?> result = RequestContextUtils.getInputFlashMap(request);
-		params= (Map<String, String>) result.get("map");
-		//String email = params.get("userEmail");
-		String nickname = params.get("userNickName");
-		String loginid = params.get("kakaoId");
+		
 			
-		//model.addAttribute("userEmail", email);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("loginid", loginid);
-		return "kakaosignup";
+		return "/user/kakaosignup";
 	}
 	//카카오 메인화면 /추가정보 입력 페이지
 	@GetMapping("/user/test")

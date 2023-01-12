@@ -216,7 +216,7 @@ $(document).ready( function(){
 		$.ajax({
 			type:"POST"
 			, url : "/user/user_insert"
-			, data : {loginid, password, nickname, gender, email, phonenumber, path }
+			, data : {loginid, nickname, gender, email, phonenumber, path }
 
 			, success : function(data) {
 				if (data.code == 100) {
