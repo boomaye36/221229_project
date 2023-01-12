@@ -88,6 +88,8 @@ public class UserRestController {
 		int row  = userBO.updateUser(user, file);
 		if ( row > 0) {
 			result.put("code", 100);
+			session.setAttribute("loginid", loginUser.getLoginid());
+			
 		} else {
 			result.put("code", 400);
 		}

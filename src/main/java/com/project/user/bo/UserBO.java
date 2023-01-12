@@ -74,4 +74,8 @@ public class UserBO {
 			return false;
 		}
 	}
+	
+	public int existingUserAddition(User loginUser) {
+		return userDAO.existingUserAddition(loginUser);
+	}
 }

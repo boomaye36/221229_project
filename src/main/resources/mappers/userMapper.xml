@@ -55,7 +55,7 @@
 	</select>
 	
 	<!-- 회원가입시 추가정보 업데이트 -->
-	<update id="UpdateUser" parameterType="com.project.user.model.User">
+	<update id="updateUser" parameterType="com.project.user.model.User">
 	UPDATE
 		`user`
 	SET
@@ -77,5 +77,16 @@
 		`user`
 	WHERE
 		`loginid` = #{loginid}
+	</select>
+
+	<select id="existingUserAddition"  parameterType="map" resultType="com.project.user.model.User">
+		SELECT 
+		COUNT(`area` or `intro` or `birth` or `profilephoto`)
+		FROM
+			`user`
+		WHERE
+			`loginid` = #{loginid}
+		
+			
 	</select>
 </mapper>

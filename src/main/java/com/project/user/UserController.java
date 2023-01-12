@@ -68,7 +68,7 @@ public class UserController {
 	@RequestMapping(value="/oauth/kakao", method=RequestMethod.GET)
 	public String kakaoLogin(@RequestParam(value = "code", required = false) String code, HttpSession session,Model model, 
 			@RequestParam Map<String, String> params, RedirectAttributes redirect ) throws Exception {
-		String result = null;	
+		//String result = null;	
 		String access_Token = ms.getAccessToken(code);
 		HashMap<String, Object> userInfo = ms.getUserInfo(access_Token);
 			
@@ -79,16 +79,22 @@ public class UserController {
 		String userNickName = (String) userInfo.get("nickname");
 		
 		//로그인하는 정보가 있는경우 메인페이지로 
-		 int row = userBO.existingLoginId(loginid); 
-		 if ( row > 0) { 
-			 result =  "main/main"; 
-		 } else if (row == 0) { 
-			 model.addAttribute("nickname", userNickName);
-				model.addAttribute("loginid", loginid);
-		 	result = "user/kakaosignup"; 
-		 }
-		
-		return result;
+		 //User loginUser = (User) session.getAttribute("loginUser");
+//		 int row = userBO.existingUserAddition(loginUser); 
+//		 if (loginUser != null) {
+//		 if ( row > 0) { 
+//			 result =  "main/main"; 
+//		 } else if (row == 0) { 
+//			 model.addAttribute("nickname", userNickName);
+//				model.addAttribute("loginid", loginid);
+//		 	result = "user/kakaosignup"; 
+//		 }
+//		 }else {
+//			 result = "";
+//		 }
+		model.addAttribute("nickname", userNickName);
+		model.addAttribute("loginid", loginid);
+		return "/user/kakaosignup";
 		
 	}
 	

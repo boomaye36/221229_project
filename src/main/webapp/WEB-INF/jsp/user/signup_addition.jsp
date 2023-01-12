@@ -67,8 +67,8 @@
 		<!-- 5.프로필 사진 -->
 		<div class="signup-profilephoto">
 			<b>프로필사진</b> 
-			<img src="/static/img/no.png"> 
-			<input type="file" accept=".gif, .jpg, .png, .jpeg" id="file">
+			<img src="/static/img/no.png" id="modifyimg"> 
+ 			<input type="file" accept=".gif, .jpg, .png, .jpeg" id="file" onchange="readURL2(this);">
 			<div id="fileName" class="ml-2"></div>
 		</div>
 
@@ -95,25 +95,21 @@
 		location.href = result;
 
 	}
+	//회원가입시 프로필 사진 미리보기 event
+ 	function readURL2(input) {
+ 		if (input.files && input.files[0]) {
+ 			var reader = new FileReader();
+ 			reader.onload = function(e) {
+ 				document.getElementById('modifyimg').src = e.target.result;
+ 			};
+ 			reader.readAsDataURL(input.files[0]);
+ 		} else {
+ 			document.getElementById('modifyimg').src = '/static/img/no.png';
+ 		}
+ 	}
 	$(document).ready( function() {
 		
-		//파일선택 클릭 event
-		$('#file').on('click', function(e) {
-			let fileName = e.target.files[0].name; 
-			alert(fileName);
-			let ext = fileName.split('.').pop().toLowerCase();
-
-			if (fileName.split('.').length < 2
-					|| (ext != 'gif' && ext != 'png'
-							&& ext != 'jpg' && ext != 'jpeg')) {
-				alert("이미지 파일만 업로드 할 수 있습니다.");
-				$(this).val(''); 
-				$('#fileName').text(''); 
-				return;
-			}
-
-			$('#fileName').text(fileName);
-		});		 
+		
 		
 		//회원가입 event
 		$('#submit').on('click',function(e) {
@@ -125,11 +121,26 @@
 			let file = $('#file').val();
 			let ext = file.split('.').pop().toLowerCase();
 			let formData = new FormData();
-			
+			//파일 유효성 검사
+ 			if ( file != "") {
+ 		 	 		
+ 		 	 //잘려있는 배열중 가장 마지막 배열
+ 		 	 file.split('.').pop();
+ 		 	 //마지막 배열을 소문자로 강제 변환
+ 		 	 const ext = file.split('.').pop().toLowerCase();
+ 		 	 		
+ 		 	 //배열안에 포함된게 없다면 -1로 찍힘. 
+ 		 	 if ( $.inArray(ext, ['gif', 'jpg', 'jpeg', 'png']) == -1) { 
+ 				alert("gif, jpg, jpeg, png 파일만 가능합니다");
+ 				document.getElementById('modifyimg').src = '/static/img/no.png';
+ 				$('#file').val(''); // 업로드 된 파일을 비워준다.
+ 				return false;
+ 				} 
+ 		 	 }
 			formData.append("birth", birth);
 			formData.append("area", area);
 			formData.append("intro", intro);
-			formData.append("file", $('#file')[0].files[0]);
+			formData.append("file",$('#file')[0].files[0]);
 
 			$.ajax({
 				type : 'POST'
@@ -141,7 +152,8 @@
 				,success : function(data){
 					if (data.code == 100){
 						alert("회원가입이 완료 되었습니다.");
-						
+						document.location.href="/user/sign-in"
+
 					} else if ( data.code == 400) {
 						alert('회원가입에 실패하였습니다.')
 					}
