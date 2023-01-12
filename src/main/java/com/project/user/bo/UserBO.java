@@ -75,7 +75,7 @@ public class UserBO {
 		}
 	}
 	
-	public int existingUserAddition(User loginUser) {
-		return userDAO.existingUserAddition(loginUser);
+	public int existingUserAddition(String loginid) {
+		return userDAO.existingUserAddition(loginid);
 	}
 }

@@ -115,4 +115,17 @@ public class UserController {
 		model.addAttribute("loginid", loginid);
 		return "kakaosignup";
 	}
+	//카카오 메인화면 /추가정보 입력 페이지
+	@GetMapping("/user/test")
+	public String kakaoTest(@RequestParam("loginid") String loginid) {
+		String result = null;
+		int row = userBO.existingUserAddition(loginid); 
+		 if ( row > 0) { 
+			 result =  "main/main"; 
+		 } else if (row == 0) { 
+			 
+		 	result = "user/signup_addition"; 
+		 }
+		 return result;
+	}
 }

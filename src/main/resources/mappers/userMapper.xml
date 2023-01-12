@@ -79,9 +79,9 @@
 		`loginid` = #{loginid}
 	</select>
 
-	<select id="existingUserAddition"  parameterType="map" resultType="com.project.user.model.User">
+	<select id="existingUserAddition"  parameterType="string" resultType="int">
 		SELECT 
-		COUNT(`area` or `intro` or `birth` or `profilephoto`)
+		COUNT(`area`  or `birth` or `profilephoto`)
 		FROM
 			`user`
 		WHERE
