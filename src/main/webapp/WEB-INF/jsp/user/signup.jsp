@@ -263,7 +263,7 @@ $(document).ready( function(){
 
 			, success : function(data) {
 				if (data.code == 100) {
-					document.location.href="/user/sign-in"
+					document.location.href="/user/signup_addition"
 				} else if(data.code == 400) {
 					alert("회원가입에 실패하였습니다");
 				}

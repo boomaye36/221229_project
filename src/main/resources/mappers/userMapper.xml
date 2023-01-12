@@ -55,7 +55,7 @@
 	</select>
 	
 	<!-- 회원가입시 추가정보 업데이트 -->
-	<update id="UpdateUser" parameterType="com.project.user.model.User">
+	<update id="updateUser" parameterType="com.project.user.model.User">
 	UPDATE
 		`user`
 	SET
@@ -68,7 +68,7 @@
 		`profilephoto` = #{profilephoto}
 	,	
 		`updatedat` = NOW()
-	WHERE `id` = #{id}
+	WHERE `loginid` = #{loginid}
 	</update>
 	<select id="selectUserByLoginId" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
 	SELECT 
