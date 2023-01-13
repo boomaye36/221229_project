@@ -11,7 +11,14 @@ spring:
       suffix: .jsp
   main:
     allow-circular-references: true    
-
+  mail:
+    host: smtp.gmail.com
+    port: 465
+    username : mega20221229@gmail.com
+    password: hkxdtkapxhuyyxma
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
 
 server:
   port: 80
