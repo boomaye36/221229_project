@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.project.user.bo.MemberService;
 import com.project.user.bo.NaverLoginBO;
-import com.project.user.bo.NaverMemberService;
 import com.project.user.bo.UserBO;
 
 @Controller
@@ -30,8 +29,7 @@ public class UserController {
 	private NaverLoginBO naverLoginBO;
 	@Autowired
 	private MemberService ms;
-	@Autowired
-	private NaverMemberService naver;
+	
 	@Autowired
 	private UserBO userBO;
 	//로그인 페이지
