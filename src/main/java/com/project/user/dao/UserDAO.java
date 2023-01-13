@@ -22,6 +22,11 @@ public interface UserDAO {
 	public User selectUserByLoginId(@Param("loginid")String loginid);
 
 	public int existingUserAddition(@Param("loginid")String loginid);
-
-
+	
+	
+	//비밀번호 찾기 - 아이디 및 이메일 일치 여부 event
+	public User selectUserCheckByUserIdUserEmail(User user);
+	
+	//비밀번호 찾기 - 임시비밀번호 update event
+	public void updateUserPassword(User user);
 }

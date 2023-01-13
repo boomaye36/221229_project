@@ -4,13 +4,16 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.project.common.SHA256;
+import com.project.user.bo.SendEmail;
 import com.project.user.bo.UserBO;
+import com.project.user.model.Mail;
 import com.project.user.model.User;
 
 @RestController
@@ -19,6 +22,10 @@ public class UserRestController {
 
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private SendEmail sendEmail;
+
 
 	//회원가입 (필수정보) insert
 	@PostMapping("/user_insert")
@@ -113,7 +120,6 @@ public class UserRestController {
 	public Map<String, Object> sendSMS(@RequestParam("phoneNumber")String phoneNumber, HttpSession session) {
 		String confirmNo = userBO.sendRandomMessage(phoneNumber);
 		session.setAttribute("confirmNo", confirmNo);
-		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 100);
 		return result;
@@ -123,8 +129,6 @@ public class UserRestController {
 	@PostMapping("/confirmMessage")
 	public Map<String, Object> confirmSMS(@RequestParam("pnconfirm")String pnconfirm, @RequestParam("phoneNumber")String phoneNumber, HttpSession session) {
 	    String confirmNo = (String) session.getAttribute("confirmNo");
-
-		
 		Map<String, Object> result = new HashMap<>();
 		if (pnconfirm.equals(confirmNo)) {
 			result.put("code", 100);
@@ -134,6 +138,31 @@ public class UserRestController {
 			result.put("code", 400);
 		}
 		return result;
+	}
+	
+	
+	//비밀번호 찾기 - 아이디 이메일 일치여부 확인 event
+	@GetMapping("/is_duplicated_email")
+	public User email_check(User user) {
+		User check = userBO.getUserCheckByUserIdUserEmail(user);
+		return check;
+	}
+	
+	
+	//비밀번호 찾기 - 이메일 보내기 event
+	@PostMapping("/sendEmail")
+	public void sendEmail(User user) throws NoSuchAlgorithmException {
+		//메일 형식 만들기
+		Mail mail = sendEmail.createMailAndChangePassword(user);
+		
+		//메일 보내기 메소드
+		sendEmail.mailSend(mail);
+		
+		//임의생성된 패스워드 셋팅
+		user.setPassword(mail.getPassword());
+		
+		//비밀번호 업데이트 메소드
+		sendEmail.updataedPassword(user);
 	}
 	
 }
