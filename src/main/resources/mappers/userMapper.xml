@@ -89,4 +89,42 @@
 		
 			
 	</select>
+	
+	
+	
+	<!-- 비밀번호 찾기 아이디 및 이메일 일치여부 -->
+	<select id="selectUserCheckByUserIdUserEmail" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
+		SELECT
+			`id`
+			,`loginid`
+			,`password`
+			,`phonenumber`
+			,`nickname`
+			,`email`
+			,`path`
+			,`intro`
+			,`gender`
+			,`profilephoto`
+			,`birth`
+			,`area`
+			,`sanction`
+			,`deleted`
+			,`createdat`
+			,`updatedat`
+		FROM
+			`user`
+		WHERE
+			`loginid` = #{loginid}
+		AND
+			`email` = #{email}
+	</select>
+	
+	<!-- 비밀번호 찾기 임시비밀번호 업데이트 -->
+	<update id="updateUserPassword" parameterType="com.project.user.model.User">
+		UPDATE `user`
+		SET
+			`password` = #{password}
+		WHERE
+			`loginid` = #{loginid}
+	</update>
 </mapper>

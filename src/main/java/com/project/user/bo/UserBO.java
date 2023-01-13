@@ -78,4 +78,16 @@ public class UserBO {
 	public int existingUserAddition(String loginid) {
 		return userDAO.existingUserAddition(loginid);
 	}
+	
+	
+	
+	//비밀번호 찾기 - 아이디 및 이메일 일치 여부 event
+	public User getUserCheckByUserIdUserEmail(User user) {
+		return userDAO.selectUserCheckByUserIdUserEmail(user);
+	}
+	
+	//비밀번호 찾기 - 임시비밀번호 update event
+	public void updateUserPassword(User user) {
+		userDAO.updateUserPassword(user);
+	}
 }
