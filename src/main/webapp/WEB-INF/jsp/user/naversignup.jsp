@@ -40,11 +40,7 @@
             </div>
         </div>
         
-        <!-- 5. 이메일_전화번호 -->
-        <div class="signup-email">
-            <b>본인 확인 이메일</b>
-            <input type="email" placeholder="ex) address@naver.com" id="user_email">
-        </div>
+        
         
        <!-- 6. 휴대폰 번호  -->
         <div class="signup-number">
@@ -181,9 +177,9 @@ $(document).ready( function(){
 		let loginid = '${loginid}';
 		let nickname = '${nickname}';
 		let gender = $('input[name="gender"]:checked').val();
-		let email = $('#user_email').val().trim();
+		let email = '${email}'
 		let phonenumber = $('#user_phonenumber').val().trim();
-		let path = '카카오';
+		let path = '네이버';
 		
 		//성별 검사
 		if(gender == undefined) {
@@ -191,13 +187,7 @@ $(document).ready( function(){
 			return false;
 		} 
 		
-		//이메일 유효성 검사
-		var regEmail = /^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/;
- 	 	if (!regEmail.test(email) || email == '') {
- 	 		alert('이메일 주소를 확인하세요');
- 	 		$('#user_email').focus();
- 	 		return false;
- 	 	}
+		
 		
 		
 		//핸드폰 유효성 검사
@@ -206,12 +196,7 @@ $(document).ready( function(){
 			return false;
 		}
 		
-		//닉네임 검사
-		if (nickname == ''){
-			alert("닉네임을 입력하세요 ");
-			$('#user_nickname').focus();
-			return false;
-		} 
+		
 				
 		$.ajax({
 			type:"POST"
