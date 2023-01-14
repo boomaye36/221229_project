@@ -24,13 +24,14 @@
            <span>아이디를 찾기위한 수단을 선택해주세요</span><br>
            <label class="mb-0"><input type="radio" class='valid-id' id='phone' name="valid-id" value="phone">휴대폰</label>
            <label class="mb-0 ml-2"><input type="radio" class='valid-id' id='email' name="valid-id" value="email">이메일</label>
-            <input type="text" placeholder="회원정보에 등록한 이메일" id="user_email">
-            <input type="text" placeholder="회원정보에 등록한 휴대번호" id="user_phone">
+            <input type="text" placeholder="회원정보에 등록한 이메일" id="user_email" class="d-none">
+            <input type="text" placeholder="회원정보에 등록한 휴대번호" id="user_phone" class="d-none">
             <div class="id-box">
 	            <span>등록하신 Id </span><br>
 	            <input type="text" placeholder="" id="user_id">
             </div>
-            <input type="submit" value="아이디 찾기" id ="login">
+            <input type="button" class="btn" value="아이디 찾기" id ="login">
+            등록하신 id는 ${findid} 입니다.
         </div>
         <hr>
         <p class="id-find">
@@ -44,18 +45,28 @@
 <script type="text/javascript">
 
 
-
+//아이디 찾기 
 $(document).ready(function(){
 	$('.valid-id').on('click', function(){
 	let checkVal = $('input[name=valid-id]:checked').val();
 	if (checkVal == 'phone'){
-		$('#user_phone').append();
-		$('#user_email').empty();
+		$('#user_phone').removeClass('d-none');
+		$('#user_email').addClass('d-none');
+		
 	}else{
-		$('#user_phone').empty();
-		$('#user_email').append();
+		$('#user_phone').addClass('d-none');
+		$('#user_email').removeClass('d-none');
+
 	}
+	
 	});
+	$('#login').on('click', function(){
+		let phonenumber = $('#user_phone').val().trim();
+		let email = $('#user_email').val().trim();
+
+		document.location.href="/user/id_find?phonenumber=" + phonenumber +"&email=" + email;
+	});
+	
 });
 
 

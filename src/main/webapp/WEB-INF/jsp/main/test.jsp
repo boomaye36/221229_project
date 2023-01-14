@@ -15,7 +15,6 @@
     <video id="localVideo"></video>
     <video id="remoteVideo"></video>
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
-    <script src="peerjs.js"></script>
 </body>
 
 <script type="text/javascript">
@@ -44,7 +43,7 @@ btnCall.addEventListener("click", function(){
     call.on("stream", stream => {
        const remoteVideo =  document.getElementById("remoteVideo");
        remoteVideo.srcObject = stream;
-       remoteVideo.onloadedmetadata = () => remoteVideo.onplay();
+       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 
     });
 });
@@ -54,7 +53,7 @@ peer.on("call", call => {
     call.on("stream", stream => {
         const remoteVideo =  document.getElementById("remoteVideo");
         remoteVideo.srcObject = stream;
-        remoteVideo.onloadedmetadata = () => remoteVideo.onplay();
+        remoteVideo.onloadedmetadata = () => remoteVideo.play();
     });
 });
 </script>
