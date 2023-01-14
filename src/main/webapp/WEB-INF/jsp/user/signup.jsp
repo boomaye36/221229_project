@@ -189,6 +189,8 @@ $(document).ready( function(){
 			}	
 		});
 	});
+	
+	//회원가입 버튼 클릭 event
 	$('#submit').on('click', function(e){
 		e.preventDefault();
 		let loginid = $('#user_id').val().trim();

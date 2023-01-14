@@ -79,6 +79,17 @@
 </body>
 <script>
 $(document).ready(function(){
+	
+	//비밀번호 입력 후 엔터키 event
+	var user_password = document.getElementById("user_password");
+	user_password.addEventListener("keyup", function(event){
+		if(event.keyCode === 13) {
+			event.preventDefault();
+			$(".user-login-submit").click();
+		}
+	});
+	
+	
 	//로그인 버튼 클릭 event
 	$('.user-login-submit').on('click', function(e){
 		e.preventDefault();
