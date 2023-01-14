@@ -160,13 +160,14 @@ $(document).ready( function(){
 	$('#cofirm-pn').on('click', function(e){
 		let pnconfirm = $('#pnconfirm').val().trim();
 		let phoneNumber = $('#user_phonenumber').val().trim();
-
+		var status = 0;
 		$.ajax({
 			type:"POST"
 			, url : "/user/confirmMessage"
 			, data : {pnconfirm, phoneNumber}
 			, success : function(data) {
 				if (data.code == 100) {
+					status = 1;
 					alert("인증이 완료되었습니다.");
 					
 				}else{
@@ -203,6 +204,11 @@ $(document).ready( function(){
 		//핸드폰 유효성 검사
 		if( phonenumber == '') {
 			alert('핸드폰 번호를 확인하세요');
+			return false;
+		}
+		
+		if (status == 0){
+			alert('핸드폰 인증을 다시해주세요');
 			return false;
 		}
 		

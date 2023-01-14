@@ -156,7 +156,7 @@ $(document).ready( function(){
 	$('#cofirm-pn').on('click', function(e){
 		let pnconfirm = $('#pnconfirm').val().trim();
 		let phoneNumber = $('#user_phonenumber').val().trim();
-
+		var status = 0;
 		$.ajax({
 			type:"POST"
 			, url : "/user/confirmMessage"
@@ -164,7 +164,7 @@ $(document).ready( function(){
 			, success : function(data) {
 				if (data.code == 100) {
 					alert("인증이 완료되었습니다.");
-					
+					status = 1;
 				}else{
 					alert("인증번호를 다시 입력해주세요.");
 					return false;
@@ -196,6 +196,10 @@ $(document).ready( function(){
 			return false;
 		}
 		
+		if (status == 0){
+			alert('핸드폰 인증을 다시해주세요');
+			return false;
+		}
 		
 				
 		$.ajax({

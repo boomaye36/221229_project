@@ -151,7 +151,7 @@ public class UserController {
 		model.addAttribute("loginid", loginid);
 		model.addAttribute("nickname", nickname);
 		model.addAttribute("email", email);
-	     
+	    System.out.println("user-email ########### : "+ email);
 		return "/user/navertos";
 		
 	}
