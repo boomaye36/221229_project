@@ -34,9 +34,11 @@
 	<!-- #wrap.section > .~~area > .~~box -->
 	<div class="user-login d-flex">
 		<div class="image-area w-100">
-			<!-- 이미지 들어가는 영역 -->
-			<img src="https://picsum.photos/1000"  >
-
+			<!-- 배경 이미지 들어가는 영역 -->
+			<img src="/static/img/user-bg.jpg">
+			<!-- <video class="user-video" autoplay muted loop playsinline>
+				<source src="/static/video/user-bg.mp4" type="video/mp4">
+            </video> -->
 
 			<div class="login-area w-50">
 				<!-- 로고 -->
@@ -57,12 +59,10 @@
 						<!-- 버튼들 -->
 						<div class="user-button-box mt-3">
 							<input type="button" value="로그인" class="btn user-login-submit">
-<!-- 							<input type="button" value="소셜로그인" class="user-login-social">
-
- -->							
- 						<a type="button" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do
- 						" class="user-login-social">네이버 로그인</a>
- 						<!-- 카카오 로그인 -->
+							<!-- <input type="button" value="소셜로그인" class="user-login-social"> -->
+							<!-- 네이버 로그인 -->					
+ 							<a type="button" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do" class="user-login-social">네이버 로그인</a>
+ 							<!-- 카카오 로그인 -->
 							<a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=32ecb1a2899644d9618755f0e599c459&redirect_uri=http://localhost/oauth/kakao&response_type=code">
 								<img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao">
 							</a>
@@ -124,6 +124,65 @@ $(document).ready(function(){
 			}
 		});
 	}); // 로그인 버튼 클릭 event 닫기
+	
+	
+	//아이디 저장 쿠키
+	var key = getCookie("key");
+	$("#user_loginid").val(key); 
+	if ($("#user_loginid").val() != ""){ // 그 전에 ID를 저장해서 처음 페이지 로딩 시, 입력 칸에 저장된 ID가 표시된 상태라면,
+	        $("#user-remember-check").attr("checked", true); // ID 저장하기를 체크 상태로 두기.
+	}
+	     
+    $("#user-remember-check").change(function(){ // 체크박스에 변화가 있다면,
+        if($("#user-remember-check").is(":checked")){ // ID 저장하기 체크했을 때,
+            setCookie("key", $("#user_loginid").val(), 7); // 7일 동안 쿠키 보관
+        }else{ // ID 저장하기 체크 해제 시,
+            deleteCookie("key");
+        }
+    });
+     
+    // ID 저장하기를 체크한 상태에서 ID를 입력하는 경우, 이럴 때도 쿠키 저장.
+    $("#user_loginid").keyup(function(){ // ID 입력 칸에 ID를 입력할 때,
+        if($("#user-remember-check").is(":checked")){ // ID 저장하기를 체크한 상태라면,
+            setCookie("key", $("#user_loginid").val(), 7); // 7일 동안 쿠키 보관
+        }
+    });
+    
+    
+    
+    
+    
 }); // document.ready 닫기
+	
+	
+	//쿠키 셋팅 function
+	function setCookie(cookieName, value, exdays){
+	    var exdate = new Date();
+	    exdate.setDate(exdate.getDate() + exdays);
+	    var cookieValue = escape(value) + ((exdays==null) ? "" : "; expires=" + exdate.toGMTString());
+	    document.cookie = cookieName + "=" + cookieValue;
+	}
+	
+	//쿠키 삭제 function
+	function deleteCookie(cookieName){
+	    var expireDate = new Date();
+	    expireDate.setDate(expireDate.getDate() - 1);
+	    document.cookie = cookieName + "= " + "; expires=" + expireDate.toGMTString();
+	}
+	
+	//쿠키 가져오기 function
+	function getCookie(cookieName) {
+	    cookieName = cookieName + '=';
+	    var cookieData = document.cookie;
+	    var start = cookieData.indexOf(cookieName);
+	    var cookieValue = '';
+	    if(start != -1){
+	        start += cookieName.length;
+	        var end = cookieData.indexOf(';', start);
+	        if(end == -1)end = cookieData.length;
+	        cookieValue = cookieData.substring(start, end);
+	    }
+	    return unescape(cookieValue);
+	}
 </script>
 </html>

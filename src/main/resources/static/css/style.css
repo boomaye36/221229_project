@@ -1,15 +1,26 @@
 @charset "UTF-8";
 
 /*=========================================================================================로그인 시작 */
-.user-login {max-height: 100vh;}
+.user-login {
+	max-height: 100vh;
+	overflow: hidden;
+}
 
 .user-login .image-area > img {
-	width: 100%; 
+	width: 100%;
+	min-height: 100vh;
 	max-height: 100vh; 
 	object-fit: cover;
 	position: relative;
 }
 
+.user-login .image-area > video.user-video {
+	width: 100%;
+	min-height: 100vh;
+	max-height: 100vh;
+	object-fit: cover;
+	overflow: hidden;
+}
 
 .user-login .login-area {padding: 0 20px;
 	position: absolute;
