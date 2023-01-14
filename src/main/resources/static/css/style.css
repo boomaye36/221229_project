@@ -76,6 +76,11 @@
 	text-align: center;
 	padding-top: 12px;
 }
+ .user-button-box a:hover{
+    text-decoration: none;
+    color:#fff;
+}
+
 .user-button-box .user-login-kakao {
 	width:100%;
 	margin-top : 5px;
