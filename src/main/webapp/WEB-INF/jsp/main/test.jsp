@@ -43,7 +43,7 @@ btnCall.addEventListener("click", function(){
     call.on("stream", stream => {
        const remoteVideo =  document.getElementById("remoteVideo");
        remoteVideo.srcObject = stream;
-       remoteVideo.onloadedmetadata = () => remoteVideo.onplay();
+       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 
     });
 });
@@ -53,7 +53,7 @@ peer.on("call", call => {
     call.on("stream", stream => {
         const remoteVideo =  document.getElementById("remoteVideo");
         remoteVideo.srcObject = stream;
-        remoteVideo.onloadedmetadata = () => remoteVideo.onplay();
+        remoteVideo.onloadedmetadata = () => remoteVideo.play();
     });
 });
 </script>
