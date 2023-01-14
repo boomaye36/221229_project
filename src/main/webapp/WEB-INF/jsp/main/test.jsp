@@ -15,7 +15,6 @@
     <video id="localVideo"></video>
     <video id="remoteVideo"></video>
     <script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
-    <script src="peerjs.js"></script>
 </body>
 
 <script type="text/javascript">
