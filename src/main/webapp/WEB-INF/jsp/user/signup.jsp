@@ -32,7 +32,7 @@
         <div class="signup-pwd">
             <b>비밀번호</b>
             <input class="userpw" type="password" id="user_password">
-            <small id="limitText" class="ml-1 showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
+            <small id="limitText" class="ml-1 showLimit d-none">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</small>
         </div>
         <div class="signup-repwd">
             <b>비밀번호 재확인</b>
@@ -64,12 +64,12 @@
             <b>휴대전화</b>
             <div>
                 <input type="tel" placeholder="전화번호 입력(-없이 숫자만 입력해주세요)" id="user_phonenumber" maxlength="11">
-                <input type="button" value="인증번호 받기" id="valid-phone">
+                <input type="button" value="인증번호 받기" id="valid-phone" class="valid-btn">
             </div>
             
             <div class="d-flex">
 	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
-	            <input type="button" value="인증하기" id="cofirm-pn">
+	            <input type="button" value="인증하기" id="cofirm-pn" class="valid-btn">
             </div>
         </div>
 

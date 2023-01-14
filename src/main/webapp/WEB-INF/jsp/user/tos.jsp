@@ -50,23 +50,23 @@
 
 		<!-- 필수 약관동의 -->
 		<div class="tos-bottom">
-			<img src="/static/img/checkbox.png" width="30px" height="30px">
+			<span class="check-btn material-icons-outlined">radio_button_unchecked</span>
 			<input type="checkbox" id="check-first"> [필수] xxxx계정 약관
 		</div>
-		<div class="tos-bottom2">
+		<div class="tos-bottom">
 			<img src="/static/img/checkbox.png" width="30px" height="30px">
 			<input type="checkbox" id="check-second"> [필수] xxxx통합서비스 약관
 		</div>
-		<div class="tos-bottom3">
+		<div class="tos-bottom">
 			<img src="/static/img/checkbox.png" width="30px" height="30px">
 			<input type="checkbox" id="check-third"> [필수] 개인정보 수신 동의
 		</div>
-		<div class="tos-bottom4">
+		<div class="tos-bottom">
 			<img src="/static/img/checkbox.png" width="30px" height="30px">
 			<input type="checkbox" id="check-fourth"> [선택] 프로모션 정보 수신 동의
 		</div>
 		<!-- 6. 가입하기 버튼 -->
-		<input type="button" value="가입하기" id="submit" name="submit">
+		<input type="button" value="가입하기" id="submit" name="submit" class="btn-custom">
 
 	</div>
 

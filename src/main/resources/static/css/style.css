@@ -133,13 +133,13 @@
 .tos .tos-logo{
     /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
     font-size: 24px;
-	color: pink;
+	color: #ee0979;
 	margin-bottom: 20px;
 	font-family: 'Roboto', sans-serif;
 }
 
 .tos input[type=button], .signup input[type=submit]{
-background-color: pink;
+background-color: #ee0979;
 color:#fff;
 border: 1px solid #dadada;
 padding: 15px;
@@ -150,7 +150,7 @@ margin-bottom: 5px;
 .tos-top { 
 	font-size: 25px;
 	margin-bottom: 40px;}
-.tos-middle, .tos-bottom, .tos-bottom2, .tos-bottom3, .tos-bottom4 {
+.tos-middle, .tos-bottom {
 	font-size : 15px;
 	margin-bottom: 10px;
 }
@@ -159,6 +159,11 @@ margin-bottom: 5px;
 	color : grey;
 	margin-left: 15px;
 }
+
+.tos-bottom .check-btn {
+	cursor: pointer;
+}
+
 /* ============================================================================================회원가입시작 */
 
 
@@ -188,7 +193,7 @@ margin-bottom: 5px;
 .signup .signup-logo{
     /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
     font-size: 24px;
-	color: pink;
+	color: #ee0979;
 	margin-bottom: 20px;
 	font-family: 'Roboto', sans-serif;
 }
@@ -208,8 +213,12 @@ margin-bottom: 5px;
 }
 
 .signup input[type=button], .signup input[type=submit]{
-background-color: pink;
-color:#fff
+	background-color: #ee0979;
+	color:#fff;
+}
+
+.signup .signup-number .valid-btn {
+	background-color: #bbb;
 }
 
 .signup input:focus, .signup select:focus{
@@ -262,7 +271,7 @@ color:#fff
 
 .signup-footer div a:last-child:after{ display: none;}
 .showLimit , .showTrue {color : red;}
-.showFalse{ color : pink;}
+.showFalse{ color : #ee0979;}
 .d-none {display: none;}
 /* ============================================================================================회원가입 추가 시작  */
 
@@ -317,7 +326,7 @@ color:#fff
 .id-wrap>h2 {
 	font-size: 30x;
 	font-weight: bold;
-	color: pink;
+	color: #ee0979;
 	margin-bottom: 20px;
 }
 
@@ -339,7 +348,7 @@ color:#fff
 .id-form>input[type="submit"] {
 	color: #fff;
 	font-size: 16px;
-	background-color: pink;
+	background-color: #ee0979;
 	margin-top: 20px;
 }
 
@@ -421,7 +430,7 @@ color:#fff
 .pwd-wrap>h2 {
 	font-size: 30x;
 	font-weight: bold;
-	color: pink;
+	color: #ee0979;
 	margin-bottom: 20px;
 }
 
@@ -443,7 +452,7 @@ color:#fff
 .pwd-form>input[type="submit"] {
 	color: #fff;
 	font-size: 16px;
-	background-color: pink;
+	background-color: #ee0979;
 	margin-top: 20px;
 }
 
