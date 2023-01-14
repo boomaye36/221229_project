@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class MainController {
@@ -44,5 +45,10 @@ public class MainController {
 		
 		session.removeAttribute("loginUser");
 		return "redirect:/user/sign-in";
+	}
+	
+	@RequestMapping("/test")
+	public String test() {
+		return "/main/test";
 	}
 }
