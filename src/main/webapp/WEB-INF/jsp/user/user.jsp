@@ -26,6 +26,9 @@
 
 <!-- css -->
 <link rel="stylesheet" href="/static/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gurajada&display=swap" rel="stylesheet">
 </head>
 <body>
 	<!-- #wrap.section > .~~area > .~~box -->
@@ -38,7 +41,7 @@
 			<div class="login-area w-50">
 				<!-- 로고 -->
 				<h1 class="logo text-center">
-					<a href="#">랜덤화상채팅</a>
+					La destinee
 				</h1>
 				<div class="user-login-content-box">
 					<div class="user-login-content">
@@ -57,8 +60,8 @@
 <!-- 							<input type="button" value="소셜로그인" class="user-login-social">
 
  -->							
- 						<a href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do
- 						" clsss="">네이버 로그인</a>
+ 						<a type="button" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do
+ 						" class="user-login-social">네이버 로그인</a>
  						<!-- 카카오 로그인 -->
 							<a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=32ecb1a2899644d9618755f0e599c459&redirect_uri=http://localhost/oauth/kakao&response_type=code">
 								<img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao">

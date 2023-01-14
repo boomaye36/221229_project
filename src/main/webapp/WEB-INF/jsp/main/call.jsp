@@ -30,7 +30,37 @@
 			<div class="container">
 				<!-- content -->
 				<div class="content">
-					랜덤통화
+					<div class="call-area border">
+						<div class="call-top">
+						
+							<!-- 카메라 표시 마이크 카메라 설정 -->
+							<div class="call-check-status">
+								
+							</div>
+							
+							<!-- 매칭 옵션 체크 -->
+							<div class="call-search-option">
+								
+								<div class="call-gender-option-subject">
+								 <span>성별 선택</span>
+								 </div>
+								 <div class="call-gender-option-content">
+								    <input type="radio" id="gender1" name="genderSelectRadio"><label for="gender1">모두</label>
+     								<input type="radio" id="gender2" name="genderSelectRadio"><label for="gender2">남자</label>
+     								<input type="radio" id="gender3" name="genderSelectRadio"><label for="gender3">여자</label>
+								 </div>
+								<div class="call-btn-box">
+									<a href="#scroll" class="btn btn-custom">영상통화</a>
+								</div>
+							</div>
+						</div>	
+						
+						<div class="call-bottom">
+						
+						<!-- 매칭 이력 -->
+						
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>

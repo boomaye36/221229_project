@@ -92,3 +92,61 @@ footer {
 .content-area .content {
 	padding: 80px 0;
 }
+
+/* call */
+
+.call-area .call-top {
+	display: flex;
+}
+
+.call-area .call-check-status {
+	background-color: black;
+	width: 600px;
+	height: 400px;
+}
+.call-search-option {
+	width: 500px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.call-gender-option-subject {
+	padding-top: 30px;
+}
+.call-gender-option-content {
+	margin-top: 50px;
+}
+.call-gender-option-subject span{
+	font-size: 40px;
+	font-weight: 700;
+}
+.call-gender-option-content input[type=radio]{
+    display: none;
+}
+.call-gender-option-content input[type=radio]+label {
+	display: inline-block;
+	padding-top: 20px;
+	border: 1px solid black;
+	width:120px;
+	height:70px;
+	margin: 0 20px 0 20px;
+	text-align: center;
+    font-weight:bold;
+}
+.call-gender-option-content label:hover {
+	background-color: grey;
+}
+.call-gender-option-content input[type=radio]:checked+label {
+	background-color: green;
+}
+.call-btn-box {
+	margin-top: 80px;
+	background-color: black;
+}
+.call-btn-box .btn-custom {
+	width: 220px;
+	height: 60px;
+	margin: 0; padding: 0;
+	line-height: 58px;
+	font-size: 18px;
+}
