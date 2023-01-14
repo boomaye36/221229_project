@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+/* reset */
+@import "reset.css";
+
 /*=========================================================================================로그인 시작 */
 .user-login {
 	max-height: 100vh;
@@ -152,7 +155,6 @@ margin-bottom: 5px;
 	margin-bottom: 40px;}
 .tos-middle, .tos-bottom {
 	font-size : 15px;
-	margin-bottom: 10px;
 }
 .tos-middle-small {
 	font-size: 12px;
@@ -160,9 +162,6 @@ margin-bottom: 5px;
 	margin-left: 15px;
 }
 
-.tos-bottom .check-btn {
-	cursor: pointer;
-}
 
 /* ============================================================================================회원가입시작 */
 
