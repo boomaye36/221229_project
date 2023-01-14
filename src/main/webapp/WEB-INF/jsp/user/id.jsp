@@ -19,9 +19,13 @@
 <body class="id-body">
 
 	<div class="id-wrap">
-        <h2 onclick="move('/user/sign-in')">화상영상통화 가제 아이디 찾기</h2>
+        <h2 onclick="move('/user/sign-in')">화상영상통화 아이디 찾기</h2>
         <div class="id-form">
+           <span>아이디를 찾기위한 수단을 선택해주세요</span><br>
+           <label class="mb-0"><input type="radio" class='valid-id' id='phone' name="valid-id" value="phone">휴대폰</label>
+           <label class="mb-0 ml-2"><input type="radio" class='valid-id' id='email' name="valid-id" value="email">이메일</label>
             <input type="text" placeholder="회원정보에 등록한 이메일" id="user_email">
+            <input type="text" placeholder="회원정보에 등록한 휴대번호" id="user_phone">
             <div class="id-box">
 	            <span>등록하신 Id </span><br>
 	            <input type="text" placeholder="" id="user_id">
@@ -39,12 +43,20 @@
 </body>
 <script type="text/javascript">
 
-//onclick 용
-function move(result){
-	
-	location.href = result;
-	
-}
+
+
+$(document).ready(function(){
+	$('.valid-id').on('click', function(){
+	let checkVal = $('input[name=valid-id]:checked').val();
+	if (checkVal == 'phone'){
+		$('#user_phone').append();
+		$('#user_email').empty();
+	}else{
+		$('#user_phone').empty();
+		$('#user_email').append();
+	}
+	});
+});
 
 
 </script>
