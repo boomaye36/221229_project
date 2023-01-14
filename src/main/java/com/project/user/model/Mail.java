@@ -6,6 +6,7 @@ public class Mail {
 	private String title;
 	private String message;
 	private String password;
+	
 	public String getAddress() {
 		return address;
 	}
