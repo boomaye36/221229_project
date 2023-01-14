@@ -113,15 +113,31 @@ footer {
 .call-gender-option-subject {
 	padding-top: 30px;
 }
+.call-gender-option-content {
+	margin-top: 50px;
+}
 .call-gender-option-subject span{
 	font-size: 40px;
 	font-weight: 700;
 }
-.call-gender-option-content {
+.call-gender-option-content input[type=radio]{
+    display: none;
+}
+.call-gender-option-content input[type=radio]+label {
+	display: inline-block;
+	padding-top: 20px;
 	border: 1px solid black;
 	width:120px;
 	height:70px;
 	margin: 0 20px 0 20px;
+	text-align: center;
+    font-weight:bold;
+}
+.call-gender-option-content label:hover {
+	background-color: grey;
+}
+.call-gender-option-content input[type=radio]:checked+label {
+	background-color: green;
 }
 .call-btn-box {
 	margin-top: 80px;

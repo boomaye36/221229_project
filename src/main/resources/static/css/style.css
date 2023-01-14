@@ -71,8 +71,10 @@
 	background-color: black;
 }
 .user-button-box .user-login-social {
-	background-color: #3b5998;
+	background-color: #03C75A;
 	margin-top : 5px;
+	text-align: center;
+	padding-top: 12px;
 }
 .user-button-box .user-login-kakao {
 	width:100%;

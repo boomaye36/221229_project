@@ -44,12 +44,11 @@
 								<div class="call-gender-option-subject">
 								 <span>성별 선택</span>
 								 </div>
-								<div class="d-flex mt-5 justify-content-between">
-									<div class="call-gender-option-content">모두</div>
-									<div class="call-gender-option-content">남성</div>
-									<div class="call-gender-option-content">여성</div>
-								</div>
-								
+								 <div class="call-gender-option-content">
+								    <input type="radio" id="gender1" name="genderSelectRadio"><label for="gender1">모두</label>
+     								<input type="radio" id="gender2" name="genderSelectRadio"><label for="gender2">남자</label>
+     								<input type="radio" id="gender3" name="genderSelectRadio"><label for="gender3">여자</label>
+								 </div>
 								<div class="call-btn-box">
 									<a href="#scroll" class="btn btn-custom">영상통화</a>
 								</div>
