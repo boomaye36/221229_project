@@ -34,9 +34,11 @@
 	<!-- #wrap.section > .~~area > .~~box -->
 	<div class="user-login d-flex">
 		<div class="image-area w-100">
-			<!-- 이미지 들어가는 영역 -->
-			<img src="https://picsum.photos/1000"  >
-
+			<!-- 배경 이미지 들어가는 영역 -->
+			<img src="/static/img/user-bg.jpg">
+			<!-- <video class="user-video" autoplay muted loop playsinline>
+				<source src="/static/video/user-bg.mp4" type="video/mp4">
+            </video> -->
 
 			<div class="login-area w-50">
 				<!-- 로고 -->
@@ -57,12 +59,10 @@
 						<!-- 버튼들 -->
 						<div class="user-button-box mt-3">
 							<input type="button" value="로그인" class="btn user-login-submit">
-<!-- 							<input type="button" value="소셜로그인" class="user-login-social">
-
- -->							
- 						<a type="button" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do
- 						" class="user-login-social">네이버 로그인</a>
- 						<!-- 카카오 로그인 -->
+							<!-- <input type="button" value="소셜로그인" class="user-login-social"> -->
+							<!-- 네이버 로그인 -->					
+ 							<a type="button" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do" class="user-login-social">네이버 로그인</a>
+ 							<!-- 카카오 로그인 -->
 							<a class="" href="https://kauth.kakao.com/oauth/authorize?client_id=32ecb1a2899644d9618755f0e599c459&redirect_uri=http://localhost/oauth/kakao&response_type=code">
 								<img src="/static/img/kakao_login_large_wide.png" class="user-login-kakao">
 							</a>
