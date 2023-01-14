@@ -51,12 +51,12 @@
             <b>휴대전화</b>
             <div>
                 <input type="tel" placeholder="전화번호 입력(-없이 숫자만 입력해주세요)" id="user_phonenumber" maxlength="11">
-                <input type="button" value="인증번호 받기" id="valid-phone">
+                <input type="button" value="인증번호 받기" id="valid-phone" class="valid-btn">
             </div>
             
             <div class="d-flex">
 	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
-	            <input type="button" value="인증하기" id="cofirm-pn">
+	            <input type="button" value="인증하기" id="cofirm-pn" class="valid-btn">
             </div>
         </div>
 
