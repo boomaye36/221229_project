@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,8 @@
 	<div class="id-wrap">
         <h2 onclick="move('/user/sign-in')">화상영상통화 아이디 찾기</h2>
         <div class="id-form">
+         <c:if test="${findid == null}">
+        
            <span>아이디를 찾기위한 수단을 선택해주세요</span><br>
            <label class="mb-0"><input type="radio" class='valid-id' id='phone' name="valid-id" value="phone">휴대폰</label>
            <label class="mb-0 ml-2"><input type="radio" class='valid-id' id='email' name="valid-id" value="email">이메일</label>
@@ -31,7 +35,10 @@
 	            <input type="text" placeholder="" id="user_id">
             </div>
             <input type="button" class="btn" value="아이디 찾기" id ="login">
-            등록하신 id는 ${findid} 입니다.
+                 </c:if>
+         <c:if test="${findid != null}">
+         <h2>등록하신 id는 ${findid} 입니다.</h2>
+         </c:if>
         </div>
         <hr>
         <p class="id-find">
