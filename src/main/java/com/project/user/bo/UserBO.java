@@ -94,4 +94,7 @@ public class UserBO {
 	public User findId(String phonenumber, String email) {
 		return userDAO.findId(phonenumber, email);
 	}
+	public boolean isExistUser(String loginid) {
+		return userDAO.isExistUser(loginid);
+	}
 }

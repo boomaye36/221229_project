@@ -16,6 +16,8 @@ public interface UserDAO {
 	//로그인시 아이디 및 비밀번호 일치여부 확인 event
 	public User selectUserByLoginIdAndPassword(User user);
 	
+	public User getUserByLoginId(@Param("loginid")String loginid);
+
 	//회원가입 선택정보 insert
 	public int updateUser(User user);
 	
@@ -31,5 +33,8 @@ public interface UserDAO {
 	public void updateUserPassword(User user);
 	
 	public User findId(@Param("phonenumber")String phonenumber, @Param("email")String email);
+
+	
+	public boolean isExistUser(@Param("loginid")String loginid);
 
 }
