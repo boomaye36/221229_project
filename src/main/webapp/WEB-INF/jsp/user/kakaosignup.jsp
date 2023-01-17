@@ -91,6 +91,7 @@ function move(result){
 	location.href = result;
 	
 }
+var status = 0;
 
 $(document).ready( function(){
 	
@@ -160,7 +161,6 @@ $(document).ready( function(){
 	$('#cofirm-pn').on('click', function(e){
 		let pnconfirm = $('#pnconfirm').val().trim();
 		let phoneNumber = $('#user_phonenumber').val().trim();
-		var status = 0;
 		$.ajax({
 			type:"POST"
 			, url : "/user/confirmMessage"
