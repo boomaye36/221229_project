@@ -24,6 +24,7 @@ var peer = new Peer();
 const inputLocalPeerId = document.getElementById("localPeerId");
 const inputRemotePeerId = document.getElementById("remotePeerId");
 const btnCall = document.getElementById("btn-call");
+console.log(inputLocalPeerId);
 
 navigator.mediaDevices.getUserMedia({video:true})
     .then(stream => {

@@ -34,7 +34,7 @@ public class Naver_Sens_V2 {
         JSONObject toJson = new JSONObject();
 	    JSONArray  toArr = new JSONArray();
 
-	    toJson.put("content","본인인증 번호 ["+rand+"] 를 입력해주세요");		// 난수와 함께 전송
+	    toJson.put("content", "본인인증 번호 ["+rand+"] 를 입력해주세요");		// 난수와 함께 전송
 	    toJson.put("to",tel);
 	    toArr.add(toJson);
 	    
