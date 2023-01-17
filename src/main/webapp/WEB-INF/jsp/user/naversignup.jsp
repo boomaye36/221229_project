@@ -36,7 +36,6 @@
             <div>
                 <label class="mb-0"><input type="radio" name="gender" value="남자">남자</label>
                 <label class="mb-0 ml-2"><input type="radio" name="gender" value="여자">여자</label>
-                <label class="mb-0 ml-2"><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
