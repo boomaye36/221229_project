@@ -24,8 +24,11 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
 
-<!-- css -->
-<link rel="stylesheet" href="/static/css/style.css">
+	<!-- material icons -->
+	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
+	
+	<!-- css -->
+	<link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="tos-body">
 
