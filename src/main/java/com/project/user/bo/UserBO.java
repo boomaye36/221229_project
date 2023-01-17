@@ -90,4 +90,8 @@ public class UserBO {
 	public void updateUserPassword(User user) {
 		userDAO.updateUserPassword(user);
 	}
+	
+	public User findId(String phonenumber, String email) {
+		return userDAO.findId(phonenumber, email);
+	}
 }

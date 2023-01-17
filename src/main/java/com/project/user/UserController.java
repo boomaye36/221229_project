@@ -22,6 +22,7 @@ import com.github.scribejava.core.model.OAuth2AccessToken;
 import com.project.user.bo.MemberService;
 import com.project.user.bo.NaverLoginBO;
 import com.project.user.bo.UserBO;
+import com.project.user.model.User;
 
 @Controller
 public class UserController {
@@ -165,5 +166,14 @@ public class UserController {
 		model.addAttribute("loginid", loginid);
 		model.addAttribute("email", email);
 		return "/user/naversignup";
+	}
+	//아이디 찾기
+	@GetMapping("/user/id_find")
+	public String idFind(@RequestParam("phonenumber")String phonenumber ,@RequestParam("email") String email, Model model) {
+		User findId = userBO.findId(phonenumber, email);
+		
+		model.addAttribute("findid", findId.getLoginid());
+		model.addAttribute("nickname", findId.getNickname());
+		return "/user/id";
 	}
 }

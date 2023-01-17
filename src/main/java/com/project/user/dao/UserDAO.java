@@ -29,4 +29,7 @@ public interface UserDAO {
 	
 	//비밀번호 찾기 - 임시비밀번호 update event
 	public void updateUserPassword(User user);
+	
+	public User findId(@Param("phonenumber")String phonenumber, @Param("email")String email);
+
 }
