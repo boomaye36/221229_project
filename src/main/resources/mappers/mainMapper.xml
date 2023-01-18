@@ -21,4 +21,15 @@
 		,NOW()
 		)
 		</insert>
+		
+		<select id="selectWait" parameterType="map" resultType="com.project.main.model.Wait">
+			SELECT 
+				* 
+			FROM
+				`wait`
+			WHERE
+				`user_gender` = #{preference}
+			AND
+				`preference` = #{user_gender}
+		</select>
 </mapper>
