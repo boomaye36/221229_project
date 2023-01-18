@@ -25,6 +25,11 @@ public class MainBO {
 		} 
 		//조건이 null 아닌경우 받아온 값 컨트롤러로 리턴
 		else {
+			//recent table에 insert
+			int user_sendid = result.getId();
+			int user_receiveid = wait.getId();
+			mainDAO.insertRecent(user_sendid, user_receiveid);
+			mainDAO.insertRecent(user_receiveid, user_sendid);
 			return result;
 		}
 		return null;

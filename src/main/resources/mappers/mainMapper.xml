@@ -37,6 +37,22 @@
 		AND
 			`preference` = #{user_gender}
 	</select>
-	
+	<!-- recent 테이블 양방향 삽입 -->
+	<insert id="insertRecent" parameterType="map">
+		INSERT INTO `recent`
+		(
+			`user_sendid`
+			,`user_receiveid`
+			,`createdat`
+		)
+		VALUES
+		(
+			#{user_sendid}
+			,#{user_receiveid}
+			,NOW()
+		)
+		
+		
+	</insert>
 	
 </mapper>
