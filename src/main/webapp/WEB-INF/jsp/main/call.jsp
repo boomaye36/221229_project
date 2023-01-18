@@ -137,6 +137,10 @@ $(document).ready(function(){
 						console.log("대기방 대기중")
 					} else {
 						console.log("매칭");
+						
+						alert(result.remoteid);
+					
+						document.location.href="/match?remoteid=" + result.remoteid;
 					}
 				}
 	        });

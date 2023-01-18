@@ -3,8 +3,10 @@ package com.project.main;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
@@ -51,5 +53,13 @@ public class MainController {
 	@RequestMapping("/test")
 	public String test() {
 		return "/main/test";
+	}
+	//remoteid model에 담아서 뷰로 넘김
+	@GetMapping("/match")
+	public String matched( @RequestParam("remoteid") String remoteid, Model model) {
+		//model.addAttribute("localid", localid);
+		model.addAttribute("remoteid", remoteid);
+		return "/main/match";
+		
 	}
 }

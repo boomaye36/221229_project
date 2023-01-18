@@ -28,13 +28,18 @@ public class MainRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		//세션 아이디 값 및 성별 세팅
-		wait.setId(loginUser.getId());
+		wait.setUser_id(loginUser.getId());
 		wait.setUser_gender(loginUser.getGender());
 		
 		//대기방 추가메소드 호출
 		Wait response = mainBO.addWait(wait);
 		result.put("result", response);
-		
+		Wait remote = mainBO.addWait(wait);
+
+		String remoteid = remote.getLocalid();
+		//String remoteid = wait.getLocalid();
+		//model.addAttribute("localid", localid);
+		result.put("remoteid", remoteid);
 		return result;
 	}
 	

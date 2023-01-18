@@ -18,6 +18,7 @@ public class MainBO {
 	public Wait addWait(Wait wait) {
 		
 		//조건 event
+		//wait 테이블에 있던 사람 
 		Wait result = mainDAO.selectWaitByGender(wait);
 		
 		//조건에 null 일경우 대기방 추가
@@ -27,10 +28,14 @@ public class MainBO {
 		//조건이 null 아닌경우 받아온 값 컨트롤러로 리턴
 		else {
 			//recent table에 insert
-			int user_sendid = result.getId();
-			int user_receiveid = wait.getId();
+			int user_sendid = result.getUser_id();
+			int user_receiveid = wait.getUser_id();
+//			String remoteid = result.getLocalid();
+//			String localid = wait.getLocalid();
 			mainDAO.insertRecent(user_sendid, user_receiveid);
 			mainDAO.insertRecent(user_receiveid, user_sendid);
+			
+			//mainDAO.deleteWaitById(wait);
 			return result;
 		}
 		return null;
