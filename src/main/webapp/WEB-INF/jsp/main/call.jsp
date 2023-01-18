@@ -69,7 +69,7 @@
 									<input type="radio" id="gender3" name="genderSelectRadio"  value="여자"><label for="gender3">여자</label>
 								</div>
 								<div class="call-btn-box">
-									<a href="#" id="call-btn" class="btn btn-custom">영상통화</a>
+									<a href="#" id="call-btn" class="btn btn-custom">랜덤영상통화 시작!</a>
 								</div>
 							</div>
 						</div>
@@ -93,7 +93,6 @@
 let localStream;
 var peer = new Peer();
 const inputLocalPeerId = document.getElementById("localPeerId");
-//console.log(inputLocalPeerId);
 navigator.mediaDevices.getUserMedia({video:true})
     .then(stream => {
         localStream = stream;
@@ -117,21 +116,51 @@ peer.on("open", id=> {
     });
 }); */
 $(document).ready(function(){
-	$('#call-btn').on('click', function(){
-		let localid = $('#localPeerId').val().trim();
-        let preference = $('input[name="genderSelectRadio"]:checked').val(); 
-        $.ajax({
-        	type : 'post',
-			url : '/wait_insert',
-			data : {localid, preference},
-			success : function(data) {
-				if (data.code == 100) {
-					alert("상대 찾기중");
+	
+	
+	//동적 클릭 이벤트
+	$(document).on("click", "#call-btn", function(){
+		
+		var btn = $('#call-btn').text();
+		
+		if (btn === '랜덤영상통화 시작!') {
+			$('#call-btn').text("매칭중");
+			let localid = $('#localPeerId').val().trim();
+	        let preference = $('input[name="genderSelectRadio"]:checked').val(); 
+	        $.ajax({
+	        	type : 'post'
+				,url : '/wait_insert'
+				,data : {localid, preference}
+				,success : function(result) {
+					console.log(result.result)
+					if(result.result === null) {
+						console.log("대기방 대기중")
+					} else {
+						console.log("매칭");
+					}
 				}
-			}
-        });
-	});
+	        });
+		} else {
+			$('#call-btn').text("랜덤영상통화 시작!");
+			$.ajax({
+				type : "DELETE"
+				,url : "/wait_delete"
+				,success : function(result) {
+					if(result.result > 0 ) {
+						console.log("삭제됨")
+					} else {
+						console.log("삭제오류있음.")
+					}
+					
+				}
+			})
+		}
+		
+	}) //동적이벤트 닫기
 });
+
+
+
 peer.on("call", call => {
     call.answer(localStream);
     call.on("stream", stream => {
