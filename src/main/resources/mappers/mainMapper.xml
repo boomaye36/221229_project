@@ -20,7 +20,6 @@
 			,#{preference}
 			,NOW()
 		)
-<<<<<<< HEAD
 		</insert>
 		
 		<select id="selectWait" parameterType="map" resultType="com.project.main.model.Wait">
@@ -33,8 +32,6 @@
 			AND
 				`preference` = #{user_gender}
 		</select>
-=======
-	</insert>
 	
 	<select id="selectWaitByGender" parameterType="com.project.main.model.Wait" resultType="com.project.main.model.Wait">
 		SELECT
@@ -51,7 +48,29 @@
 		AND
 			`preference` = #{user_gender}
 	</select>
+	<!-- recent 테이블 양방향 삽입 -->
+	<insert id="insertRecent" parameterType="map">
+		INSERT INTO `recent`
+		(
+			`user_sendid`
+			,`user_receiveid`
+			,`createdat`
+		)
+		VALUES
+		(
+			#{user_sendid}
+			,#{user_receiveid}
+			,NOW()
+		)
+		
+		
+	</insert>
 	
 	
->>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
+	<delete id="deleteWaitById" parameterType="com.project.main.model.Wait">
+		DELETE FROM
+			`wait`
+		WHERE
+			`user_id` = #{user_id}
+	</delete>
 </mapper>

@@ -122,17 +122,15 @@
 			let month = $('#mm').val().trim();
 			let day = $('#dd').val().trim();
 			// 생년월일 유효성 검사 
-			if ((year == '' || month == '' || day == '' ) && !(year == "" && month == "" && day == "") &&if ( year<1900 || year > 2023 || month <1 || month > 12 || day <1 || day >31 ) ){
+			if ((year == '' || month == '' || day == '' ) && !(year == "" && month == "" && day == "") && ( year < 1900 || year > 2023 || month < 1 || month > 12 || day < 1 || day > 31 )){
 				alert("생년월일을 확인하세요.");
 				return false;
 			}
+			// 생년월일이 null 이라면 null 파라미터로 전달하지 않음 
 			if (year != "" && month != "" && day != ""){
-				
-				
-			let date = year.concat("-", month, "-", day);
-			let birth = new Date(date);
-			formData.append("birth", birth);
-
+				let date = year.concat("-", month, "-", day);
+				let birth = new Date(date);
+				formData.append("birth", birth);
 			}
 
 			let area = $('#selectedRegion option:selected').val();
@@ -158,7 +156,6 @@
 				return false;
 				} 
 		 	 }
-			
 			
 			formData.append("area", area);
 			formData.append("intro", intro);
@@ -186,19 +183,6 @@
 				
 			});
 		});//회원가입 event 닫기
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 		
 	}); //document 닫기
 </script>
