@@ -37,6 +37,16 @@ public class MainBO {
 	}
 	
 	public User getWait(String user_gender, String preference) {
+		
 		return mainDAO.selectWait(user_gender, preference);
+	}
+	//대기방 삭제 event
+	public int deleteWait(Wait wait) {
+		
+		int result = mainDAO.deleteWaitById(wait);
+		if ( result > 0) {
+			return result;
+		} 
+		return 0;
 	}
 }
