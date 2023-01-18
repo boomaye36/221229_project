@@ -20,7 +20,6 @@
 			,#{preference}
 			,NOW()
 		)
-<<<<<<< HEAD
 		</insert>
 		
 		<select id="selectWait" parameterType="map" resultType="com.project.main.model.Wait">
@@ -33,8 +32,6 @@
 			AND
 				`preference` = #{user_gender}
 		</select>
-=======
-	</insert>
 	
 	<select id="selectWaitByGender" parameterType="com.project.main.model.Wait" resultType="com.project.main.model.Wait">
 		SELECT
@@ -69,5 +66,4 @@
 		
 	</insert>
 	
->>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
 </mapper>

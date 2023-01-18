@@ -9,13 +9,11 @@ import com.project.user.model.User;
 
 @Repository
 public interface MainDAO {
-<<<<<<< HEAD
 
 	public int insertWait(@Param("user_id")int user_id,@Param("localid") String localid,@Param("user_gender") String user_gender,@Param("preference") String preference);
 
 	public User selectWait(@Param("user_gender") String user_gender,@Param("preference") String preference);
 
-=======
 	
 	
 	//대기방 추가 event
@@ -23,11 +21,7 @@ public interface MainDAO {
 	
 	//대기방 조건확인 event
 	public Wait selectWaitByGender(Wait wait);
-<<<<<<< HEAD
 	
 	//매칭된 대상 insert
 	public void insertRecent(@Param("user_sendid")int user_sendid,@Param("user_receiveid")int user_receiveid);
-=======
->>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
->>>>>>> hyungeon
 }
