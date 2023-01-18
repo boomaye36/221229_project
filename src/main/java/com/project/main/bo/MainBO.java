@@ -4,7 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.main.dao.MainDAO;
+<<<<<<< HEAD
+import com.project.user.model.User;
+=======
 import com.project.main.model.Wait;
+>>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
 
 @Service
 public class MainBO {
@@ -33,5 +37,9 @@ public class MainBO {
 			return result;
 		}
 		return null;
+	}
+	
+	public User getWait(String user_gender, String preference) {
+		return mainDAO.selectWait(user_gender, preference);
 	}
 }

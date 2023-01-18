@@ -122,7 +122,11 @@
 			let month = $('#mm').val().trim();
 			let day = $('#dd').val().trim();
 			// 생년월일 유효성 검사 
+<<<<<<< HEAD
 			if ((year == '' || month == '' || day == '' ) && !(year == "" && month == "" && day == "")){
+=======
+			if ((year == '' || month == '' || day == '' ) && !(year == "" && month == "" && day == "") &&if ( year<1900 || year > 2023 || month <1 || month > 12 || day <1 || day >31 ) ){
+>>>>>>> hyungeon
 				alert("생년월일을 확인하세요.");
 				return false;
 			}
@@ -134,6 +138,10 @@
 			formData.append("birth", birth);
 
 			}
+<<<<<<< HEAD
+=======
+
+>>>>>>> hyungeon
 			let area = $('#selectedRegion option:selected').val();
 			let intro = $('.user_intro').val().trim();
 			let file = $('#file').val();
@@ -159,7 +167,10 @@
 		 	 }
 			
 			
+<<<<<<< HEAD
 			
+=======
+>>>>>>> hyungeon
 			formData.append("area", area);
 			formData.append("intro", intro);
 			formData.append("file", $('#file')[0].files[0]);

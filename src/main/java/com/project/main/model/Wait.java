@@ -4,13 +4,18 @@ import java.util.Date;
 
 public class Wait {
 
+<<<<<<< HEAD
+=======
 	
 	private int id;
+>>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
 	private int user_id;
 	private String localid;
 	private String user_gender;
 	private String preference;
 	private Date createdat;
+<<<<<<< HEAD
+=======
 	
 	public int getId() {
 		return id;
@@ -18,6 +23,7 @@ public class Wait {
 	public void setId(int id) {
 		this.id = id;
 	}
+>>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
 	public int getUser_id() {
 		return user_id;
 	}
@@ -50,8 +56,11 @@ public class Wait {
 	}
 	
 	
+<<<<<<< HEAD
+=======
 	
 	
 	
 	
+>>>>>>> 9535f3946b9a357216a3f6c6a24ab98ee57706c1
 }
