@@ -32,7 +32,7 @@
         <div class="signup-pwd">
             <b>비밀번호</b>
             <input class="userpw" type="password" id="user_password">
-            <small id="limitText" class="ml-1 showLimit d-none">4~12자의 영문 소문자, 숫자와 특수기호만 사용 가능합니다.</small>
+            <small id="limitText" class="ml-1 showLimit d-none">8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.</small>
         </div>
         <div class="signup-repwd">
             <b>비밀번호 재확인</b>
@@ -49,7 +49,6 @@
             <div>
                 <label class="mb-0"><input type="radio" name="gender" value="남자">남자</label>
                 <label class="mb-0 ml-2"><input type="radio" name="gender" value="여자">여자</label>
-                <label class="mb-0 ml-2"><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
@@ -64,12 +63,12 @@
             <b>휴대전화</b>
             <div>
                 <input type="tel" placeholder="전화번호 입력(-없이 숫자만 입력해주세요)" id="user_phonenumber" maxlength="11">
-                <input type="button" value="인증번호 받기" id="valid-phone">
+                <input type="button" value="인증번호 받기" id="valid-phone" class="valid-btn" >
             </div>
             
             <div class="d-flex">
 	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
-	            <input type="button" value="인증하기" id="cofirm-pn">
+	            <input type="button" value="인증하기" id="cofirm-pn" class="valid-btn" >
             </div>
         </div>
 
@@ -105,7 +104,7 @@ function move(result){
 	location.href = result;
 	
 }
-
+var status = 0;
 $(document).ready( function(){
 	
 	//아이디 중복확인 유효성 event
@@ -155,8 +154,6 @@ $(document).ready( function(){
 		e.preventDefault();
 		let phoneNumber = $('#user_phonenumber').val().trim();
 
-		//let user_phonenumber = '01064934287';
-		
 		$.ajax({
 			type:"POST"
 			, url : "/user/sendMessage"
@@ -173,7 +170,6 @@ $(document).ready( function(){
 	$('#cofirm-pn').on('click', function(e){
 		let pnconfirm = $('#pnconfirm').val().trim();
 		let phoneNumber = $('#user_phonenumber').val().trim();
-		var status = 0;
 
 		$.ajax({
 			type:"POST"

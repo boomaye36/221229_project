@@ -127,4 +127,26 @@
 		WHERE
 			`loginid` = #{loginid}
 	</update>
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
+	 	SELECT 
+	 		* 
+	 	FROM
+	 		`user`
+	 	WHERE 
+	 		`phonenumber` = #{phonenumber}
+	 	OR
+	 		`email` = #{email}
+	 		
+	</select>
+	
+	<select id="isExistUser" parameterType="map" resultType="boolean">
+		select count(1)
+		from
+			`user`
+		where
+			`loginid` = #{loginid}
+	</select>
+	
+	
 </mapper>

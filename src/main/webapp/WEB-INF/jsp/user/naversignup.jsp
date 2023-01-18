@@ -36,7 +36,6 @@
             <div>
                 <label class="mb-0"><input type="radio" name="gender" value="남자">남자</label>
                 <label class="mb-0 ml-2"><input type="radio" name="gender" value="여자">여자</label>
-                <label class="mb-0 ml-2"><input type="radio" name="gender" value="비공개">비공개</label>
             </div>
         </div>
         
@@ -47,11 +46,11 @@
             <b>휴대전화</b>
             <div>
                 <input type="tel" placeholder="전화번호 입력(-없이 숫자만 입력해주세요)" id="user_phonenumber" maxlength="11">
-                <input type="button" value="인증번호 받기" id="valid-phone">
+                <input type="button" value="인증번호 받기" id="valid-phone" class="valid-btn">
             </div>
             
             <div class="d-flex">
-	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요">
+	            <input type="number" id="pnconfirm" placeholder="인증번호를 입력하세요" class="valid-btn">
 	            <input type="button" value="인증하기" id="cofirm-pn">
             </div>
         </div>
@@ -87,6 +86,7 @@ function move(result){
 	location.href = result;
 	
 }
+var status = 0;
 
 $(document).ready( function(){
 	
@@ -156,7 +156,6 @@ $(document).ready( function(){
 	$('#cofirm-pn').on('click', function(e){
 		let pnconfirm = $('#pnconfirm').val().trim();
 		let phoneNumber = $('#user_phonenumber').val().trim();
-		var status = 0;
 		$.ajax({
 			type:"POST"
 			, url : "/user/confirmMessage"

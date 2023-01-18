@@ -48,3 +48,41 @@ a {
 	text-decoration: none !important; 
 	color: #000;
 }
+
+/* checkbox */
+.checkbox {
+	display: inline-block;
+	position: relative;
+	padding-top: 3px;
+}
+.checkbox > input[type="checkbox"] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	width: 1px;
+	height: 1px;
+	opacity: 0;
+}
+.checkbox > input[type="checkbox"] + span {
+	display: block;
+	position: relative;
+	padding-left: 28px;
+}
+.checkbox > input[type="checkbox"] + span:after {
+	display: block;
+	font-family: 'Material Icons';
+	content: 'radio_button_unchecked';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 20px;
+	height: 21px;
+	font-size: 20px;
+	color: #bbb;
+}
+.checkbox > input[type="checkbox"]:checked + span:after {
+	
+	content: 'check_circle';
+	color: #ee0979;
+}
