@@ -45,4 +45,10 @@ public class MainController {
 		session.removeAttribute("loginUser");
 		return "redirect:/user/sign-in";
 	}
+	
+	//영상통화 테스트
+	@GetMapping("/test")
+	public String test() {
+		return "/main/test";
+	}
 }
