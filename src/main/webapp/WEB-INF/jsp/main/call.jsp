@@ -117,6 +117,7 @@ peer.on("open", id=> {
     });
 }); */
 $(document).ready(function(){
+	
 	$('#call-btn').on('click', function(){
 		let localid = $('#localPeerId').val().trim();
         let preference = $('input[name="genderSelectRadio"]:checked').val(); 
@@ -124,9 +125,12 @@ $(document).ready(function(){
         	type : 'post',
 			url : '/wait_insert',
 			data : {localid, preference},
-			success : function(data) {
-				if (data.code == 100) {
-					alert("상대 찾기중");
+			success : function(result) {
+				console.log(result.result)
+				if(result.result === null) {
+					console.log("대기방 대기중")
+				} else {
+					console.log("매칭");
 				}
 			}
         });

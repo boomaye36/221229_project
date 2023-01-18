@@ -47,6 +47,7 @@ public class MainController {
 		return "redirect:/user/sign-in";
 	}
 	
+	//영상통화 테스트
 	@RequestMapping("/test")
 	public String test() {
 		return "/main/test";
