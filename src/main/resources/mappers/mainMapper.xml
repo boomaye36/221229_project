@@ -38,5 +38,10 @@
 			`preference` = #{user_gender}
 	</select>
 	
-	
+	<delete id="deleteWaitById" parameterType="com.project.main.model.Wait">
+		DELETE FROM
+			`wait`
+		WHERE
+			`user_id` = #{user_id}
+	</delete>
 </mapper>

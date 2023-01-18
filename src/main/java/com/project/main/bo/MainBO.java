@@ -29,4 +29,15 @@ public class MainBO {
 		}
 		return null;
 	}
+	
+	
+	//대기방 삭제 event
+	public int deleteWait(Wait wait) {
+		
+		int result = mainDAO.deleteWaitById(wait);
+		if ( result > 0) {
+			return result;
+		} 
+		return 0;
+	}
 }
