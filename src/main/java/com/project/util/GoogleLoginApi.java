@@ -2,7 +2,7 @@ package com.project.util;
 
 import com.github.scribejava.core.builder.api.DefaultApi20;
 
-public class GoogleLoginApi  extends DefaultApi20 {
+public class GoogleLoginApi extends DefaultApi20 {
 	protected GoogleLoginApi(){
 	    }
 
@@ -19,12 +19,14 @@ public class GoogleLoginApi  extends DefaultApi20 {
 	    @Override
 	    public String getAccessTokenEndpoint() {
 	        
-	        return "https://www.googleapis.com/oauth2/v4/token?"
+	        return "https://accounts.google.com/o/oauth2/token?"
 	        		
-	        		+ "  client_id=10488992723-vs8585mi2nsc4tsim89vf8icpeukops0.apps.googleusercontent.com&"
-	        		+ "  client_secret=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&"
-	        		+ "  redirect_uri=https://www.googleapis.com/auth/indexing&"
-	        		+ "  grant_type=authorization_code";
+	        		+ "code=4/0AWgavdcUzsPRpfTBEkn0YNpBg72sVZ1TEuaMzAEpJ9Dukie42gyNAW0Tg1oQy7pNqd_0zA"
+//	        		+ "&scope=https://www.googleapis.com/auth/androidpublisher"
+	        		+ "&client_id=10488992723-vs8585mi2nsc4tsim89vf8icpeukops0.apps.googleusercontent.com"
+	        		+ "&client_secret=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"
+	        		+ "&redirect_uri=http://localhost/redirect"
+	        		+ "&grant_type=authorization_code";
 
 	    }
 
