@@ -48,12 +48,14 @@
 
 							<!-- 카메라 표시 마이크 카메라 설정 -->
 							<div class="call-check-status">
-							    <input type="text" name="localPeerId" id="localPeerId"><br>
+							    <input type="text" name="localPeerId" id="localPeerId" class="d-none"><br>
+							    <input type="text" name="remotePeerId" id="remotePeerId"  class="d-none"><br>
 							
 								<br>
 								<br>
 								<video id="localVideo"></video>
 								<video id="remoteVideo"></video>
+								
 								<script src="https://unpkg.com/peerjs@1.4.7/dist/peerjs.min.js"></script>
 							</div>
 
@@ -93,7 +95,10 @@
 let localStream;
 var peer = new Peer();
 const inputLocalPeerId = document.getElementById("localPeerId");
-navigator.mediaDevices.getUserMedia({video:true})
+const inputRemotePeerId = document.getElementById("remotePeerId");
+
+//비디오 설정 
+navigator.mediaDevices.getUserMedia({video:true, audio:true})
     .then(stream => {
         localStream = stream;
         const videoElement = document.getElementById("localVideo");
@@ -105,22 +110,12 @@ peer.on("open", id=> {
 
 });
 
-/* btnCall.addEventListener("click", function(){
-    const remotePeerId = inputRemotePeerId.value;
-    const call = peer.call(remotePeerId, localStream);
-    call.on("stream", stream => {
-       const remoteVideo =  document.getElementById("remoteVideo");
-       remoteVideo.srcObject = stream;
-       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 
-    });
-}); */
 $(document).ready(function(){
 	
 	
 	//동적 클릭 이벤트
 	$(document).on("click", "#call-btn", function(){
-		
 		var btn = $('#call-btn').text();
 		
 		if (btn === '랜덤영상통화 시작!') {
@@ -137,17 +132,41 @@ $(document).ready(function(){
 						console.log("대기방 대기중")
 					} else {
 						console.log("매칭");
-						
-						alert(result.remoteid);
-					
-						document.location.href="/match?remoteid=" + result.remoteid;
+						// restcontroller의 result에서 remoteid값 가져
+						var remote = result.remoteid;
+						//input 태그의 값에 넣어줌 
+						$('input[name=remotePeerId]').attr('value',remote);
+						//var user = result.user_id;
+						//넣어준 remoteid값 가져옴 
+						const remotePeerId = inputRemotePeerId.value;
+					    const call = peer.call(remotePeerId, localStream);
+					    call.on("stream", stream => {
+					       const remoteVideo =  document.getElementById("remoteVideo");
+					       remoteVideo.srcObject = stream;
+					       remoteVideo.onloadedmetadata = () => remoteVideo.play();
+					      
+					    });
+					    // 매칭되면 recent 테이블 추가, wait테이블 삭제 ajax
+					    $.ajax({
+							type : "post"
+							,url : "/wait_delete"
+							,data : {"user_id":result.user_id}
+							,success : function(result) {
+								if(result.result > 0 ) {
+									console.log("삭제됨")
+								} else {
+									console.log("삭제오류있음.")
+								}
+								
+							}
+						});
 					}
 				}
 	        });
 		} else {
 			$('#call-btn').text("랜덤영상통화 시작!");
-			$.ajax({
-				type : "DELETE"
+			/* $.ajax({
+				type : "post"
 				,url : "/wait_delete"
 				,success : function(result) {
 					if(result.result > 0 ) {
@@ -157,10 +176,10 @@ $(document).ready(function(){
 					}
 					
 				}
-			})
+			});  */
 		}
 		
-	}) //동적이벤트 닫기
+	}); //동적이벤트 닫기
 });
 
 

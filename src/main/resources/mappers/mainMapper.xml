@@ -71,6 +71,13 @@
 		DELETE FROM
 			`wait`
 		WHERE
+			`user_id` = #{user_receiveid}
+	</delete>
+	
+	<delete id="deleteWait" parameterType="com.project.main.model.Wait">
+		DELETE FROM
+			`wait`
+		WHERE
 			`user_id` = #{user_id}
 	</delete>
 </mapper>

@@ -27,28 +27,24 @@ public class MainBO {
 		} 
 		//조건이 null 아닌경우 받아온 값 컨트롤러로 리턴
 		else {
-			//recent table에 insert
-			int user_sendid = result.getUser_id();
-			int user_receiveid = wait.getUser_id();
-//			String remoteid = result.getLocalid();
-//			String localid = wait.getLocalid();
-			mainDAO.insertRecent(user_sendid, user_receiveid);
-			mainDAO.insertRecent(user_receiveid, user_sendid);
 			
-			//mainDAO.deleteWaitById(wait);
 			return result;
 		}
 		return null;
 	}
 	
-	public User getWait(String user_gender, String preference) {
-		
-		return mainDAO.selectWait(user_gender, preference);
-	}
+	
 	//대기방 삭제 event
-	public int deleteWait(Wait wait) {
+	public int deleteWait(int user_receiveid, int user_sendid) {
+		//wait 테이블에 있는지
+
 		
-		int result = mainDAO.deleteWaitById(wait);
+		
+		// recent 테이블에 양방향 insert
+		mainDAO.insertRecent(user_sendid, user_receiveid);
+		mainDAO.insertRecent(user_receiveid, user_sendid);
+		//현재 로그인한 사람 delete
+		int result = mainDAO.deleteWaitById(user_receiveid);
 		if ( result > 0) {
 			return result;
 		} 
