@@ -18,8 +18,8 @@ public class GoogleLoginApi extends DefaultApi20 {
 	    
 	    @Override
 	    public String getAccessTokenEndpoint() {
-	        
-	        return "https://accounts.google.com/o/oauth2/token?"
+//	        return "https://accounts.google.com/o/oauth2/token?"
+	    	return "https://oauth2.googleapis.com/token?"
 	        		
 	        		+ "code=4/0AWgavdcUzsPRpfTBEkn0YNpBg72sVZ1TEuaMzAEpJ9Dukie42gyNAW0Tg1oQy7pNqd_0zA"
 //	        		+ "&scope=https://www.googleapis.com/auth/androidpublisher"
@@ -33,6 +33,6 @@ public class GoogleLoginApi extends DefaultApi20 {
 	    @Override
 	    protected String getAuthorizationBaseUrl() {
 	        // TODO Auto-generated method stub
-	        return"https://accounts.google.com/o/oauth2/v2/auth";
+	        return "https://accounts.google.com/o/oauth2/v2/auth";
 	    }
 }
