@@ -7,6 +7,7 @@ public class Recent {
 	private int user_sendid;
 	private int user_receiveid;
 	private Date createdat;
+	
 	public int getId() {
 		return id;
 	}
