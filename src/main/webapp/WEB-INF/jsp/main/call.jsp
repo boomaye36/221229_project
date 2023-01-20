@@ -176,9 +176,9 @@ $(document).ready(function(){
 		if (chatData != ''){
 			setInnerHTML(chatData);
 			$("#callChatInput").val('');
-		}else{
-		    $("#callChatInput").focus();
 		}
+	    $("#callChatInput").focus();
+
 	})
 	
 	
