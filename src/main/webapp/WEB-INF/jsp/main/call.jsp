@@ -86,14 +86,17 @@
 								</div>
 							</div>
 
+							<div class="call-middle d-flex">
+							
 							<!-- 매칭 옵션 체크 -->
-							<div class="call-search-option">
+							
+							<div class="call-search-option w-50">
 
 								<div class="call-gender-option-subject">
 									<span>성별 선택</span>
 								</div>
 								<div class="call-gender-option-content">
-									<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
+									<input type="radio" id="gender1" name="genderSelectRadio" value="모두" checked><label for="gender1">모두</label> 
 									<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
 									<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
 								</div>
@@ -101,6 +104,20 @@
 								<div class="call-btn-box">
 									<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
 								</div>
+							</div>
+							
+							<!--  채팅 -->
+							
+							<div class="call-chat w-50">
+								<div class="class-chat-record h-">
+									
+								</div>
+								<form class="d-flex" id="callChatForm">
+								<input type="text" class="form-control"> <!--  임시세팅  css 설정 변경 필요-->
+								<button type="submit" class="form-control">전송</button>   <!--  submit>> enter로 실행됨 -->
+								</form>
+							</div>
+							
 							</div>
 						</div>
 
