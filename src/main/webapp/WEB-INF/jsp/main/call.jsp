@@ -96,7 +96,7 @@
 									<span>성별 선택</span>
 								</div>
 								<div class="call-gender-option-content">
-									<input type="radio" id="gender1" name="genderSelectRadio" value="모두" checked><label for="gender1">모두</label> 
+									<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
 									<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
 									<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
 								</div>
@@ -163,23 +163,29 @@ $(document).ready(function(){
 	
 	// 채팅 div 에 내용 추가
 	function setInnerHTML(text) {
-		  const element = document.getElementById('callChatRecordArea');
-		  element.innerHTML += '<div>'+text+'<div>';
-		  element.scrollTop = element.scrollHeight; // 스크롤 강제로 내리기. 
-		  //채팅이 추가되면 강제로 스크롤이 내려가기때문에 상대 채팅중에 스크롤을 조정할 수 있게 하려면 추가 요소가 있어야 함
-		} 
+		const element = document.getElementById('callChatRecordArea');
+		
+		var eh = element.clientHeight + element.scrollTop; // 스크롤 현재 높이
+		var isScroll = element.scrollHeight <= eh;	// 스크롤 전체 높이 <= 스크롤 전체높이
+		
+		element.innerHTML += '<div>'+text+'<div>';	// 텍스트 추가
+		
+		if (isScroll){	
+			element.scrollTop = element.scrollHeight; // 스크롤이 최하단에 위치해있었을 경우에만 스크롤 위치 하단 고정
+														// 상대가 채팅 입력시 채팅로그 확인이 불가능하게 되는것을 막기 위함
+		}
+	} 
 	
 	// 채팅 input 테스트 - peerJs 의 send 영역에 들어가야. 
 	$("#callChatSubmitBtn").click ( function(e){
 		e.preventDefault();
 		var chatData = $("#callChatInput").val();
 		if (chatData != ''){
-			setInnerHTML(chatData);
+			setInnerHTML("내닉네임 : "+chatData);
 			$("#callChatInput").val('');
 		}
 		$("#callChatInput").focus();
-	})
-	
+	});
 	
 	
 	//카메라 on / off
@@ -301,6 +307,25 @@ $(document).ready(function(){
 					       remoteVideo.srcObject = stream;
 					       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 					      
+					       
+					       //Data connections
+					       //Connect
+					       var conn = peer.connect(remotePeerId);
+					       // on open will be launch when you successfully connect to PeerServer
+					       conn.on('open', function(){
+					         // here you have conn.id
+					      const chatInput = document.getElementById('callChatSubmitBtn');
+					      chatInput.onclick = function() { conn.send(chatData); };
+					       });
+					       //Receive
+					       peer.on('connection', function(conn) {
+					         conn.on('data', function(data){
+					           setInnerHTML('상대닉네임 : '+data);
+					         });
+					       });
+					       
+					       
+					       
 					    });
 					    
 					    $('#call-btn').text('멈춤');
