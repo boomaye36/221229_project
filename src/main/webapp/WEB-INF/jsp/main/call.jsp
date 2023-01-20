@@ -65,6 +65,10 @@
 									<input type="radio" id="gender2" name="genderSelectRadio"  value="남자"><label for="gender2">남자</label>
 									<input type="radio" id="gender3" name="genderSelectRadio"  value="여자"><label for="gender3">여자</label>
 								</div>
+								<div class="d-flex">
+									<button class="btn" id="camera-btn">카메라 off</button>
+									<button class="btn voice-btn">소리 off</button>
+								</div>
 								<div class="call-btn-box">
 									<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
 								</div>
@@ -109,8 +113,68 @@ peer.on("open", id=> {
 
 
 $(document).ready(function(){
-	
-	//변수차단 ( 뒤로가기 , 새로고침, 페이지 이동시 대기방테이블 삭제)
+	//카메라 on / off
+	$(document).on("click", "#camera-btn", function(){
+		if ($('#camera-btn').text() === "카메라 off"){
+			navigator.mediaDevices.getUserMedia({video:false, audio:true})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		/*  peer.on("open", id=> {
+		    inputLocalPeerId.value = id;
+		});  */
+		    $('#camera-btn').text("카메라 on");
+
+		}else{
+			navigator.mediaDevices.getUserMedia({video:true, audio:true})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		/*  peer.on("open", id=> {
+		    inputLocalPeerId.value = id;
+		}); */ 
+		    $('#camera-btn').text("카메라 off");
+
+		}
+	});
+	// 소리 on / off
+	$(document).on("click", ".voice-btn", function(){
+		if ($('.voice-btn').text() === "소리 off"){
+			navigator.mediaDevices.getUserMedia({video:true, audio:false})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		 peer.on("open", id=> {
+		    inputLocalPeerId.value = id;
+		}); 
+		    $('.voice-btn').text("소리 on");
+
+		}else{
+			navigator.mediaDevices.getUserMedia({video:true, audio:true})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		 peer.on("open", id=> {
+		    inputLocalPeerId.value = id;
+		}); 
+		    $('.voice-btn').text("카메라 off");
+
+		}
+	});
+
+	//변수차단 ( 뒤로가기 , 새로고침, 이동시 대기방테이블 삭제)
 	$(window).bind("beforeunload", function (e){
 		
 		$.ajax({
@@ -151,6 +215,7 @@ $(document).ready(function(){
 						$('#call-btn').text('멈춤');
 					} else {
 						console.log("매칭");
+						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
 						console.log(remote);
@@ -189,6 +254,8 @@ $(document).ready(function(){
 				}
 	        });
 		} else {
+			//멈춤버튼 누르면 연결 끊김 
+			peer.destroy();
 			$('#call-btn').text("랜덤영상통화 시작!");
 			$.ajax({
 				type : "DELETE"
