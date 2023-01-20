@@ -109,12 +109,12 @@
 							<!--  채팅 -->
 							
 							<div class="call-chat w-50">
-								<div class="class-chat-record h-">
+								<div id="callChatRecordArea">
 									
 								</div>
-								<form class="d-flex" id="callChatForm">
-								<input type="text" class="form-control"> <!--  임시세팅  css 설정 변경 필요-->
-								<button type="submit" class="form-control">전송</button>   <!--  submit>> enter로 실행됨 -->
+								<form class="d-flex" >
+								<input type="text" id="callChatInput" class="form-control" maxlength='50'> <!--  임시세팅  css 설정 변경 필요-->
+								<button type="submit" id="callChatSubmitBtn" class="form-control">전송</button>   <!--  submit>> enter로 실행됨 -->
 								</form>
 							</div>
 							
@@ -159,6 +159,30 @@ peer.on("open", id=> {
 
 
 $(document).ready(function(){
+	
+	
+	// 채팅 div 에 내용 추가
+	function setInnerHTML(text) {
+		  const element = document.getElementById('callChatRecordArea');
+		  element.innerHTML += '<div>'+text+'<div>';
+		  element.scrollTop = element.scrollHeight; // 스크롤 강제로 내리기. 
+		  //채팅이 추가되면 강제로 스크롤이 내려가기때문에 상대 채팅중에 스크롤을 조정할 수 있게 하려면 추가 요소가 있어야 함
+		} 
+	
+	// 채팅 input 테스트 - peerJs 의 send 영역에 들어가야. 
+	$("#callChatSubmitBtn").click ( function(e){
+		e.preventDefault();
+		var chatData = $("#callChatInput").val();
+		if (chatData != ''){
+			setInnerHTML(chatData);
+			$("#callChatInput").val('');
+		}else{
+		    $("#callChatInput").focus();
+		}
+	})
+	
+	
+	
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){

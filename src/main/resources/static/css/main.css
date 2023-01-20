@@ -195,11 +195,13 @@ footer {
 	font-size: 18px;
 	border-radius: 30px;
 }
-.class-chat-record {
+#callChatRecordArea {
 	height: 250px;
 	border: 1px solid #ddd;
+	overflow: auto;
+	overflow-x: none;
 }
-#callChatForm > button {
+#callChatSubmitBtn {
 	width: 100px;
 }
 
