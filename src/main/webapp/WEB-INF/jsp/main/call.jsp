@@ -64,7 +64,7 @@
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
 										<img src="/static/img/no.png"> <!-- 기본이미지 -->
-										<div class="user-nickname">상대방닉네임</div>
+										<div class="user-nickname"><input type="text" name="user-nickname"></div>
 									</div>
 								</div>
 							</div>
@@ -146,7 +146,6 @@ $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
-			alert(${user.nickname});
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -235,16 +234,20 @@ $(document).ready(function(){
 					if(result.result === null) {
 						console.log("대기방 대기중")
 						$('#call-btn').text('멈춤');
+						let nickname = result.nickname;
+						$('input[name=user-nickname]').attr('value', nickname);
+
 					} else {
 						console.log("매칭");
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-						console.log(remote);
+						let nickname = result.user.nickname;
 						var user_receiveid = result.result.user_id;
 						console.log(user_receiveid)
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
+						$('input[name=user-nickname]').attr('value', nickname);
 						
 						//넣어준 remoteid값 가져옴 
 						const remotePeerId = inputRemotePeerId.value;
@@ -279,7 +282,7 @@ $(document).ready(function(){
 			//멈춤버튼 누르면 연결 끊김 
 			peer.destroy();
 			$('#call-btn').text("랜덤영상통화 시작!");
-			$.ajax({
+			/* $.ajax({
 				type : "DELETE"
 				,url : "/wait_delete"
 				,success : function(result) {
@@ -291,7 +294,7 @@ $(document).ready(function(){
 					
 				}
 			});
-			
+			 */
 		} 
 		
 	}); //동적이벤트 닫기
