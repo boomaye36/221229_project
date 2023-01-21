@@ -45,13 +45,46 @@
 				<div class="content">
 					<div class="call-area border">
 						<div class="call-top">
-
+							<!-- user profile 영역 -->
+							<div class="call-user-profile-box">
+								<div class="user-profile">
+									<!-- 내 프로필 -->
+									<div class="profile">
+										<!-- <img src="/static/img/no.png"> --> <!-- 기본이미지 -->
+										<img src="/static/${user.profilephoto }"> 
+										<div class="user-nickname">${user.nickname}</div>
+									</div>
+									<!-- 카메라/마이크 on/off 버튼 -->
+									<div class="d-flex">
+										<button id="camera-btn"><span class="material-icons">videocam_off</span></button>
+										<button id="voice-btn" class="ml-1"><span class="material-icons">mic_off</span></button>
+									</div>
+								</div>
+								<div class="user-profile">
+									<!-- 상대방 프로필 -->
+									<div class="profile">									
+										<img src="/static/img/no.png"> <!-- 기본이미지 -->
+										<div class="user-nickname"><input type="text" name="user-nickname"></div>
+									</div>
+								</div>
+							</div>
+							
 							<!-- 카메라 표시 마이크 카메라 설정 -->
 							<div class="call-check-status">
-							    <input type="text" name="localPeerId" id="localPeerId" class="d-none">
-							    <input type="text" name="remotePeerId" id="remotePeerId"  class="d-none">
-								<video id="localVideo"></video>
-								<video id="remoteVideo"></video>
+								<!-- peerJS id input -->
+								<div class="peerid-input-box">
+								    <input type="text" name="localPeerId" id="localPeerId" class="d-none">
+								    <input type="text" name="remotePeerId" id="remotePeerId"  class="d-none">
+								</div>
+								<!-- 웹캠 -->
+								<div class="video-box">
+								    <div class="video">
+										<video id="localVideo"></video>
+								    </div>
+								    <div class="video">
+										<video id="remoteVideo"></video>
+								    </div>
+								</div>
 							</div>
 
 							<!-- 매칭 옵션 체크 -->
@@ -61,14 +94,11 @@
 									<span>성별 선택</span>
 								</div>
 								<div class="call-gender-option-content">
-									<input type="radio" id="gender1" name="genderSelectRadio"  value="모두"><label for="gender1">모두</label> 
-									<input type="radio" id="gender2" name="genderSelectRadio"  value="남자"><label for="gender2">남자</label>
-									<input type="radio" id="gender3" name="genderSelectRadio"  value="여자"><label for="gender3">여자</label>
+									<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
+									<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
+									<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
 								</div>
-								<div class="d-flex">
-									<button class="btn" id="camera-btn">카메라 off</button>
-									<button class="btn voice-btn">소리 off</button>
-								</div>
+								
 								<div class="call-btn-box">
 									<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
 								</div>
@@ -115,7 +145,7 @@ peer.on("open", id=> {
 $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
-		if ($('#camera-btn').text() === "카메라 off"){
+		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -123,10 +153,8 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		/*  peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		});  */
-		    $('#camera-btn').text("카메라 on");
+		
+		    $('#camera-btn > .material-icons').text("videocam");
 
 		}else{
 			navigator.mediaDevices.getUserMedia({video:true, audio:true})
@@ -136,16 +164,13 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		/*  peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		}); */ 
-		    $('#camera-btn').text("카메라 off");
-
+		
+		    $('#camera-btn > .material-icons').text("videocam_off");
 		}
 	});
 	// 소리 on / off
-	$(document).on("click", ".voice-btn", function(){
-		if ($('.voice-btn').text() === "소리 off"){
+	$(document).on("click", "#voice-btn", function(){
+		if ($('#voice-btn > .material-icons').text() === "mic_off"){
 			navigator.mediaDevices.getUserMedia({video:true, audio:false})
 			.then(stream => {
 		        localStream = stream;
@@ -153,10 +178,8 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		 peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		}); 
-		    $('.voice-btn').text("소리 on");
+		 
+		    $('#voice-btn > .material-icons').text("mic");
 
 		}else{
 			navigator.mediaDevices.getUserMedia({video:true, audio:true})
@@ -166,16 +189,14 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		 peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		}); 
-		    $('.voice-btn').text("카메라 off");
+		
+		    $('#voice-btn > .material-icons').text("mic_off");
 
 		}
 	});
 
 	//변수차단 ( 뒤로가기 , 새로고침, 이동시 대기방테이블 삭제)
-	$(window).bind("beforeunload", function (e){
+	$(window).bind("beforeunload", function(e){
 		
 		$.ajax({
 			type : "DELETE"
@@ -213,16 +234,20 @@ $(document).ready(function(){
 					if(result.result === null) {
 						console.log("대기방 대기중")
 						$('#call-btn').text('멈춤');
+						let nickname = result.nickname;
+						$('input[name=user-nickname]').attr('value', nickname);
+
 					} else {
 						console.log("매칭");
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-						console.log(remote);
+						let nickname = result.user.nickname;
 						var user_receiveid = result.result.user_id;
 						console.log(user_receiveid)
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
+						$('input[name=user-nickname]').attr('value', nickname);
 						
 						//넣어준 remoteid값 가져옴 
 						const remotePeerId = inputRemotePeerId.value;
@@ -257,7 +282,7 @@ $(document).ready(function(){
 			//멈춤버튼 누르면 연결 끊김 
 			peer.destroy();
 			$('#call-btn').text("랜덤영상통화 시작!");
-			$.ajax({
+				$.ajax({
 				type : "DELETE"
 				,url : "/wait_delete"
 				,success : function(result) {
@@ -269,7 +294,7 @@ $(document).ready(function(){
 					
 				}
 			});
-			
+			 
 		} 
 		
 	}); //동적이벤트 닫기
