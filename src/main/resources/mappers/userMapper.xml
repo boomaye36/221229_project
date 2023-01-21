@@ -50,8 +50,7 @@
 			`user`
 		WHERE
 			`loginid` = #{loginid}
-		AND
-			`password` = #{password}
+		
 	</select>
 	
 	<!-- 회원가입시 추가정보 업데이트 -->

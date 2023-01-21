@@ -118,6 +118,8 @@
 		//회원가입 event
 		$('#submit').on('click',function(e) {
 			//e.preventDefault();
+			let formData = new FormData();
+
 			let year = $('#yy').val().trim();
 			let month = $('#mm').val().trim();
 			let day = $('#dd').val().trim();
@@ -137,7 +139,6 @@
 			let intro = $('.user_intro').val().trim();
 			let file = $('#file').val();
 			let ext = file.split('.').pop().toLowerCase();
-			let formData = new FormData();
 			
 			
 			//파일 유효성 검사
