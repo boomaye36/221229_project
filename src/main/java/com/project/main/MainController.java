@@ -2,15 +2,19 @@ package com.project.main;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
+import com.project.user.bo.UserBO;
+import com.project.user.model.User;
 
 @Controller
 public class MainController {
-
+	@Autowired
+	private UserBO userBO;
 	// 메인페이지
 	@GetMapping("/main")
 	public String main() {
@@ -19,7 +23,11 @@ public class MainController {
 	
 	// 랜덤통화
 	@GetMapping("/call")
-	public String call() {
+	public String call(Model model, HttpSession session) {
+		User loginUser = (User) session.getAttribute("loginUser");
+		User user = userBO.getUserByLoginIdAndPassword(loginUser);
+		String nickname = user.getNickname();
+		model.addAttribute("user", user);
 		return "/main/call";
 	}
 	
@@ -55,11 +63,11 @@ public class MainController {
 		return "/main/test";
 	}
 	//remoteid model에 담아서 뷰로 넘김
-	@GetMapping("/match")
-	public String matched( @RequestParam("remoteid") String remoteid, Model model) {
-		//model.addAttribute("localid", localid);
-		model.addAttribute("remoteid", remoteid);
-		return "/main/match";
-		
-	}
+//	@GetMapping("/match")
+//	public String matched( @RequestParam("remoteid") String remoteid, Model model) {
+//		//model.addAttribute("localid", localid);
+//		model.addAttribute("remoteid", remoteid);
+//		return "/main/match";
+//		
+//	}
 }

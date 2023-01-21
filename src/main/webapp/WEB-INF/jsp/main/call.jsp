@@ -50,8 +50,9 @@
 								<div class="user-profile">
 									<!-- 내 프로필 -->
 									<div class="profile">
-										<img src="/static/img/no.png"> <!-- 기본이미지 -->
-										<div class="user-nickname">내닉네임</div>
+										<!-- <img src="/static/img/no.png"> --> <!-- 기본이미지 -->
+										<img src="/static/${user.profilephoto }"> 
+										<div class="user-nickname">${user.nickname}</div>
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
@@ -145,6 +146,7 @@ $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
+			alert(${user.nickname});
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -152,9 +154,7 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		/*  peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		});  */
+		
 		    $('#camera-btn > .material-icons').text("videocam");
 
 		}else{
@@ -165,11 +165,8 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		/*  peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		}); */ 
+		
 		    $('#camera-btn > .material-icons').text("videocam_off");
-
 		}
 	});
 	// 소리 on / off
@@ -182,9 +179,7 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		 peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		}); 
+		 
 		    $('#voice-btn > .material-icons').text("mic");
 
 		}else{
@@ -195,16 +190,14 @@ $(document).ready(function(){
 		        videoElement.srcObject = stream;
 		        videoElement.onloadedmetadata = () => videoElement.play();
 		    });
-		 peer.on("open", id=> {
-		    inputLocalPeerId.value = id;
-		}); 
+		
 		    $('#voice-btn > .material-icons').text("mic_off");
 
 		}
 	});
 
 	//변수차단 ( 뒤로가기 , 새로고침, 이동시 대기방테이블 삭제)
-	$(window).bind("beforeunload", function (e){
+	$(window).bind("beforeunload", function(e){
 		
 		$.ajax({
 			type : "DELETE"
