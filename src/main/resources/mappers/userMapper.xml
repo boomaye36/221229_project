@@ -148,5 +148,28 @@
 			`loginid` = #{loginid}
 	</select>
 	
-	
+	<!--call 페이지에서 연결된 상대방의 정보 가져오기 event -->
+	<select id="selectCallPageByUserid" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
+		SELECT
+			`id`
+			,`loginid`
+			,`password`
+			,`phonenumber`
+			,`nickname`
+			,`email`
+			,`path`
+			,`intro`
+			,`gender`
+			,`profilephoto`
+			,`birth`
+			,`area`
+			,`sanction`
+			,`deleted`
+			,`createdat`
+			,`updatedat`
+		FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</select>
 </mapper>

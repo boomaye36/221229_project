@@ -36,5 +36,9 @@ public interface UserDAO {
 
 	
 	public boolean isExistUser(@Param("loginid")String loginid);
+	
+	
+	//call 페이지에서 연결된 상대방의 정보 가져오기 event
+	public User selectCallPageByUserid(int id);
 
 }

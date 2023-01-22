@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.project.main.bo.MainBO;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
+import com.project.user.bo.UserBO;
 import com.project.user.model.User;
 
 @RestController
@@ -23,6 +24,9 @@ public class MainRestController {
 	
 	@Autowired
 	private MainBO mainBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	//영상통화 시작 event
 	@PostMapping("/wait_insert")
@@ -36,6 +40,12 @@ public class MainRestController {
 		
 		//대기방 추가메소드 호출
 		Wait response = mainBO.addWait(wait);
+		
+		if ( response != null) {
+			
+			User responseUser = userBO.findCallPageByUserid(response.getUser_id());
+			result.put("responseUser", responseUser);
+		}
 		result.put("result", response);
 		
 		return result;
@@ -68,7 +78,6 @@ public class MainRestController {
 		wait.setUser_id(loginUser.getId());
 		
 		int response = mainBO.deleteWait(wait);
-		
 		result.put("result", response);
 		
 		return result;
