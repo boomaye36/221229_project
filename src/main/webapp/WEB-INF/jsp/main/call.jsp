@@ -63,14 +63,11 @@
 								<div class="user-profile">
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
-<<<<<<< HEAD
 										<img src="/static/img/no.png"> <!-- 기본이미지 -->
 										<div class="user-nickname"><input type="text" name="user-nickname"></div>
 										<div class="user-nickname">상대방닉네임</div>
-=======
 										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
 										<div class="response-nickname user-nickname">상대방닉네임</div>
->>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
 									</div>
 								</div>
 							</div>
@@ -169,11 +166,8 @@ $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
-<<<<<<< HEAD
-=======
 			var nickname = $('.user-nickname').val()
 			alert(nickname);
->>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -270,10 +264,7 @@ $(document).ready(function(){
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-<<<<<<< HEAD
 						//let nickname = result.user.nickname;
-=======
->>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
 						var user_receiveid = result.result.user_id;
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
