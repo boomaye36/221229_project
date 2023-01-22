@@ -68,7 +68,6 @@ public class MainRestController {
 		wait.setUser_id(loginUser.getId());
 		
 		int response = mainBO.deleteWait(wait);
-		
 		result.put("result", response);
 		
 		return result;

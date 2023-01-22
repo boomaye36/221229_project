@@ -259,14 +259,9 @@ $(document).ready(function(){
 			$('#call-btn').text("랜덤영상통화 시작!");
 			$.ajax({
 				type : "DELETE"
-				,url : "/wait_delete"
+				,url : "/wait_out"
 				,success : function(result) {
-					if(result.result > 0 ) {
-						console.log("삭제됨")
-					} else {
-						console.log("삭제오류있음.")
-					}
-					
+					location.reload();
 				}
 			});
 			
