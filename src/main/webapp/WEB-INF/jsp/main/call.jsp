@@ -110,15 +110,17 @@
 								<div class="call-chat">
 									<div class="chat-box">
 										<!-- 채팅 내용 -->
-										<div class="chat">
+										<!-- <div class="chat">
 											<div class="user-nickname">닉네임</div>
 											<div class="chat-content">채팅내용</div>
+										</div> -->
+									</div>
+									<form>
+										<div class="input-box">
+											<input type="text" class="chat-input" placeholder="내용을 입력하세요">
+											<button type="submit" class="chat-send-btn">전송</button>
 										</div>
-									</div>
-									<div class="input-box">
-										<input type="text" class="chat-input" placeholder="내용을 입력하세요">
-										<button type="button" class="chat-send-btn">전송</button>
-									</div>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -158,8 +160,36 @@ peer.on("open", id=> {
 
 });
 
+// chat div영역 설정
+function setInnerHTML(text) {
+	const element = document.getElementsByClassName('chat-box').item(0);
+	
+	var eh = element.clientHeight + element.scrollTop; // 스크롤 현재 높이
+	var isScroll = element.scrollHeight <= eh;
+	
+	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">닉네임</span><span class="chat-content">'+text+'</span></div>';
+	
+	if (isScroll){	
+		element.scrollTop = element.scrollHeight; // 스크롤이 최하단에 위치해있었을 경우에만 스크롤 위치 하단 고정
+	} 
+}
+
+
 
 $(document).ready(function(){
+	
+	// 채팅 임시 세팅
+	$(".chat-send-btn").click ( function(e){
+		e.preventDefault();
+		var chatData = $(".chat-input").val();
+		if (chatData != ''){
+			setInnerHTML(chatData);
+			$(".chat-input").val('');
+		}
+		$(".chat-input").focus();
+	});
+	
+	
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
