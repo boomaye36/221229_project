@@ -51,8 +51,8 @@
 									<!-- 내 프로필 -->
 									<div class="profile">
 										<!-- <img src="/static/img/no.png"> --> <!-- 기본이미지 -->
-										<img src="/static/${user.profilephoto }"> 
-										<div class="user-nickname">${user.nickname}</div>
+										<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto }">
+										<div class="user-nickname">${sessionScope.loginUser.nickname}</div>
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
@@ -63,9 +63,14 @@
 								<div class="user-profile">
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
+<<<<<<< HEAD
 										<img src="/static/img/no.png"> <!-- 기본이미지 -->
 										<div class="user-nickname"><input type="text" name="user-nickname"></div>
 										<div class="user-nickname">상대방닉네임</div>
+=======
+										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
+										<div class="response-nickname user-nickname">상대방닉네임</div>
+>>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
 									</div>
 								</div>
 							</div>
@@ -88,20 +93,38 @@
 								</div>
 							</div>
 
-							<!-- 매칭 옵션 체크 -->
-							<div class="call-search-option">
-
-								<div class="call-gender-option-subject">
-									<span>성별 선택</span>
-								</div>
-								<div class="call-gender-option-content">
-									<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
-									<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
-									<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
+							<!-- 웹캠 하단영역 -->
+							<div class="d-flex">
+								<!-- 매칭 옵션 체크 -->
+								<div class="call-search-option">
+	
+									<div class="call-gender-option-subject">
+										<span>성별 선택</span>
+									</div>
+									<div class="call-gender-option-content">
+										<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
+										<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
+										<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
+									</div>
+									
+									<div class="call-btn-box">
+										<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
+									</div>
 								</div>
 								
-								<div class="call-btn-box">
-									<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
+								<!-- 채팅 -->
+								<div class="call-chat">
+									<div class="chat-box">
+										<!-- 채팅 내용 -->
+										<div class="chat">
+											<div class="user-nickname">닉네임</div>
+											<div class="chat-content">채팅내용</div>
+										</div>
+									</div>
+									<div class="input-box">
+										<input type="text" class="chat-input" placeholder="내용을 입력하세요">
+										<button type="button" class="chat-send-btn">전송</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -142,11 +165,15 @@ peer.on("open", id=> {
 });
 
 
-
 $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
+<<<<<<< HEAD
+=======
+			var nickname = $('.user-nickname').val()
+			alert(nickname);
+>>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -243,9 +270,11 @@ $(document).ready(function(){
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
+<<<<<<< HEAD
 						//let nickname = result.user.nickname;
+=======
+>>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
 						var user_receiveid = result.result.user_id;
-						console.log(user_receiveid)
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
 						//$('input[name=user-nickname]').attr('value', nickname);
@@ -259,6 +288,17 @@ $(document).ready(function(){
 					       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 					      
 					    });
+					    
+					    //원하는 조건의 상대방 id값
+					    var callNickname = result.responseUser.nickname;
+					    
+					    //원하는 조건의 상대방 프로필 값
+					    var callPhoto = result.responseUser.profilephoto;
+					    
+					    $('.response-nickname').text(callNickname)
+					    if (callPhoto != null) {
+					    	$('.respose-profilephoto').attr("src" , callPhoto);
+					    }
 					    
 					    $('#call-btn').text('멈춤');
 					    
@@ -285,14 +325,9 @@ $(document).ready(function(){
 			$('#call-btn').text("랜덤영상통화 시작!");
 				$.ajax({
 				type : "DELETE"
-				,url : "/wait_delete"
+				,url : "/wait_out"
 				,success : function(result) {
-					if(result.result > 0 ) {
-						console.log("삭제됨")
-					} else {
-						console.log("삭제오류있음.")
-					}
-					
+					location.reload();
 				}
 			});
 			 
@@ -305,7 +340,7 @@ $(document).ready(function(){
 });
 
 
-
+//전화를 받는 사람의 on 메소드
 peer.on("call", call => {
     call.answer(localStream);
     call.on("stream", stream => {
@@ -313,6 +348,23 @@ peer.on("call", call => {
         remoteVideo.srcObject = stream;
         remoteVideo.onloadedmetadata = () => remoteVideo.play();
     });
+    
+    $.ajax({
+    	type : "GET"
+    	,url : "/recent_check"
+    	,success : function(result) {
+    		var responseNickname = result.user.nickname;
+    		var responsePhoto = result.user.profilephoto;
+    		
+    		 $('.response-nickname').text(responseNickname)
+			    if (responsePhoto != null) {
+			    	$('.respose-profilephoto').attr("src" , responsePhoto);
+			    }
+    		
+    	}
+    })
 });
+
+
 </script>
 </html>

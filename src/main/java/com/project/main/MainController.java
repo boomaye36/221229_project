@@ -25,9 +25,7 @@ public class MainController {
 	@GetMapping("/call")
 	public String call(Model model, HttpSession session) {
 		User loginUser = (User) session.getAttribute("loginUser");
-		User user = userBO.getUserByLoginIdAndPassword(loginUser);
-		String nickname = user.getNickname();
-		model.addAttribute("user", user);
+		
 		return "/main/call";
 	}
 	

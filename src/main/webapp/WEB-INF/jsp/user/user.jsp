@@ -115,14 +115,15 @@ $(document).ready(function(){
 			, data : {loginid, password}
 			, success : function(data){
 				if (data.code == 100){
-					alert("로그인되었습니다.");
+					alert("로그인 되었습니다.");
 					document.location.href="/main";
 				} else {
-					//에러코드를 따로 잡아주세요.
+					alert("아이디/비밀번호가 일치하지 않습니다.");
 				}
 			}
 			, error : function(e) {
 				//에러코드를 따로 잡아주세요.
+				alert("로그인 에러. 관리자에게 문의하세요.");
 			}
 		});
 	}); // 로그인 버튼 클릭 event 닫기
