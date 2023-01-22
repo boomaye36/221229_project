@@ -161,13 +161,13 @@ peer.on("open", id=> {
 });
 
 // chat div영역 설정
-function setInnerHTML(text) {
+function setInnerHTML(nickname, text) {
 	const element = document.getElementsByClassName('chat-box').item(0);
 	
 	var eh = element.clientHeight + element.scrollTop; // 스크롤 현재 높이
 	var isScroll = element.scrollHeight <= eh;
 	
-	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">닉네임</span><span class="chat-content">'+text+'</span></div>';
+	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">'+nickname+'</span><span class="chat-content">'+text+'</span></div>';
 	
 	if (isScroll){	
 		element.scrollTop = element.scrollHeight; // 스크롤이 최하단에 위치해있었을 경우에만 스크롤 위치 하단 고정
@@ -181,12 +181,6 @@ $(document).ready(function(){
 	// 채팅 임시 세팅
 	$(".chat-send-btn").click ( function(e){
 		e.preventDefault();
-		var chatData = $(".chat-input").val();
-		if (chatData != ''){
-			setInnerHTML(chatData);
-			$(".chat-input").val('');
-		}
-		$(".chat-input").focus();
 	});
 	
 	
@@ -302,6 +296,27 @@ $(document).ready(function(){
 					      
 					    });
 					    
+					    // 채팅 임시 세팅
+					    const conn = peer.connect(remotePeerId);
+					    conn.on('open', function() {
+					    	// Receive messages
+					    	setInnerHTML('접속확인테스트','');  
+								
+					    		$(".chat-send-btn").click ( function(e){
+					    			var chatData = $(".chat-input").val();
+					    			if (chatData != ''){
+						    			conn.send(chatData);
+					    				setInnerHTML('내닉네임',chatData);
+					    				 $(".chat-input").val(''); 
+					    			}
+					    			$(".chat-input").focus(); 
+					    		});
+					    	conn.on('data', function(data) {
+					    		setInnerHTML('상대닉네임',data);
+					    	});
+					      }); 
+					    
+					    
 					    //원하는 조건의 상대방 id값
 					    var callNickname = result.responseUser.nickname;
 					    
@@ -378,6 +393,24 @@ peer.on("call", call => {
     })
 });
 
+// 채팅 임시 세팅
+peer.on('connection', function(conn) { 
+	setInnerHTML('매칭확인테스트','');
+
+	conn.on('data',data=>{
+		console.log(data);
+		setInnerHTML('상대닉네임',data);
+		$(".chat-send-btn").click ( function(e){
+			var chatData = $(".chat-input").val();
+			if (chatData != ''){
+    			conn.send(chatData);
+				setInnerHTML('내닉네임',chatData);
+				 $(".chat-input").val(''); 
+			}
+			$(".chat-input").focus(); 
+		});
+	});
+});
 
 </script>
 </html>
