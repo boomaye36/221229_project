@@ -60,6 +60,8 @@
 						<div class="user-button-box mt-3">
 							<input type="button" value="로그인" class="btn user-login-submit">
 							<!-- <input type="button" value="소셜로그인" class="user-login-social"> -->
+							<!-- 구글 로그인 -->
+							<a type="button" href="https://accounts.google.com/o/oauth2/v2/auth?client_id=10488992723-vs8585mi2nsc4tsim89vf8icpeukops0.apps.googleusercontent.com&redirect_uri=http://localhost/redirect&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&state=state_parameter_passthrough_value">구글로그인</a>
 							<!-- 네이버 로그인 -->					
  							<a type="button" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do" class="user-login-social">네이버 로그인</a>
  							<!-- 카카오 로그인 -->
