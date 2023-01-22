@@ -196,7 +196,7 @@ footer {
 	border-radius: 30px;
 }
 #callChatRecordArea {
-	height: 150px;
+	height: 250px;
 	border: 1px solid #ddd;
 	overflow: auto;
 	overflow-x: none;

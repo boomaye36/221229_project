@@ -97,7 +97,7 @@
 									<span>성별 선택</span>
 								</div>
 								<div class="call-gender-option-content">
-									<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
+									<input type="radio" id="gender1" name="genderSelectRadio" value="모두" checked><label for="gender1">모두</label> 
 									<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
 									<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
 								</div>
