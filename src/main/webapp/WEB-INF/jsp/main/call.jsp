@@ -65,6 +65,7 @@
 									<div class="profile">									
 										<img src="/static/img/no.png"> <!-- 기본이미지 -->
 										<div class="user-nickname"><input type="text" name="user-nickname"></div>
+										<div class="user-nickname">상대방닉네임</div>
 									</div>
 								</div>
 							</div>
@@ -242,12 +243,12 @@ $(document).ready(function(){
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-						let nickname = result.user.nickname;
+						//let nickname = result.user.nickname;
 						var user_receiveid = result.result.user_id;
 						console.log(user_receiveid)
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
-						$('input[name=user-nickname]').attr('value', nickname);
+						//$('input[name=user-nickname]').attr('value', nickname);
 						
 						//넣어준 remoteid값 가져옴 
 						const remotePeerId = inputRemotePeerId.value;

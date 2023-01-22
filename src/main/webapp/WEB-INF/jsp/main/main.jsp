@@ -31,7 +31,7 @@
 				<h1>La destinee</h1>
 				<h2>다양한 사람들을 만나보세요!</h2>
 				<div class="main-visual-btn-box text-center">
-					<a href="#scroll" class="btn btn-custom">랜덤화상채팅 시작!</a>
+					<a href="/call" class="btn btn-custom">랜덤화상채팅 시작!</a>
 				</div>
 			</div>
 		</section>

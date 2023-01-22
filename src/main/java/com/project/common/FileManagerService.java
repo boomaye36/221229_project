@@ -48,8 +48,8 @@ public class FileManagerService {
 		}
 		// 성공 했으면 이미지 url path를 리턴한다. (WebMvConfig 에서 매핑한 이미지 path)
 		// http://localhost/images/palang_16205468764/sun.png
-		System.out.println("/images/" + directoryName + file.getOriginalFilename());
 		return "/images/" + directoryName + file.getOriginalFilename();
+		//return "/img" + directoryName + file.getOriginalFilename();
 	}
 	public void deleteFile(String imagePath) {
 		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/post/", ""));
