@@ -175,6 +175,7 @@ footer {
 	text-align: center;
     font-weight: bold;
     color: #333;
+    user-select: none;
 }
 .call-gender-option-content label:hover {
 	background-color: #ddd;
@@ -194,6 +195,15 @@ footer {
 	line-height: 58px;
 	font-size: 18px;
 	border-radius: 30px;
+}
+#callChatRecordArea {
+	height: 250px;
+	border: 1px solid #ddd;
+	overflow: auto;
+	overflow-x: none;
+}
+#callChatSubmitBtn {
+	width: 100px;
 }
 
 
@@ -246,18 +256,26 @@ video {
 	border-left: 1px solid #dee2e6;
 }
 .call-chat .chat-box {
-	display: grid;
-	min-height: calc(100% - 40px);
+	height: 288px;
+	width: 100%;
+	overflow: auto;
+	overflow-x: none; 
+	/* display: grid; */
+	/* min-height: calc(100% - 40px); */
 }
 .call-chat .chat-box .chat {
-	display: flex;
+	/* display: flex; */
 	font-size: 14px;
+	margin-top: 10px;
 }
 .call-chat .chat-box .chat .user-nickname {
 	font-weight: 600;
+	width: max-content;
 }
 .call-chat .chat-box .chat .chat-content {
+	font-size: 14px;
 	margin-left: 10px;
+	word-break:break-all;
 }
 
 .call-chat .input-box {
