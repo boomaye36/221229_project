@@ -20,7 +20,9 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
 		.addResourceHandler("/images/**") // localhost 뒤에 주소 (웹주소)  http://localhost/images/palang_16205468764/sun.png
-		.addResourceLocations("file://" + FileManagerService.FILE_UPLOAD_PATH); //실제 파일 위치 경로 // mac의 경우 하나만 적어야함 file:/
+		.addResourceLocations("file:///" + FileManagerService.FILE_UPLOAD_PATH); //윈도우 3개
+//		.addResourceLocations("file://" + FileManagerService.FILE_UPLOAD_PATH); 맥은 2개
+		
 	}
 	
 	@Override
