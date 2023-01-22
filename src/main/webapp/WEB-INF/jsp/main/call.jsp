@@ -87,20 +87,38 @@
 								</div>
 							</div>
 
-							<!-- 매칭 옵션 체크 -->
-							<div class="call-search-option">
-
-								<div class="call-gender-option-subject">
-									<span>성별 선택</span>
-								</div>
-								<div class="call-gender-option-content">
-									<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
-									<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
-									<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
+							<!-- 웹캠 하단영역 -->
+							<div class="d-flex">
+								<!-- 매칭 옵션 체크 -->
+								<div class="call-search-option">
+	
+									<div class="call-gender-option-subject">
+										<span>성별 선택</span>
+									</div>
+									<div class="call-gender-option-content">
+										<input type="radio" id="gender1" name="genderSelectRadio" value="모두"><label for="gender1">모두</label> 
+										<input type="radio" id="gender2" name="genderSelectRadio" value="남자"><label for="gender2">남자</label>
+										<input type="radio" id="gender3" name="genderSelectRadio" value="여자"><label for="gender3">여자</label>
+									</div>
+									
+									<div class="call-btn-box">
+										<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
+									</div>
 								</div>
 								
-								<div class="call-btn-box">
-									<button type="button" id="call-btn" class="btn btn-custom" >랜덤영상통화 시작!</button>
+								<!-- 채팅 -->
+								<div class="call-chat">
+									<div class="chat-box">
+										<!-- 채팅 내용 -->
+										<div class="chat">
+											<div class="user-nickname">닉네임</div>
+											<div class="chat-content">채팅내용</div>
+										</div>
+									</div>
+									<div class="input-box">
+										<input type="text" class="chat-input" placeholder="내용을 입력하세요">
+										<button type="button" class="chat-send-btn">전송</button>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -139,7 +157,6 @@ peer.on("open", id=> {
     inputLocalPeerId.value = id;
 
 });
-
 
 
 $(document).ready(function(){
@@ -330,5 +347,7 @@ peer.on("call", call => {
     	}
     })
 });
+
+
 </script>
 </html>

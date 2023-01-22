@@ -109,6 +109,7 @@ footer {
 .call-user-profile-box .user-profile .profile {
 	display: flex;
 	align-items: center;
+	width: 100%;
 }
 .call-user-profile-box .user-profile:last-child {
 	border-left: 1px solid #dee2e6;
@@ -116,12 +117,12 @@ footer {
 .call-user-profile-box .user-profile img {
 	width: 100%;
 	max-width: 45px;
+	height: 45px;
 	border-radius: 50%;
 	object-fit: cover;
 }
 .call-user-profile-box .user-profile .user-nickname {
 	margin-left: 10px;
-	font-size: 17px;
 	font-weight: 600;
 }
 
@@ -145,7 +146,7 @@ footer {
 	height: 400px;
 }
 .call-search-option {
-	width: 100%;
+	width: 50%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -154,7 +155,7 @@ footer {
 .call-gender-option-content {
 	margin-top: 50px;
 	display: flex;
-	width: 50%;
+	width: 100%;
 	justify-content: space-evenly;
 }
 .call-gender-option-subject span{
@@ -238,3 +239,37 @@ video {
 	color: #999;
 }
 
+/* chat */
+.call-chat {
+	width: 50%;
+	padding: 10px;
+	border-left: 1px solid #dee2e6;
+}
+.call-chat .chat-box {
+	display: grid;
+	min-height: calc(100% - 40px);
+}
+.call-chat .chat-box .chat {
+	display: flex;
+	font-size: 14px;
+}
+.call-chat .chat-box .chat .user-nickname {
+	font-weight: 600;
+}
+.call-chat .chat-box .chat .chat-content {
+	margin-left: 10px;
+}
+
+.call-chat .input-box {
+	display: flex;
+}
+.call-chat .input-box .chat-input {
+	width: 100%;
+	height: 40px;
+	font-size: 14px;
+}
+.call-chat .input-box .chat-send-btn {
+	width: 50px;
+	font-size: 14px;
+	border: 1px solid #000;
+}
