@@ -86,7 +86,7 @@ public class MainRestController {
 	
 	//아웃
 	@DeleteMapping("/wait_out")
-	public Map<String, Object> deleteWait(HttpSession session, Model model){
+	public Map<String, Object> deleteWait(HttpSession session){
 		User loginUser = (User) session.getAttribute("loginUser");
 		Map<String, Object> result = new HashMap<>();
 		
@@ -94,5 +94,17 @@ public class MainRestController {
 		result.put("result", checkout);
 		return result;
 		
+	}
+	
+	
+	//응답받는사람 기준으로 상대방 정보 가져오기
+	@GetMapping("/recent_check")
+	public Map<String, Object> recentCheck(HttpSession session, Recent recent) {
+		User loginUser = (User) session.getAttribute("loginUser");
+		Map<String, Object> result = new HashMap<>();
+		int user_sendid = loginUser.getId();
+		User user = mainBO.recentCheck(user_sendid);
+		result.put("user", user);
+		return result;
 	}
 }

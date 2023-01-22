@@ -64,7 +64,7 @@
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
 										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
-										<div class="response-nickname">상대방닉네임</div>
+										<div class="response-nickname user-nickname">상대방닉네임</div>
 									</div>
 								</div>
 							</div>
@@ -256,14 +256,14 @@ $(document).ready(function(){
 					    });
 					    
 					    //원하는 조건의 상대방 id값
-					    var responseId = result.responseUser.loginid;
+					    var callNickname = result.responseUser.nickname;
 					    
 					    //원하는 조건의 상대방 프로필 값
-					    var responsePhoto = result.responseUser.profilephoto;
+					    var callPhoto = result.responseUser.profilephoto;
 					    
-					    $('.response-nickname').text(responseId)
-					    if (responsePhoto != null) {
-					    	$('.respose-profilephoto').attr("src" , responsePhoto)
+					    $('.response-nickname').text(callNickname)
+					    if (callPhoto != null) {
+					    	$('.respose-profilephoto').attr("src" , callPhoto);
 					    }
 					    
 					    $('#call-btn').text('멈춤');
@@ -306,7 +306,7 @@ $(document).ready(function(){
 });
 
 
-
+//전화를 받는 사람의 on 메소드
 peer.on("call", call => {
     call.answer(localStream);
     call.on("stream", stream => {
@@ -314,6 +314,21 @@ peer.on("call", call => {
         remoteVideo.srcObject = stream;
         remoteVideo.onloadedmetadata = () => remoteVideo.play();
     });
+    
+    $.ajax({
+    	type : "GET"
+    	,url : "/recent_check"
+    	,success : function(result) {
+    		var responseNickname = result.user.nickname;
+    		var responsePhoto = result.user.profilephoto;
+    		
+    		 $('.response-nickname').text(responseNickname)
+			    if (responsePhoto != null) {
+			    	$('.respose-profilephoto').attr("src" , responsePhoto);
+			    }
+    		
+    	}
+    })
 });
 </script>
 </html>
