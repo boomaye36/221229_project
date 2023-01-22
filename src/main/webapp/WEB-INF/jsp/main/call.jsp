@@ -51,8 +51,8 @@
 									<!-- 내 프로필 -->
 									<div class="profile">
 										<!-- <img src="/static/img/no.png"> --> <!-- 기본이미지 -->
-										<img src="/static/${user.profilephoto }"> 
-										<div class="user-nickname">${user.nickname}</div>
+										<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto }">
+										<div class="user-nickname">${sessionScope.loginUser.nickname}</div>
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
@@ -63,8 +63,8 @@
 								<div class="user-profile">
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
-										<img src="/static/img/no.png"> <!-- 기본이미지 -->
-										<div class="user-nickname">상대방닉네임</div>
+										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
+										<div class="response-nickname">상대방닉네임</div>
 									</div>
 								</div>
 							</div>
@@ -146,7 +146,8 @@ $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
-			alert(${user.nickname});
+			var nickname = $('.user-nickname').val()
+			alert(nickname);
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -240,9 +241,7 @@ $(document).ready(function(){
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-						console.log(remote);
 						var user_receiveid = result.result.user_id;
-						console.log(user_receiveid)
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
 						
@@ -255,6 +254,17 @@ $(document).ready(function(){
 					       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 					      
 					    });
+					    
+					    //원하는 조건의 상대방 id값
+					    var responseId = result.responseUser.loginid;
+					    
+					    //원하는 조건의 상대방 프로필 값
+					    var responsePhoto = result.responseUser.profilephoto;
+					    
+					    $('.response-nickname').text(responseId)
+					    if (responsePhoto != null) {
+					    	$('.respose-profilephoto').attr("src" , responsePhoto)
+					    }
 					    
 					    $('#call-btn').text('멈춤');
 					    
