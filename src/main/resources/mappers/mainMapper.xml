@@ -101,4 +101,23 @@
 		WHERE
 			`user_id` = #{user_id}
 	</delete>
+	
+	
+	<select id="selectRecentCheck" resultType="com.project.user.model.User" parameterType="int">
+		SELECT
+			user.id
+			,user.loginid
+			,user.nickname
+			,user.profilephoto
+		FROM
+			`recent`
+		LEFT JOIN `user`
+		ON 
+			recent.user_receiveid = user.id
+		WHERE
+			recent.user_sendid = #{user_sendid}
+		ORDER BY
+			recent.id DESC
+		LIMIT 1;
+	</select>
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.project.main.dao.MainDAO;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
+import com.project.user.model.User;
 
 @Service
 public class MainBO {
@@ -67,4 +68,11 @@ public class MainBO {
 		return 0;
 	}
 	
+	
+	
+	//응답받는사람 기준으로 상대방 정보 가져오기
+	public User recentCheck(int user_sendid) {
+		
+		return mainDAO.selectRecentCheck(user_sendid);
+	}
 }
