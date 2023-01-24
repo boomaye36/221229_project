@@ -411,23 +411,23 @@ peer.on('connection', function(conn) {
 	conn.on('data',data=>{
 		if (data['type']=='chatData'){
 		setInnerHTML(data['nickName'],data['chatContent']);
-			}
-		chatSend.onclick = function(e){
-			e.preventDefault();
-			var chatContent = document.getElementsByClassName("chat-input")[0].value;
-			if (chatContent != ''){
-				var chatData = {
-						"type":"chatData",
-						"nickName":nickName,
-						"chatContent":chatContent
-				}
-    			conn.send(chatData);
-				setInnerHTML(nickName,chatContent);
-				document.getElementsByClassName("chat-input")[0].value = null;
-			}
-			document.getElementsByClassName("chat-input")[0].focus(); 
-		};
+		}
 	});
+	chatSend.onclick = function(e){
+		e.preventDefault();
+		var chatContent = document.getElementsByClassName("chat-input")[0].value;
+		if (chatContent != ''){
+			var chatData = {
+					"type":"chatData",
+					"nickName":nickName,
+					"chatContent":chatContent
+			}
+   			conn.send(chatData);
+			setInnerHTML(nickName,chatContent);
+			document.getElementsByClassName("chat-input")[0].value = null;
+		}
+		document.getElementsByClassName("chat-input")[0].focus(); 
+	};
 });
 
 </script>
