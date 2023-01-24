@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,30 +20,24 @@ import com.project.user.model.User;
 
 @RestController
 public class MainRestController {
-	@Autowired
-	private UserBO userBO;
+	
 	@Autowired
 	private MainBO mainBO;
-<<<<<<< HEAD
-=======
 	
 	@Autowired
 	private UserBO userBO;
 	
->>>>>>> hyungeon
 	//영상통화 시작 event
 	@PostMapping("/wait_insert")
 	public Map<String, Object> insertWait(Wait wait, HttpSession session, Model model){
 		User loginUser = (User) session.getAttribute("loginUser");
 		Map<String, Object> result = new HashMap<>();
-		User user = userBO.getUserByLoginIdAndPassword(loginUser);
+		
 		//세션 아이디 값 및 성별 세팅
 		wait.setUser_id(loginUser.getId());
 		wait.setUser_gender(loginUser.getGender());
-		wait.setUser(user);
-		System.out.println("%%%%%%%%%%usernickname =  " + wait.getUser().getNickname());
+		
 		//대기방 추가메소드 호출
-		result.put("user", user);
 		Wait response = mainBO.addWait(wait);
 		
 		if ( response != null) {

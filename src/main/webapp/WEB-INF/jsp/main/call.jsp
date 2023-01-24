@@ -51,7 +51,7 @@
 									<!-- 내 프로필 -->
 									<div class="profile">
 										<!-- <img src="/static/img/no.png"> --> <!-- 기본이미지 -->
-										<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto }">
+										<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto}">
 										<div class="user-nickname">${sessionScope.loginUser.nickname}</div>
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
@@ -63,17 +63,8 @@
 								<div class="user-profile">
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
-<<<<<<< HEAD
-										<img src="/static/img/no.png"> <!-- 기본이미지 -->
-										<div class="user-nickname"><input type="text" name="user-nickname"></div>
-<<<<<<< HEAD
-=======
-										<div class="user-nickname">상대방닉네임</div>
-=======
 										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
 										<div class="response-nickname user-nickname">상대방닉네임</div>
->>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
->>>>>>> hyungeon
 									</div>
 								</div>
 							</div>
@@ -176,7 +167,7 @@ function setInnerHTML(text) {
 	var eh = element.clientHeight + element.scrollTop; // 스크롤 현재 높이
 	var isScroll = element.scrollHeight <= eh;
 	
-	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">닉네임</span><span class="chat-content">'+text+'</span></div>';
+	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">${sessionScope.loginUser.nickname}</span><span class="chat-content">'+text+'</span></div>';
 	
 	if (isScroll){	
 		element.scrollTop = element.scrollHeight; // 스크롤이 최하단에 위치해있었을 경우에만 스크롤 위치 하단 고정
@@ -202,14 +193,8 @@ $(document).ready(function(){
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
 		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-=======
 			var nickname = $('.user-nickname').val()
 			alert(nickname);
->>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
->>>>>>> hyungeon
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -298,30 +283,14 @@ $(document).ready(function(){
 					if(result.result === null) {
 						console.log("대기방 대기중")
 						$('#call-btn').text('멈춤');
-						let nickname = result.nickname;
-						$('input[name=user-nickname]').attr('value', nickname);
-
 					} else {
 						console.log("매칭");
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-<<<<<<< HEAD
-						let nickname = result.user.nickname;
-=======
-<<<<<<< HEAD
-						//let nickname = result.user.nickname;
-=======
->>>>>>> cdaeb4de13ac578915e01a1f1d0924b4d5635221
->>>>>>> hyungeon
 						var user_receiveid = result.result.user_id;
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
-<<<<<<< HEAD
-						$('input[name=user-nickname]').attr('value', nickname);
-=======
-						//$('input[name=user-nickname]').attr('value', nickname);
->>>>>>> hyungeon
 						
 						//넣어준 remoteid값 가져옴 
 						const remotePeerId = inputRemotePeerId.value;
@@ -367,22 +336,14 @@ $(document).ready(function(){
 			//멈춤버튼 누르면 연결 끊김 
 			peer.destroy();
 			$('#call-btn').text("랜덤영상통화 시작!");
-<<<<<<< HEAD
-			/* $.ajax({
-=======
-				$.ajax({
->>>>>>> hyungeon
+			$.ajax({
 				type : "DELETE"
 				,url : "/wait_out"
 				,success : function(result) {
 					location.reload();
 				}
 			});
-<<<<<<< HEAD
-			 */
-=======
-			 
->>>>>>> hyungeon
+			
 		} 
 		
 	}); //동적이벤트 닫기
