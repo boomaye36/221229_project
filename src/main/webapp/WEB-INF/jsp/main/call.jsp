@@ -252,9 +252,7 @@ $(document).ready(function(){
 			,error : function(){
 				
 			}
-			
 		})
-			
 	});
 	
 	//동적 클릭 이벤트
@@ -355,21 +353,13 @@ $(document).ready(function(){
 								
 							}
 						});
-					}
-				}
-	        });
+					} // success else 닫기
+				}// success 닫기
+	        }); //if닫기
 		} else {
 			//멈춤버튼 누르면 연결 끊김 
 			peer.destroy();
-			$('#call-btn').text("랜덤영상통화 시작!");
-			$.ajax({
-				type : "DELETE"
-				,url : "/wait_out"
-				,success : function(result) {
-					location.reload();
-				}
-			});
-			
+			location.reload();
 		} 
 		
 	}); //동적이벤트 닫기
@@ -430,5 +420,9 @@ peer.on('connection', function(conn) {
 	};
 });
 
+
+
+ 
+ 
 </script>
 </html>
