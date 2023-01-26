@@ -62,10 +62,10 @@ public class MainBO {
 		
 		int result = mainDAO.selectWaitByuserId(user_id);
 		if (result > 0) {
-			mainDAO.deleteWaitByuserId(user_id);
+			return mainDAO.deleteWaitByuserId(user_id);
+		} else {
+			return 0;
 		}
-		
-		return 0;
 	}
 	
 	
