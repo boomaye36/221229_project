@@ -2,6 +2,8 @@ package com.project.main.model;
 
 import java.util.Date;
 
+import com.project.user.model.User;
+
 public class Wait {
 
 	
@@ -11,7 +13,14 @@ public class Wait {
 	private String user_gender;
 	private String preference;
 	private Date createdat;
+	private User user;
 	
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 	public int getId() {
 		return id;
 	}

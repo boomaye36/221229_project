@@ -64,6 +64,9 @@
 								<div class="user-profile">
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
+										<img src="/static/img/no.png"> <!-- 기본이미지 -->
+										<div class="user-nickname"><input type="text" name="user-nickname"></div>
+										<div class="user-nickname">상대방닉네임</div>
 										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
 										<div class="response-nickname user-nickname">상대방닉네임</div>
 									</div>
@@ -175,6 +178,8 @@ function setInnerHTML(nickname, text) {
 	} 
 }
 
+
+
 const chatSend = document.getElementById("chatSend");
 const nickName = document.getElementById("userNickname").value;
 
@@ -186,57 +191,56 @@ $(document).ready(function(){
 		e.preventDefault();
 	};
 	
+	// 카메라 상태 함
+	function setCamera(x, y){
+		navigator.mediaDevices.getUserMedia({video:x, audio:y})
+		.then(stream => {
+	        localStream = stream;
+	        const videoElement = document.getElementById("localVideo");
+	        videoElement.srcObject = stream;
+	        videoElement.onloadedmetadata = () => videoElement.play();
+	    });
+	}
+	// 마이크 상태 정
+	var micstatus = null;
+	
 	//카메라 on / off
-	$(document).on("click", "#camera-btn", function(){
-		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
-			var nickname = $('.user-nickname').val()
-			alert(nickname);
-			navigator.mediaDevices.getUserMedia({video:false, audio:true})
-			.then(stream => {
-		        localStream = stream;
-		        const videoElement = document.getElementById("localVideo");
-		        videoElement.srcObject = stream;
-		        videoElement.onloadedmetadata = () => videoElement.play();
-		    });
-		
-		    $('#camera-btn > .material-icons').text("videocam");
 
-		}else{
-			navigator.mediaDevices.getUserMedia({video:true, audio:true})
-			.then(stream => {
-		        localStream = stream;
-		        const videoElement = document.getElementById("localVideo");
-		        videoElement.srcObject = stream;
-		        videoElement.onloadedmetadata = () => videoElement.play();
-		    });
-		
+	$(document).on("click", "#camera-btn", function(){
+		if (($('#camera-btn > .material-icons').text() === "videocam_off") && ($('#voice-btn > .material-icons').text() === "mic_off")){
+			setCamera(false, true)
+		    $('#camera-btn > .material-icons').text("videocam");
+		}
+		else if (($('#camera-btn > .material-icons').text() === "videocam_off") && ($('#voice-btn > .material-icons').text() === "mic")){
+			setCamera(false, micstatus )
+		    $('#camera-btn > .material-icons').text("videocam");
+		}
+		else if (($('#camera-btn > .material-icons').text() === "videocam") && ($('#voice-btn > .material-icons').text() === "mic")){
+			setCamera(true, false)
+		    $('#camera-btn > .material-icons').text("videocam_off");
+		}
+		else{
+			setCamera(true, true)
 		    $('#camera-btn > .material-icons').text("videocam_off");
 		}
 	});
 	// 소리 on / off
 	$(document).on("click", "#voice-btn", function(){
-		if ($('#voice-btn > .material-icons').text() === "mic_off"){
-			navigator.mediaDevices.getUserMedia({video:true, audio:false})
-			.then(stream => {
-		        localStream = stream;
-		        const videoElement = document.getElementById("localVideo");
-		        videoElement.srcObject = stream;
-		        videoElement.onloadedmetadata = () => videoElement.play();
-		    });
-		 
+		if (($('#voice-btn > .material-icons').text() === "mic_off") && ($('#camera-btn > .material-icons').text() === "videocam_off")){
+			setCamera(true, false)
 		    $('#voice-btn > .material-icons').text("mic");
-
-		}else{
-			navigator.mediaDevices.getUserMedia({video:true, audio:true})
-			.then(stream => {
-		        localStream = stream;
-		        const videoElement = document.getElementById("localVideo");
-		        videoElement.srcObject = stream;
-		        videoElement.onloadedmetadata = () => videoElement.play();
-		    });
-		
+		}
+		else if (($('#voice-btn > .material-icons').text() === "mic_off") && ($('#camera-btn > .material-icons').text() === "videocam")){
+			setCamera(false, false)
+		    $('#voice-btn > .material-icons').text("mic");
+		}
+		else if (($('#voice-btn > .material-icons').text() === "mic") && ($('#camera-btn > .material-icons').text() === "videocam_off")){
+			setCamera(true, true)
 		    $('#voice-btn > .material-icons').text("mic_off");
-
+		}
+		else{
+			setCamera(false, true)
+		    $('#voice-btn > .material-icons').text("mic_off");
 		}
 	});
 
@@ -282,6 +286,7 @@ $(document).ready(function(){
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
+						//let nickname = result.user.nickname;
 						var user_receiveid = result.result.user_id;
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);

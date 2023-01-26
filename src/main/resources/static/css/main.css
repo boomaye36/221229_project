@@ -252,18 +252,18 @@ video {
 /* chat */
 .call-chat {
 	width: 50%;
+	max-height: 348px;
 	padding: 10px;
 	border-left: 1px solid #dee2e6;
 }
 .call-chat .chat-box {
 	width: 100%;
-	overflow: auto;
-	overflow-x: none; 
-	/* display: grid; */
 	height: calc(100% - 40px);
+	overflow-y: auto;
+	overflow-x: hidden;
+	padding-bottom: 10px;
 }
 .call-chat .chat-box .chat {
-	/* display: flex; */
 	font-size: 14px;
 	margin-top: 10px;
 }
