@@ -1,5 +1,7 @@
 package com.project.main;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.main.bo.MainBO;
+import com.project.main.model.Friend;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
 
@@ -15,6 +19,8 @@ import com.project.user.model.User;
 public class MainController {
 	@Autowired
 	private UserBO userBO;
+	@Autowired
+	private MainBO mainBO;
 	// 메인페이지
 	@GetMapping("/main")
 	public String main() {
@@ -31,13 +37,23 @@ public class MainController {
 	
 	// 친구추천
 	@GetMapping("/recommend")
-	public String recommend() {
+	public String recommend(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		List<User> userList = mainBO.getUserList(user);
+		model.addAttribute("userList", userList);
 		return "/main/recommend";
 	}
 	
 	//친구목록
 	@GetMapping("/friend")
-	public String friend() {
+	public String friend(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		int id = user.getId();
+		List<User> requestList = mainBO.getFriend(id);
+		List<User> friendList = mainBO.getRealFriend(id);
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("friendList", friendList);
+
 		return "/main/friend";
 	}
 	
@@ -60,12 +76,5 @@ public class MainController {
 	public String test() {
 		return "/main/test";
 	}
-	//remoteid model에 담아서 뷰로 넘김
-//	@GetMapping("/match")
-//	public String matched( @RequestParam("remoteid") String remoteid, Model model) {
-//		//model.addAttribute("localid", localid);
-//		model.addAttribute("remoteid", remoteid);
-//		return "/main/match";
-//		
-//	}
+	
 }

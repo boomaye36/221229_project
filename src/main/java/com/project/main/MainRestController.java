@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.main.bo.MainBO;
@@ -104,6 +105,31 @@ public class MainRestController {
 		int user_sendid = loginUser.getId();
 		User user = mainBO.recentCheck(user_sendid);
 		result.put("user", user);
+		return result;
+	}
+	
+	// 친구 테이블 추가
+	@PostMapping("/friend_insert")
+	public Map<String, Object> insertFriend(HttpSession session, @RequestParam int user_receiveid ){
+		User loginUser = (User) session.getAttribute("loginUser");
+		int user_sendid = loginUser.getId();
+		int add = mainBO.addFriend(user_sendid, user_receiveid);
+		Map<String, Object> result = new HashMap<>();
+
+		if (add > 0) {
+			result.put("code", 100);
+		}
+		return result;
+	}
+	// 친구 수락/거절 여부에 따라 상태 업데이트
+	@PostMapping("/friend_update")
+	public Map<String, Object> updateFriend(@RequestParam int user_id, @RequestParam String confirm, Model model){
+		int update = mainBO.updateFriend(user_id, confirm);
+		Map<String, Object> result = new HashMap<>();
+		if (update > 0) {
+			result.put("code", 100);
+			
+		}
 		return result;
 	}
 }

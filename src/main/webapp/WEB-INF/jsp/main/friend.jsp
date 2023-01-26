@@ -18,6 +18,8 @@
 	
 	<!-- css -->
 	<link href="/static/css/main.css" rel="stylesheet" />
+		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 </head>
 <body>
 	<div class="main-wrap">
@@ -30,7 +32,18 @@
 			<div class="container">
 				<!-- content -->
 				<div class="content">
-					친구목록
+					<!-- 친구 요청 목록 -->
+					<c:forEach items="${requestList}" var="request">
+						${request.nickname }
+						<button id="friend-yes" data-friend-id="${request.id}">수락</button>
+						<button id="friend-no" data-friend-id="${request.id}">거절</button>
+					</c:forEach>
+				<!--친구 수락된 목록 -->
+					<c:forEach items="${friendList}" var="friend">
+						${friend.nickname }
+					</c:forEach>
+				
+				
 				</div>
 			</div>
 		</section>
@@ -39,4 +52,41 @@
 		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
+<script>
+$(document).ready(function(){
+	// 수락 버튼 
+	$('#friend-yes').on('click', function(){
+		let user_id = $(this).data('friend-id');
+		let confirm = '수락';
+		$.ajax({
+			type : 'post',
+			url : "/friend_update",
+			data : {user_id, confirm},
+			success:function(data){
+				if (data.code == 100){
+					alert("친구 확인");
+					location.reload();
+				}
+			}
+		});
+	});
+	
+	//거절 버튼
+	$('#friend-no').on('click', function(){
+		let user_id = $(this).data('friend-id');
+		let confirm = '거절';
+		$.ajax({
+			type : 'post',
+			url : "/friend_update",
+			data : {user_id, confirm},
+			success:function(data){
+				if (data.code == 100){
+					alert("친구 확인");
+					location.reload();
+				}
+			}
+		});
+	});
+});
+</script>
 </html>

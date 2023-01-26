@@ -1,11 +1,13 @@
 package com.project.main.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import com.project.main.model.Friend;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
-
 import com.project.user.model.User;
 
 @Repository
@@ -36,4 +38,16 @@ public interface MainDAO {
 	//응답받는사람 기준으로 상대방 정보 가져오기
 	public User selectRecentCheck(int user_sendid);
 	
+	public List<User> selectUserList(User user);
+
+	public int insertFriend(@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);
+
+
+	public List<User> selectFriend(@Param("id")int id);
+	
+	public List<User> selectRealFriend(@Param("id") int id);
+
+	
+	public int updateFriend(@Param("user_id")int user_id, @Param("confirm")String confirm);
+
 }
