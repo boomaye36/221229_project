@@ -51,8 +51,9 @@
 									<!-- 내 프로필 -->
 									<div class="profile">
 										<!-- <img src="/static/img/no.png"> --> <!-- 기본이미지 -->
-										<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto}">
+										<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto }">
 										<div class="user-nickname">${sessionScope.loginUser.nickname}</div>
+										<input type="hidden" id="userNickname" value="${sessionScope.loginUser.nickname}">
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
@@ -118,7 +119,7 @@
 									<form>
 										<div class="input-box">
 											<input type="text" class="chat-input" placeholder="내용을 입력하세요">
-											<button type="submit" class="chat-send-btn">전송</button>
+											<button type="submit" id="chatSend" class="chat-send-btn">전송</button>
 										</div>
 									</form>
 								</div>
@@ -161,34 +162,29 @@ peer.on("open", id=> {
 });
 
 // chat div영역 설정
-function setInnerHTML(text) {
-	const element = document.getElementsByClassName('chat-box').item(0);
+function setInnerHTML(nickname, text) {
+	const element = document.getElementsByClassName("chat-box")[0];
 	
 	var eh = element.clientHeight + element.scrollTop; // 스크롤 현재 높이
 	var isScroll = element.scrollHeight <= eh;
 	
-	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">${sessionScope.loginUser.nickname}</span><span class="chat-content">'+text+'</span></div>';
+	element.innerHTML += '<div class="chat">'+'<span class="user-nickname">'+nickname+'</span><span class="chat-content">'+text+'</span></div>';
 	
 	if (isScroll){	
 		element.scrollTop = element.scrollHeight; // 스크롤이 최하단에 위치해있었을 경우에만 스크롤 위치 하단 고정
 	} 
 }
 
-
+const chatSend = document.getElementById("chatSend");
+const nickName = document.getElementById("userNickname").value;
 
 $(document).ready(function(){
 	
-	// 채팅 임시 세팅
-	$(".chat-send-btn").click ( function(e){
-		e.preventDefault();
-		var chatData = $(".chat-input").val();
-		if (chatData != ''){
-			setInnerHTML(chatData);
-			$(".chat-input").val('');
-		}
-		$(".chat-input").focus();
-	});
 	
+	// 채팅 임시 세팅
+	chatSend.onclick = function(e){
+		e.preventDefault();
+	};
 	
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
@@ -295,12 +291,42 @@ $(document).ready(function(){
 						//넣어준 remoteid값 가져옴 
 						const remotePeerId = inputRemotePeerId.value;
 					    const call = peer.call(remotePeerId, localStream);
+
 					    call.on("stream", stream => {
 					       const remoteVideo =  document.getElementById("remoteVideo");
 					       remoteVideo.srcObject = stream;
 					       remoteVideo.onloadedmetadata = () => remoteVideo.play();
 					      
 					    });
+					    
+					    // 채팅 세팅
+					    const conn = peer.connect(remotePeerId);
+					    conn.on('open', function() {
+					    	// Receive messages
+					    	setInnerHTML('접속확인테스트','');  
+								
+					    		chatSend.onclick = function(e){
+					    			e.preventDefault();
+					    			var chatContent = document.getElementsByClassName("chat-input")[0].value;
+					    			if (chatContent != ''){
+					    				var chatData = {
+					    						"type":"chatData",
+					    						"nickName":nickName,
+					    						"chatContent":chatContent
+					    				}
+						    			conn.send(chatData);
+					    				setInnerHTML(nickName,chatContent);
+					    				document.getElementsByClassName("chat-input")[0].value = null;
+					    			}
+					    			document.getElementsByClassName("chat-input")[0].focus(); 
+					    		};
+					    	conn.on('data', function(data) {
+					    		if (data['type']=='chatData'){
+					    			setInnerHTML(data['nickName'],data['chatContent']);
+					    				}
+					    	});
+					      }); 
+					    
 					    
 					    //원하는 조건의 상대방 id값
 					    var callNickname = result.responseUser.nickname;
@@ -378,6 +404,31 @@ peer.on("call", call => {
     })
 });
 
+// 채팅 세팅
+peer.on('connection', function(conn) { 
+	setInnerHTML('매칭확인테스트','');
+
+	conn.on('data',data=>{
+		if (data['type']=='chatData'){
+		setInnerHTML(data['nickName'],data['chatContent']);
+			}
+		chatSend.onclick = function(e){
+			e.preventDefault();
+			var chatContent = document.getElementsByClassName("chat-input")[0].value;
+			if (chatContent != ''){
+				var chatData = {
+						"type":"chatData",
+						"nickName":nickName,
+						"chatContent":chatContent
+				}
+    			conn.send(chatData);
+				setInnerHTML(nickName,chatContent);
+				document.getElementsByClassName("chat-input")[0].value = null;
+			}
+			document.getElementsByClassName("chat-input")[0].focus(); 
+		};
+	});
+});
 
 </script>
 </html>

@@ -256,12 +256,11 @@ video {
 	border-left: 1px solid #dee2e6;
 }
 .call-chat .chat-box {
-	height: 288px;
 	width: 100%;
 	overflow: auto;
 	overflow-x: none; 
 	/* display: grid; */
-	/* min-height: calc(100% - 40px); */
+	height: calc(100% - 40px);
 }
 .call-chat .chat-box .chat {
 	/* display: flex; */
@@ -274,6 +273,7 @@ video {
 }
 .call-chat .chat-box .chat .chat-content {
 	font-size: 14px;
+	line-height: 18px;
 	margin-left: 10px;
 	word-break:break-all;
 }
