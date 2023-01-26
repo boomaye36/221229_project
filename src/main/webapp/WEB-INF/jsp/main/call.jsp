@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,8 +61,8 @@
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
-										<button id="camera-btn"><span class="material-icons">videocam_off</span></button>
-										<button id="voice-btn" class="ml-1"><span class="material-icons">mic_off</span></button>
+										<button id="camera-btn" class="icon-btn"><span class="material-icons">videocam_off</span></button>
+										<button id="voice-btn" class="icon-btn ml-1"><span class="material-icons">mic_off</span></button>
 									</div>
 								</div>
 								<div class="user-profile">
@@ -92,7 +96,6 @@
 							<div class="d-flex">
 								<!-- 매칭 옵션 체크 -->
 								<div class="call-search-option">
-	
 									<div class="call-gender-option-subject">
 										<span>성별 선택</span>
 									</div>
@@ -111,10 +114,6 @@
 								<div class="call-chat">
 									<div class="chat-box">
 										<!-- 채팅 내용 -->
-										<!-- <div class="chat">
-											<div class="user-nickname">닉네임</div>
-											<div class="chat-content">채팅내용</div>
-										</div> -->
 									</div>
 									<form>
 										<div class="input-box">
@@ -125,11 +124,27 @@
 								</div>
 							</div>
 						</div>
-
-						<div class="call-bottom">
-
-							<!-- 매칭 이력 -->
-
+					</div>
+					
+					<!-- 매칭 이력 -->	
+					<div class="call-history">
+						<div class="history-title">매칭이력</div>
+						<div class="history-content">
+							<c:forEach begin="1" end="6">
+								<div class="content-list d-flex justify-content-between">
+									<div class="user-profile-box">
+										<div class="user-img">
+											<img src="/static/img/no.png"> <!-- 기본이미지 -->
+										</div>
+										<div class="user-nickname">최근통화상대닉네임</div>
+									</div>
+									<div class="util-box">
+										<div class="history">1분 전</div>
+										<button type="button" class="icon-btn add-user-btn"><span class="material-icons">person_add</span></button>
+										<button type="button" class="icon-btn ml-1 block-user-btn"><span class="material-icons">block</span></button>
+									</div>
+								</div>		
+							</c:forEach>
 						</div>
 					</div>
 				</div>
@@ -253,9 +268,7 @@ $(document).ready(function(){
 			,error : function(){
 				
 			}
-			
 		})
-			
 	});
 	
 	//동적 클릭 이벤트
@@ -379,21 +392,13 @@ $(document).ready(function(){
 								
 							}
 						});
-					}
-				}
-	        });
+					} // success else 닫기
+				}// success 닫기
+	        }); //if닫기
 		} else {
 			//멈춤버튼 누르면 연결 끊김 
 			peer.destroy();
-			$('#call-btn').text("랜덤영상통화 시작!");
-			$.ajax({
-				type : "DELETE"
-				,url : "/wait_out"
-				,success : function(result) {
-					location.reload();
-				}
-			});
-			
+			location.reload();
 		} 
 		
 	}); //동적이벤트 닫기
@@ -478,5 +483,9 @@ peer.on('connection', function(conn) {
 	};
 });
 
+
+
+ 
+ 
 </script>
 </html>

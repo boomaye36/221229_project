@@ -88,7 +88,12 @@
 	
 	<select id="selectWaitByuserId" parameterType="int" resultType="int">
 		SELECT
-			*
+			`id`
+			,`user_id`
+			,`localid`
+			,`user_gender`
+			,`preference`
+			,`createdat`
 		FROM
 			`wait`
 		WHERE

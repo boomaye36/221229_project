@@ -126,7 +126,7 @@ footer {
 	font-weight: 600;
 }
 
-#camera-btn, #voice-btn {
+.icon-btn {
 	border: none;
 	outline: none;
 	color: #444;
@@ -136,7 +136,7 @@ footer {
 	border: 1px solid #ddd;
 	background: transparent;
 }
-#camera-btn:focus, #voice-btn:focus {
+.icon-btn:focus {
 	border: 1px solid #ddd;
 	outline: none;
 }
@@ -290,4 +290,43 @@ video {
 	width: 50px;
 	font-size: 14px;
 	border: 1px solid #000;
+}
+
+.call-history .history-title {
+	padding-top: 80px;
+	font-size: 30px;
+	font-weight: 600;
+}
+.call-history .history-content {
+	padding: 20px 0;
+	display: grid;
+	grid-template-columns: repeat(2, 50%);
+}
+.history-content .content-list {
+	padding: 5px 10px;
+}
+.history-content .user-profile-box {
+	display: flex;
+	align-items: center;
+}
+.user-profile-box .user-img {
+	max-width: 45px;
+	height: 45px;
+}
+.user-profile-box .user-img > img {
+	width: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+}
+.user-profile-box .user-nickname {
+	margin-left: 10px;
+}
+.history-content .util-box {
+	display: flex;
+	align-items: center;
+}
+.util-box .history {
+	margin-right: 15px;
+	font-size: 14px;
+	color: #999;
 }
