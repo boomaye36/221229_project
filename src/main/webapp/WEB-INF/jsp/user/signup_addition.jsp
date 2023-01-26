@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 <!-- jquery : ajax, bootstrap, datepicker -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -25,14 +25,13 @@
 	crossorigin="anonymous"></script>
 
 <!-- css -->
-<link rel="stylesheet" href="/static/css/style.css">
+<link rel="stylesheet" href="/static/css/user.css">
 </head>
 <body class="signup-body">
 
 	<div class="signup">
 		<!-- 1. 로고 -->
-		<h2 class="signup-logo" onclick="move('/user/sign-in')">회원가입 추가정보
-			가입</h2>
+		<h2 class="signup-logo" onclick="move('/user/sign-in')">회원가입 추가정보</h2>
 
 		<!-- 2. 생년월일 -->
 		<div class="signup-birth">
@@ -87,8 +86,9 @@
 			<span><a href="#none">xxxxx World Corp.</a></span>
 		</div>
 	</div>
-
 </body>
+
+
 
 <script type="text/javascript">
 	//onclick 용

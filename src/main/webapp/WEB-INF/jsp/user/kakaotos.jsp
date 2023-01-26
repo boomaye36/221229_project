@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 <!-- jquery : ajax, bootstrap, datepicker -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -28,7 +28,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 	
 	<!-- css -->
-	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/user.css">
 </head>
 <body class="tos-body">
 
@@ -38,7 +38,7 @@
 
 		<!-- 약관동의안내 -->
 		<div class="tos-top">
-			xxx계정 <br> 서비스 약관에 동의해 주세요.
+			서비스 약관에 동의해 주세요.
 		</div>
 		<div class="tos-middle mb-2">
 			<label class="checkbox">
@@ -81,8 +81,8 @@
 		</div>
 
 	</div>
-
 </body>
+
 <script type="text/javascript">
 	//onclick 용
 	function move(result) {

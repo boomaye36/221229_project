@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 <!-- jquery : ajax, bootstrap, datepicker -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -131,6 +131,7 @@
 						<div class="history-title">매칭이력</div>
 						<div class="history-content">
 							<c:forEach begin="1" end="6">
+								<!-- 매칭되었던 유저 리스트 -->
 								<div class="content-list d-flex justify-content-between">
 									<div class="user-profile-box">
 										<div class="user-img">
@@ -140,8 +141,8 @@
 									</div>
 									<div class="util-box">
 										<div class="history">1분 전</div>
-										<button type="button" class="icon-btn add-user-btn"><span class="material-icons">person_add</span></button>
-										<button type="button" class="icon-btn ml-1 block-user-btn"><span class="material-icons">block</span></button>
+										<button type="button" title="친구추가" class="icon-btn add-user-btn"><span class="material-icons">person_add</span></button>
+										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn"><span class="material-icons">block</span></button>
 									</div>
 								</div>		
 							</c:forEach>
