@@ -64,12 +64,9 @@
 								<div class="user-profile">
 									<!-- 상대방 프로필 -->
 									<div class="profile">									
-<<<<<<< HEAD
 										<img src="/static/img/no.png"> <!-- 기본이미지 -->
 										<div class="user-nickname"><input type="text" name="user-nickname"></div>
 										<div class="user-nickname">상대방닉네임</div>
-=======
->>>>>>> master
 										<img src="/static/img/no.png" class="respose-profilephoto"> <!-- 기본이미지 -->
 										<div class="response-nickname user-nickname">상대방닉네임</div>
 									</div>
@@ -194,9 +191,7 @@ $(document).ready(function(){
 	
 	//카메라 on / off
 	$(document).on("click", "#camera-btn", function(){
-		if ($('#camera-btn > .material-icons').text() === "videocam_off"){
-			var nickname = $('.user-nickname').val()
-			alert(nickname);
+		if (($('#camera-btn > .material-icons').text() === "videocam_off") && ($('#voice-btn > .material-icons').text() === "mic_off")){
 			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -207,7 +202,32 @@ $(document).ready(function(){
 		
 		    $('#camera-btn > .material-icons').text("videocam");
 
-		}else{
+		}
+		else if (($('#camera-btn > .material-icons').text() === "videocam_off") && ($('#voice-btn > .material-icons').text() === "mic")){
+			navigator.mediaDevices.getUserMedia({video:false, audio:false})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		
+		    $('#camera-btn > .material-icons').text("videocam");
+
+		}
+		else if (($('#camera-btn > .material-icons').text() === "videocam") && ($('#voice-btn > .material-icons').text() === "mic")){
+			navigator.mediaDevices.getUserMedia({video:true, audio:false})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		
+		    $('#camera-btn > .material-icons').text("videocam_off");
+
+		}
+		else{
 			navigator.mediaDevices.getUserMedia({video:true, audio:true})
 			.then(stream => {
 		        localStream = stream;
@@ -221,7 +241,7 @@ $(document).ready(function(){
 	});
 	// 소리 on / off
 	$(document).on("click", "#voice-btn", function(){
-		if ($('#voice-btn > .material-icons').text() === "mic_off"){
+		if (($('#voice-btn > .material-icons').text() === "mic_off") && ($('#camera-btn > .material-icons').text() === "videocam_off")){
 			navigator.mediaDevices.getUserMedia({video:true, audio:false})
 			.then(stream => {
 		        localStream = stream;
@@ -232,8 +252,33 @@ $(document).ready(function(){
 		 
 		    $('#voice-btn > .material-icons').text("mic");
 
-		}else{
+		}
+		else if (($('#voice-btn > .material-icons').text() === "mic_off") && ($('#camera-btn > .material-icons').text() === "videocam")){
+			navigator.mediaDevices.getUserMedia({video:false, audio:false})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		 
+		    $('#voice-btn > .material-icons').text("mic");
+
+		}
+		else if (($('#voice-btn > .material-icons').text() === "mic") && ($('#camera-btn > .material-icons').text() === "videocam_off")){
 			navigator.mediaDevices.getUserMedia({video:true, audio:true})
+			.then(stream => {
+		        localStream = stream;
+		        const videoElement = document.getElementById("localVideo");
+		        videoElement.srcObject = stream;
+		        videoElement.onloadedmetadata = () => videoElement.play();
+		    });
+		 
+		    $('#voice-btn > .material-icons').text("mic_off");
+
+		}
+		else{
+			navigator.mediaDevices.getUserMedia({video:false, audio:true})
 			.then(stream => {
 		        localStream = stream;
 		        const videoElement = document.getElementById("localVideo");
@@ -290,10 +335,7 @@ $(document).ready(function(){
 						
 						// 원하는 조건의 상대방 카메라 id 값
 						var remote = result.result.localid;
-<<<<<<< HEAD
 						//let nickname = result.user.nickname;
-=======
->>>>>>> master
 						var user_receiveid = result.result.user_id;
 						//input 상대방 태그의 값에 넣어줌 
 						$('input[name=remotePeerId]').attr('value', remote);
