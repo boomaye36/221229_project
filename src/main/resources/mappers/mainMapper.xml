@@ -44,9 +44,9 @@
 		FROM
 			`wait`
 		WHERE
-			`user_gender` = #{preference}
+			(`user_gender` = #{preference} OR #{preference} = '모두')
 		AND
-			`preference` = #{user_gender}
+			(`preference` = #{user_gender} OR `preference` = '모두')
 	</select>
 	<!-- recent 테이블 양방향 삽입 -->
 	<insert id="insertRecent" parameterType="com.project.main.model.Recent">
