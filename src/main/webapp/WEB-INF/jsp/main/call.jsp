@@ -204,7 +204,7 @@ $(document).ready(function(){
 		e.preventDefault();
 	};
 	
-	// 카메라 상태 함
+	// 카메라 상태 함수 
 	function setCamera(x, y){
 		navigator.mediaDevices.getUserMedia({video:x, audio:y})
 		.then(stream => {
@@ -214,7 +214,7 @@ $(document).ready(function(){
 	        videoElement.onloadedmetadata = () => videoElement.play();
 	    });
 	}
-	// 마이크 상태 정
+	// 마이크 상태 정보
 	var micstatus = null;
 	
 	//카메라 on / off
@@ -293,8 +293,6 @@ $(document).ready(function(){
 				,success : function(result) {
 					if(result.result === null) {
 						console.log("대기방 대기중")
-						setInnerHTML("매칭 대기중","");
-						
 						$('#call-btn').text('멈춤');
 					} else {
 						console.log("매칭");
@@ -321,15 +319,21 @@ $(document).ready(function(){
 					    const conn = peer.connect(remotePeerId);
 					    conn.on('open', function() {
 					    	// Receive messages
-					    	setInnerHTML('대기방에 입장하였습니다.','');  
-					    	
+					    	setInnerHTML('접속확인테스트','');  
 					    	$(document).on("click", "#call-btn", async function(){
-						   		conn.close();
+					    		var closeMessage = {
+			    						"type":"system",
+			    						"content":"close"
+			    				}
+				    			conn.send(closeMessage);
+						   		//conn.close();
+						   		
 						   		chatSend.onclick = function(e){
 						   			e.preventDefault();
 						    		}
 					    	});
 					    		
+					    	
 					    		chatSend.onclick = function(e){
 					    			e.preventDefault();
 					    			var chatContent = document.getElementsByClassName("chat-input")[0].value;
@@ -350,18 +354,15 @@ $(document).ready(function(){
 					    			setInnerHTML(data['nickName'],data['chatContent']);
 					    				}
 					    		else if (data['type']=='system'){
-					    			
+					    			if (data['content'] == "close"){
+					    				setInnerHTML("통화가 종료되었습니다","");
+					    				conn.close();
+					    		   		chatSend.onclick = function(e){
+					    		   			e.preventDefault();
+					    		    		}
+					    			}
 					    		}
 					    	});
-					    	
-					    	conn.on('close', function() { 
-					    		setInnerHTML('통화가 종료되었습니다.','');
-					    		peer.destroy();
-					    		chatSend.onclick = function(e){
-			    		   			e.preventDefault();
-			    		    		};
-					    	});
-					    	
 					      }); 
 					    
 					    
@@ -435,19 +436,32 @@ peer.on("call", call => {
 
 // 채팅 세팅
 peer.on('connection', function(conn) { 
-	setInnerHTML('상대가 입장하였습니다.','');
+	setInnerHTML('매칭확인테스트','');
 
 	conn.on('data',data=>{
+		console.log(data);
 		if (data['type']=='chatData'){
 		setInnerHTML(data['nickName'],data['chatContent']);
 		}
- 		else if (data['type']=='system'){
- 			
-		} 
+		else if (data['type']=='system'){
+			if (data['content'] == "close"){
+				setInnerHTML("통화가 종료되었습니다","");
+				conn.close();
+		   		chatSend.onclick = function(e){
+		   			e.preventDefault();
+		    		}
+			}
+		}
 	});
 	
 	$(document).on("click", "#call-btn", async function(){
-   		conn.close();
+		var closeMessage = {
+				"type":"system",
+				"content":"close"
+		}
+		conn.send(closeMessage);
+   		//conn.close();
+   		
    		chatSend.onclick = function(e){
    			e.preventDefault();
     		}
@@ -468,14 +482,6 @@ peer.on('connection', function(conn) {
 		}
 		document.getElementsByClassName("chat-input")[0].focus(); 
 	};
-	
-	conn.on('close', function() { 
-		setInnerHTML('통화가 종료되었습니다.','');
-		peer.destroy();
-		chatSend.onclick = function(e){
-   			e.preventDefault();
-    		};
-	});
 });
 
 

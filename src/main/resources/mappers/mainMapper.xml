@@ -125,4 +125,83 @@
 			recent.id DESC
 		LIMIT 1;
 	</select>
+	<!-- 친구 추천 목록 -->
+	<select id="selectUserList" resultType="com.project.user.model.User" parameterType="com.project.user.model.User">
+	SELECT
+		*
+	FROM
+		`user`
+	WHERE
+		`id`
+	NOT IN 
+		(#{id})
+	AND
+		`id`
+	NOT IN
+		(SELECT `user_receiveid` FROM `friend` WHERE (`user_sendid` = #{id}) OR (`user_receiveid` = #{id}))
+	LIMIT 5
+	</select>
+	<insert id="insertFriend" parameterType="map">
+		INSERT IGNORE INTO
+			`friend`
+		(
+			`user_sendid`
+			,`user_receiveid`
+			,`confirm`
+			,`createdat`
+			,`updatedat`
+		)
+		VALUES
+		(
+			#{user_sendid},
+			#{user_receiveid},
+			'승인중',
+			NOW(),
+			NOW()
+		)
+	</insert>
+	<!-- 친구 요청 목록 -->
+	<select id="selectFriend" resultType="map" parameterType="com.project.user.model.User">
+		SELECT
+			*
+		FROM
+			`user`
+		WHERE
+			`id`
+		IN
+			(SELECT  `user_sendid` FROM `friend`
+				WHERE
+					`user_receiveid` = #{id}
+				AND
+					`confirm` = '승인중')
+			
+	</select>
+	
+	<!-- 친구 수락 목록 -->
+	<select id="selectRealFriend" resultType="map" parameterType="com.project.user.model.User">
+		SELECT
+			*
+		FROM
+			`user`
+		WHERE
+			`id`
+		IN
+			(SELECT  `user_sendid` FROM `friend`
+				WHERE
+					`user_receiveid` = #{id}
+				AND
+					`confirm` = '수락')
+			
+	</select>
+	
+	<update id="updateFriend" parameterType="com.project.main.model.Friend">
+		UPDATE
+			`friend`
+		SET
+			`confirm` = #{confirm},
+			`updatedat` = NOW()
+		WHERE
+			`user_sendid` = #{user_id}
+	
+	</update>
 </mapper>
