@@ -61,8 +61,8 @@
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
-										<button id="camera-btn"><span class="material-icons">videocam_off</span></button>
-										<button id="voice-btn" class="ml-1"><span class="material-icons">mic_off</span></button>
+										<button id="camera-btn" class="icon-btn"><span class="material-icons">videocam_off</span></button>
+										<button id="voice-btn" class="icon-btn ml-1"><span class="material-icons">mic_off</span></button>
 									</div>
 								</div>
 								<div class="user-profile">
@@ -126,25 +126,22 @@
 						</div>
 					</div>
 					
+					<!-- 매칭 이력 -->	
 					<div class="call-history">
-						<!-- 매칭 이력 -->	
-						<div class="history-title">
-							매칭이력
-						</div>
-						
+						<div class="history-title">매칭이력</div>
 						<div class="history-content">
-							<c:forEach begin="1" end="4">
-								<div class="d-flex justify-content-between">
+							<c:forEach begin="1" end="6">
+								<div class="content-list d-flex justify-content-between">
 									<div class="user-profile-box">
 										<div class="user-img">
 											<img src="/static/img/no.png"> <!-- 기본이미지 -->
 										</div>
-										<div class="user-nickname">상대방닉네임</div>
+										<div class="user-nickname">최근통화상대닉네임</div>
 									</div>
-									<div class="btn-box">
+									<div class="util-box">
 										<div class="history">1분 전</div>
-										<button type="button" class="add-user-btn">친구추가</button>
-										<button type="button" class="block-user-btn">차단</button>
+										<button type="button" class="icon-btn add-user-btn"><span class="material-icons">person_add</span></button>
+										<button type="button" class="icon-btn ml-1 block-user-btn"><span class="material-icons">block</span></button>
 									</div>
 								</div>		
 							</c:forEach>
