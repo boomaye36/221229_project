@@ -304,7 +304,20 @@ $(document).ready(function(){
 					    conn.on('open', function() {
 					    	// Receive messages
 					    	setInnerHTML('접속확인테스트','');  
-								
+					    	$(document).on("click", "#call-btn", async function(){
+					    		var closeMessage = {
+			    						"type":"system",
+			    						"content":"close"
+			    				}
+				    			conn.send(closeMessage);
+						   		//conn.close();
+						   		
+						   		chatSend.onclick = function(e){
+						   			e.preventDefault();
+						    		}
+					    	});
+					    		
+					    	
 					    		chatSend.onclick = function(e){
 					    			e.preventDefault();
 					    			var chatContent = document.getElementsByClassName("chat-input")[0].value;
@@ -324,6 +337,15 @@ $(document).ready(function(){
 					    		if (data['type']=='chatData'){
 					    			setInnerHTML(data['nickName'],data['chatContent']);
 					    				}
+					    		else if (data['type']=='system'){
+					    			if (data['content'] == "close"){
+					    				setInnerHTML("통화가 종료되었습니다","");
+					    				conn.close();
+					    		   		chatSend.onclick = function(e){
+					    		   			e.preventDefault();
+					    		    		}
+					    			}
+					    		}
 					    	});
 					      }); 
 					    
@@ -409,25 +431,49 @@ peer.on('connection', function(conn) {
 	setInnerHTML('매칭확인테스트','');
 
 	conn.on('data',data=>{
+		console.log(data);
 		if (data['type']=='chatData'){
 		setInnerHTML(data['nickName'],data['chatContent']);
+		}
+		else if (data['type']=='system'){
+			if (data['content'] == "close"){
+				setInnerHTML("통화가 종료되었습니다","");
+				conn.close();
+		   		chatSend.onclick = function(e){
+		   			e.preventDefault();
+		    		}
 			}
-		chatSend.onclick = function(e){
-			e.preventDefault();
-			var chatContent = document.getElementsByClassName("chat-input")[0].value;
-			if (chatContent != ''){
-				var chatData = {
-						"type":"chatData",
-						"nickName":nickName,
-						"chatContent":chatContent
-				}
-    			conn.send(chatData);
-				setInnerHTML(nickName,chatContent);
-				document.getElementsByClassName("chat-input")[0].value = null;
-			}
-			document.getElementsByClassName("chat-input")[0].focus(); 
-		};
+		}
 	});
+	
+	$(document).on("click", "#call-btn", async function(){
+		var closeMessage = {
+				"type":"system",
+				"content":"close"
+		}
+		conn.send(closeMessage);
+   		//conn.close();
+   		
+   		chatSend.onclick = function(e){
+   			e.preventDefault();
+    		}
+	});
+	
+	chatSend.onclick = function(e){
+		e.preventDefault();
+		var chatContent = document.getElementsByClassName("chat-input")[0].value;
+		if (chatContent != ''){
+			var chatData = {
+					"type":"chatData",
+					"nickName":nickName,
+					"chatContent":chatContent
+			}
+   			conn.send(chatData);
+			setInnerHTML(nickName,chatContent);
+			document.getElementsByClassName("chat-input")[0].value = null;
+		}
+		document.getElementsByClassName("chat-input")[0].focus(); 
+	};
 });
 
 </script>
