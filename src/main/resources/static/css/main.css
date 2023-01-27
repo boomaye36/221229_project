@@ -346,3 +346,72 @@ video {
 	font-size: 13px;
 	color: #999;
 }
+
+
+/* my page */
+.mypage-profile-area {
+	display: flex;
+	align-items: center;
+}
+.mypage-profile-area .img-box {
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+	border: 2px solid #ee0979;
+}
+.mypage-profile-area .img-box > img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+	padding: 3px;
+}
+
+.mypage-profile-area .info-box {
+	margin-left: 60px;
+	display: grid;
+	row-gap: 25px;
+}
+.mypage-profile-area .info-box .info .loginid {
+	font-size: 32px;
+	font-weight: 600;
+}
+.mypage-profile-area .info-box .info .nickname {
+	font-size: 20px;
+	color: #999;
+	margin-top: 12px;
+}
+.info-box .info.middle {
+	display: flex;
+	align-items: center;
+	font-size: 17px;
+	color: #333;
+}
+.info-box .info.middle .area, .info-box .info.middle .gender {
+	margin-left: 10px;
+}
+.info-box .info.middle .area:before, .info-box .info.middle .gender:before {
+	content: '|';
+	color: #ccc;
+	padding-right: 10px;
+}
+.info-box .info.bottom {
+	font-size: 17px;
+	color: #333;
+}
+.info-box .info.bottom .phonenumber {
+	display: flex;
+}
+.info-box .info.bottom .email {
+	margin-top: 10px;
+}
+
+.mypage-intro-area {
+	margin-top: 50px;
+	font-size: 17px;
+	color: #333;
+}
+.mypage-btn-area {
+	margin-top: 50px;
+	display: flex;
+}

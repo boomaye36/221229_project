@@ -59,7 +59,10 @@ public class MainController {
 	
 	// 내정보
 	@GetMapping("/mypage")
-	public String mypage() {
+	public String mypage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", user);
+		
 		return "/main/mypage";
 	}
 	
