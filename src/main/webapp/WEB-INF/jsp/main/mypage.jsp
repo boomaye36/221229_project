@@ -41,16 +41,19 @@
 						</div>
 						<!-- 내정보 -->
 						<div class="info-box">
-							<!-- 아이디/닉네임 -->
+							<!-- 닉네임/아이디 -->
 							<div class="info top">
-								<div class="loginid">${user.loginid}</div>
 								<div class="nickname">${user.nickname}</div>
+								<div class="loginid">${user.loginid}
+								<!-- 일반계정이 아닐 경우 로그인한 소셜명 노출 -->
+								<c:if test="${user.path != '일반'}"><span>(${user.path}계정)</span></c:if>
+								</div>
 							</div>
 							<!-- 생년월일/성별/지역 -->
 							<div class="info middle">
-								<div class="birth"><fmt:formatDate value="${user.birth}" pattern="yyyy/MM/dd" /></div>
+								<div class="birth"><c:if test="${empty user.birth}">생년월일(미설정)</c:if> <fmt:formatDate value="${user.birth}" pattern="yyyy/MM/dd" /></div>
 								<div class="gender">${user.gender}</div>
-								<div class="area">${user.area}</div>
+								<div class="area">${empty user.area ? '지역(미설정)' : user.area}</div>
 							</div>
 							<!-- 핸드폰번호/이메일 -->
 							<div class="info bottom">

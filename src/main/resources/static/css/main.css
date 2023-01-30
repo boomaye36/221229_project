@@ -389,14 +389,14 @@ video {
 	display: grid;
 	row-gap: 25px;
 }
-.mypage-profile-area .info-box .info .loginid {
+.mypage-profile-area .info-box .info .nickname {
 	font-size: 32px;
 	font-weight: 600;
 }
-.mypage-profile-area .info-box .info .nickname {
-	font-size: 20px;
+.mypage-profile-area .info-box .info .loginid {
+	font-size: 18px;
 	color: #999;
-	margin-top: 12px;
+	margin-top: 15px;
 }
 .info-box .info.middle {
 	display: flex;
@@ -434,6 +434,23 @@ video {
 }
 
 /* 마이페이지 - 내정보 수정 */
+.mypage-title-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+}
+.mypage-title-section > .noti {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 400;
+	color: #666;
+}
+.mypage-title-section > .noti > .material-icons {
+	color: #999;
+	margin-right: 5px;
+}
+
 .mypage-title {
 	font-size: 26px;
 	font-weight: 600;
@@ -473,9 +490,9 @@ video {
 	color: red;
 	font-size: 12px;
 }
-/* .mypage-input-box .input-text {
+.mypage-input-box .input-text {
 	color: #333;
-} */
+}
 .mypage-input-box input, .mypage-input-box select {
 	width: 100%;
 	max-width: 360px;

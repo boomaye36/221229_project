@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -169,8 +170,31 @@ public class UserRestController {
 		sendEmail.updataedPassword(user);
 	}
 	
+	// 회원정보 수정 - 내정보 변경
+	@PutMapping("/mypage/user_update")
+	public Map<String, Object> mypageUserUpdate(User user, @RequestParam(value="file", required=false) MultipartFile file, HttpSession session) {
+		//세션객체 가져오기
+		User loginUsers = (User) session.getAttribute("loginUser");
+		
+		//user 객체에 아이디 셋팅해주기
+		user.setLoginid(loginUsers.getLoginid());
+		
+		Map<String, Object> result = new HashMap<>();
+		int row  = userBO.updateUserbyId(user, file);
+		session.removeAttribute("loginUser");
+		User loginUser = userBO.getUserByLoginId(user.getLoginid());
+		session.setAttribute("loginUser", loginUser);
+		if (row > 0) {
+			result.put("code", 100);
+			session.setAttribute("loginid", loginUser.getLoginid());
+		} else {
+			result.put("code", 400);
+		}
+		return result;
+	}
+	
 	// 회원정보 수정 - 비밀번호 변경
-	@PostMapping("/pwd_update")
+	@PostMapping("/mypage/pwd_update")
 	public Map<String, Object> pwdUpdate(User user, @RequestParam("changedPassword") String changedPassword, HttpSession session) throws NoSuchAlgorithmException {
 //		String loginid = user.getLoginid(); user객체에서 loginid를 받아왔더니 null로 뜨면서 update가 되지 않아서 session에서 받아옴
 		User loginUser = (User)session.getAttribute("loginUser");
@@ -198,7 +222,7 @@ public class UserRestController {
 	}
 	
 	// 회원탈퇴
-	@DeleteMapping("/delete")
+	@DeleteMapping("/mypage/user_delete")
 	public Map<String, Object> deleteUser(User user, HttpSession session) {
 		
 		// 세션에 저장되어있는 유저 id 가져오기

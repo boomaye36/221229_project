@@ -33,10 +33,18 @@
 			<div class="container">
 				<!-- content -->
 				<div class="content">
-					<h3 class="mypage-title">비밀번호 변경</h3>
+					<!-- 타이틀 영역 -->
+					<div class="mypage-title-section">
+						<h3 class="mypage-title">비밀번호 변경</h3>
+						<!-- 소셜로그인 회원으로 로그인 시에만 안내문구 노출 -->
+						<c:if test="${user.path != '일반'}">
+						<div class="noti"><span class="material-icons">info_outline</span>소셜로그인 회원은 비밀번호를 변경할 수 없습니다.</div>
+						</c:if>
+					</div>
 					<hr>
 					
 					<!-- 비밀번호 변경 영역 -->
+					<input type="hidden" id="userPath" value="${user.path}">
 					<div class="mypage-input-section">
 						<div class="mypage-input-box">
 							<div class="input-title d-flex">현재 비밀번호<span class="required">*</span></div>
@@ -82,71 +90,80 @@ $(document).ready(function() {
 		let changedPassword = $('#changedPassword').val().trim();
 		let changedPasswordCheck = $('#changedPasswordCheck').val().trim();
 		
-		// 유효성 검사
-		if (password == '') {
-			alert('현재 비밀번호를 입력해주세요.');
-			$('#password').focus();
-			return;
-		}
-		if (changedPassword == '') {
-			alert('새 비밀번호를 입력해주세요.');
-			$('#changedPassword').focus();
-			return;
-		}
-		if (changedPasswordCheck == '') {
-			alert('새 비밀번호 확인을 입력해주세요.');
-			$('#changedPasswordCheck').focus();
-			return;
-		}
-		
-		// 현재 비밀번호와 일치 여부 검사
-		if (password == changedPassword) {
-			alert('현재 비밀번호와 동일한 비밀번호입니다. 다시 입력해주세요.');
-			$('#changedPassword').val('');
-			$('#changedPasswordCheck').val('');
-			$('#changedPassword').focus();
-			return;
-		}
-		//패스워드 및 패스워드 확인 일치 검사
-		if (changedPassword != changedPasswordCheck){
-			alert("새 비밀번호가 일치하지 않습니다");
-			return false;
-		}
-		
-		//비밀번호입력시 특수문자조합 검사
-		var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-		if (!reg.test(changedPassword)) {
-			$('#limitText').removeClass('d-none');
-			$('#changedPassword').focus();
-			return false;
-		}
-		
-		// ajax
-		$.ajax({
-			type: "POST"
-			, url: "/user/pwd_update"
-			, data : {password, "changedPassword":changedPassword}
-			, success: function(data) {
-				if (data.result == true) {
-					// 현재 비밀번호 일치
-					if (data.code == 100) {
-						// 성공
-						alert("비밀번호가 변경되었습니다");
-						location.reload();
-					} else {
-						// 에러
-						alert("비밀번호 변경 실패");
+		// 일반로그인 회원일때만 비밀번호 변경
+		let userPath = $('#userPath').val();
+		if (userPath === '일반') {
+			// 일반로그인 회원인 경우
+			// 유효성 검사
+			if (password == '') {
+				alert('현재 비밀번호를 입력해주세요.');
+				$('#password').focus();
+				return;
+			}
+			if (changedPassword == '') {
+				alert('새 비밀번호를 입력해주세요.');
+				$('#changedPassword').focus();
+				return;
+			}
+			if (changedPasswordCheck == '') {
+				alert('새 비밀번호 확인을 입력해주세요.');
+				$('#changedPasswordCheck').focus();
+				return;
+			}
+			
+			// 현재 비밀번호와 일치 여부 검사
+			if (password == changedPassword) {
+				alert('현재 비밀번호와 동일한 비밀번호입니다. 다시 입력해주세요.');
+				$('#changedPassword').val('');
+				$('#changedPasswordCheck').val('');
+				$('#changedPassword').focus();
+				return;
+			}
+			//패스워드 및 패스워드 확인 일치 검사
+			if (changedPassword != changedPasswordCheck){
+				alert("새 비밀번호가 일치하지 않습니다");
+				return false;
+			}
+			
+			//비밀번호입력시 특수문자조합 검사
+			var reg = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
+			if (!reg.test(changedPassword)) {
+				$('#limitText').removeClass('d-none');
+				$('#changedPassword').focus();
+				return false;
+			}
+			
+			// ajax
+			$.ajax({
+				type: "POST"
+				, url: "/user/mypage/pwd_update"
+				, data : {password, "changedPassword":changedPassword}
+				, success: function(data) {
+					if (data.result == true) {
+						// 현재 비밀번호 일치
+						if (data.code == 100) {
+							// 성공
+							alert("비밀번호가 변경되었습니다");
+							location.reload();
+						} else {
+							// 에러
+							alert("비밀번호 변경 실패");
+						}
+					} else if (data.result == false) {
+						// 현재 비밀번호 불일치
+						alert('현재 비밀번호가 일치하지 않습니다.');
+						$('#password').focus();
 					}
-				} else if (data.result == false) {
-					// 현재 비밀번호 불일치
-					alert('현재 비밀번호가 일치하지 않습니다.');
-					$('#password').focus();
 				}
-			}
-			, error: function(e) {
-				alert('관리자에게 문의하세요');
-			}
-		});
+				, error: function(e) {
+					alert('관리자에게 문의해주세요.');
+				}
+			});
+		} else {
+			// 일반로그인 회원이 아닌 경우
+			alert('소셜로그인 회원은 비밀번호를 변경할 수 없습니다.');
+			return;
+		}
 	}); // 비밀번호 변경 끝
 	
 	// 회원탈퇴
@@ -154,7 +171,7 @@ $(document).ready(function() {
 		if (confirm('탈퇴시 정보는 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?')) {
 			$.ajax({
 				type: 'delete'
-				, url: '/user/delete'
+				, url: '/user/mypage/user_delete'
 				
 				, success: function(data) {
 					if (data.code == 100) {

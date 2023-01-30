@@ -33,7 +33,11 @@
 			<div class="container">
 				<!-- content -->
 				<div class="content">
-					<h3 class="mypage-title">내정보 수정</h3>
+					<!-- 타이틀 영역 -->
+					<div class="mypage-title-section">
+						<h3 class="mypage-title">내정보 수정</h3>
+						<div class="noti"><span class="material-icons">info_outline</span>${user.path}로그인 계정</div>
+					</div>
 					<hr>
 					
 					<!-- 내정보 수정 input -->
@@ -42,7 +46,6 @@
 						<!-- 필수 -->
 						<div class="mypage-input-section left">
 							<div class="mypage-subtitle">필수정보</div>
-							
 							<!-- 아이디 loginid (변경불가) -->
 							<div class="mypage-input-box">
 								<div class="input-title d-flex">아이디</div>
@@ -106,7 +109,7 @@
 							<!-- 소개 intro -->
 							<div class="mypage-input-box">
 								<div class="input-title">소개</div>
-								<textarea rows="5" cols="44" class="user_intro">${user.intro}</textarea>
+								<textarea rows="5" cols="44" id="intro">${user.intro}</textarea>
 							</div>
 							<!-- 프로필사진 profilephoto -->
 							<div class="mypage-input-box">
@@ -122,7 +125,7 @@
 						<!-- 버튼 영역 -->
 						<div class="mypage-util-section">
 							<div class="mypage-btn-box">
-								<button type="button" class="btn btn-custom btn-block">저장</button>
+								<button type="button" id="updateUser" class="btn btn-custom btn-block">저장</button>
 								<a href="/mypage" class="btn btn-secondary btn-block">취소</a>
 							</div>
 						</div>
@@ -168,6 +171,93 @@ $(document).ready(function() {
 	$('.phonenumber > .first').val(first);
 	$('.phonenumber > .second').val(second);
 	$('.phonenumber > .third').val(third);
+	
+	// 내정보 수정
+	$('#updateUser').on('click', function() {
+		let formData = new FormData();
+		
+		// 필수값
+		let nickname = $('#nickname').val().trim();
+		let email = $('#email').val().trim();
+		// 유효성검사
+		if (nickname == '') {
+			alert('닉네임을 입력해주세요.');
+			$('#nickname').focus();
+			return;
+		}
+		if (email == '') {
+			alert('이메일 주소를 입력해주세요.');
+			$('#email').focus();
+			return;
+		}
+		formData.append("nickname", nickname);
+		formData.append("email", email);
+		
+		// 비필수값
+		let year = $('#yy').val().trim();
+		let month = $('#mm').val().trim();
+		let day = $('#dd').val().trim();
+		// 생년월일 유효성 검사 
+		if ((year == '' || month == '' || day == '' ) && !(year == "" && month == "" && day == "") && ( year < 1900 || year > 2023 || month < 1 || month > 12 || day < 1 || day > 31 )){
+			alert("생년월일을 확인하세요.");
+			return false;
+		}
+		// 생년월일이 null 이라면 null 파라미터로 전달하지 않음 
+		if (year != "" && month != "" && day != ""){
+			let date = year.concat("-", month, "-", day);
+			let birth = new Date(date);
+			formData.append("birth", birth);
+		}
+		
+		let area = $('#selectedRegion option:selected').val();
+		let intro = $('#intro').val().trim();
+		let file = $('#file').val();
+		let ext = file.split('.').pop().toLowerCase();
+		
+		//파일 유효성 검사
+		if (file != "") {
+	 	 		
+	 	 //잘려있는 배열중 가장 마지막 배열
+	 	 file.split('.').pop();
+	 	 //마지막 배열을 소문자로 강제 변환
+	 	 const ext = file.split('.').pop().toLowerCase();
+	 	 		
+	 	 //배열안에 포함된게 없다면 -1로 찍힘. 
+	 	 if ( $.inArray(ext, ['gif', 'jpg', 'jpeg', 'png']) == -1) { 
+			alert("gif, jpg, jpeg, png 파일만 가능합니다");
+			document.getElementById('modifyimg').src = '/static/img/no.png';
+			$('#file').val(''); // 업로드 된 파일을 비워준다.
+			return false;
+			} 
+	 	 }
+		
+		formData.append("area", area);
+		formData.append("intro", intro);
+		formData.append("file", $('#file')[0].files[0]);
+		
+		// ajax
+		$.ajax({
+			type : 'PUT'
+			, url : '/user/mypage/user_update'
+			, data : formData
+			, enctype : "multipart/form-data"
+			, processData: false 
+			, contentType: false
+			, success : function(data) {
+				if (data.code == 100){
+					alert("내 정보 수정이 완료되었습니다.");
+					location.reload();
+					
+				} else if (data.code == 400) {
+					alert('내 정보 수정에 실패하였습니다.')
+				}
+			}
+			, error : function(e) {
+				alert("관리자에게 문의해주세요.")
+			}
+		});
+		
+	}); // 내정보 수정 끝
 });
 </script>
 </html>

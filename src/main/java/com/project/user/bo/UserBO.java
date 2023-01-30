@@ -50,6 +50,22 @@ public class UserBO {
 		
 	}
 	
+	// 마이페이지 회원정보 수정
+	public int updateUserbyId(User user, MultipartFile file) {
+		String imagePath = null;
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(file, user.getLoginid());
+			user.setProfilephoto(imagePath);
+			
+			// 업로드 성공시 기존 이미지 제거
+			if (imagePath != null && user.getProfilephoto() != null) {
+				fileManagerService.deleteFile(user.getProfilephoto());
+			}
+		}
+		
+		return userDAO.updateUserById(user);
+	}
+	
 	//문자메세지 만들기
 	public String sendRandomMessage(String tel) {
 	    Naver_Sens_V2 message = new Naver_Sens_V2();

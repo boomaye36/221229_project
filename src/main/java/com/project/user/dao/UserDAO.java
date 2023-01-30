@@ -21,6 +21,9 @@ public interface UserDAO {
 	//회원가입 선택정보 insert
 	public int updateUser(User user);
 	
+	// 마이페이지 회원정보 수정
+	public int updateUserById(User user);
+	
 	public User selectUserByLoginId(@Param("loginid")String loginid);
 
 	public int existingUserAddition(@Param("loginid")String loginid);
