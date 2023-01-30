@@ -66,6 +66,24 @@ public class MainController {
 		return "/main/mypage";
 	}
 	
+	// 내정보 수정
+	@GetMapping("/mypage/user")
+	public String mypageUser(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", user);
+		
+		return "/main/mypage_user";
+	}
+
+	// 비밀번호 수정
+	@GetMapping("/mypage/pwd")
+	public String mypagePwd(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", user);
+		
+		return "/main/mypage_pwd";
+	}
+	
 	//로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {

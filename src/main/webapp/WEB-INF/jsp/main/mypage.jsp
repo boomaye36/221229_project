@@ -37,39 +37,46 @@
 					<div class="mypage-profile-area">
 						<!-- 프로필이미지 -->
 						<div class="img-box">
-							<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto }" class="profilephoto" alt="프로필사진">
+							<img src="${empty sessionScope.loginUser.profilephoto ? '/static/img/no.png' : sessionScope.loginUser.profilephoto}" class="profilephoto" alt="프로필사진">
 						</div>
 						<!-- 내정보 -->
 						<div class="info-box">
+							<!-- 아이디/닉네임 -->
 							<div class="info top">
 								<div class="loginid">${user.loginid}</div>
 								<div class="nickname">${user.nickname}</div>
 							</div>
+							<!-- 생년월일/성별/지역 -->
 							<div class="info middle">
 								<div class="birth"><fmt:formatDate value="${user.birth}" pattern="yyyy/MM/dd" /></div>
 								<div class="gender">${user.gender}</div>
 								<div class="area">${user.area}</div>
 							</div>
+							<!-- 핸드폰번호/이메일 -->
 							<div class="info bottom">
+								<input type="hidden" id="userPhonenumber" value="${user.phonenumber}">
 								<div class="phonenumber">
-									<div class="first">${user.phonenumber}</div>
+									<div class="first"></div>
 									<span>-</span>
-									<div class="second">${user.phonenumber}</div>
+									<div class="second"></div>
 									<span>-</span>
-									<div class="third">${user.phonenumber}</div>
+									<div class="third"></div>
 								</div>
 								<div class="email">${user.email}</div>
 							</div>
-						</div>
-					</div>
+						</div> <!-- 내정보 끝 -->
+					</div> <!-- 내정보 영역 끝 -->
+					
 					<!-- 소개영역 -->
 					<div class="mypage-intro-area intro">${user.intro}</div>
+					
 					<!-- 버튼영역 -->
 					<div class="mypage-btn-area">
-						<a href="#" class="btn btn-custom">내정보 수정</a>
-						<a href="#" class="btn btn-secondary ml-2">비밀번호 변경</a>
+						<a href="/mypage/user" class="btn btn-custom">내정보 수정</a>
+						<a href="/mypage/pwd" class="btn btn-secondary ml-2">비밀번호 변경</a>
 					</div>
-				</div>
+					
+				</div> <!-- content 끝 -->
 			</div>
 		</section>
 		
@@ -80,14 +87,15 @@
 
 <script>
 $(document).ready(function() {
-	// 핸드폰번호 가져오기
-	let first = $('.phonenumber .first').text().substring(0,3);
-	let second = $('.phonenumber .second').text().substring(3,7);
-	let third = $('.phonenumber .third').text().substring(7,11);
+	// 핸드폰번호 자르기
+	let userPhonenumber = $('#userPhonenumber').val();
+	let first = userPhonenumber.substring(0,3);
+	let second = userPhonenumber.substring(3,7);
+	let third = userPhonenumber.substring(7,11);
 	
-	$('.phonenumber .first').text(first);
-	$('.phonenumber .second').text(second);
-	$('.phonenumber .third').text(third);
+	$('.phonenumber > .first').text(first);
+	$('.phonenumber > .second').text(second);
+	$('.phonenumber > .third').text(third);
 });
 </script>
 </html>

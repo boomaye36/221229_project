@@ -90,6 +90,15 @@ public class UserBO {
 	public void updateUserPassword(User user) {
 		userDAO.updateUserPassword(user);
 	}
+
+	// 비밀번호 수정 - 현재 비밀번호 일치여부 확인
+	public boolean isMatchedPassword(String currentPassword) {
+		return userDAO.isMatchedPassword(currentPassword);
+	}
+	// 비밀번호 수정 - 새 비밀번호 update
+	public void updatePassword(String loginid, String changedPassword) {
+		userDAO.updatePassword(loginid, changedPassword);
+	}
 	
 	public User findId(String phonenumber, String email) {
 		return userDAO.findId(phonenumber, email);
@@ -99,10 +108,14 @@ public class UserBO {
 	}
 	
 	
-	
 	//call 페이지에서 연결된 상대방의 정보 가져오기 event
 	public User findCallPageByUserid(int id) {
 		
 		return userDAO.selectCallPageByUserid(id);
+	}
+	
+	// 회원 탈퇴
+	public int deleteUserbyId(int id) {
+		return userDAO.deleteUserbyId(id);
 	}
 }

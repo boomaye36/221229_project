@@ -2,14 +2,18 @@ package com.project.user;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.project.common.SHA256;
 import com.project.user.bo.SendEmail;
 import com.project.user.bo.UserBO;
@@ -163,6 +167,59 @@ public class UserRestController {
 		
 		//비밀번호 업데이트 메소드
 		sendEmail.updataedPassword(user);
+	}
+	
+	// 회원정보 수정 - 비밀번호 변경
+	@PostMapping("/pwd_update")
+	public Map<String, Object> pwdUpdate(User user, @RequestParam("changedPassword") String changedPassword, HttpSession session) throws NoSuchAlgorithmException {
+//		String loginid = user.getLoginid(); user객체에서 loginid를 받아왔더니 null로 뜨면서 update가 되지 않아서 session에서 받아옴
+		User loginUser = (User)session.getAttribute("loginUser");
+		// 현재 비밀번호 가져오기
+		String currentPassword = user.getPassword();
+		
+		// 암호화
+		SHA256 sha256 = new SHA256();
+		String encryptPassword = sha256.encrypt(currentPassword);
+		String newEncryptPassword = sha256.encrypt(changedPassword);
+		
+		Map<String, Object> result = new HashMap<>();
+		// 현재 비밀번호 일치여부 확인
+		boolean isMatched = userBO.isMatchedPassword(encryptPassword);
+		if (isMatched) {
+			result.put("result", true);
+			// 일치여부 true일 때 새 비밀번호 update
+			userBO.updatePassword(loginUser.getLoginid(), newEncryptPassword);
+			result.put("code", 100);
+		} else {
+			result.put("result", false);
+		}
+		
+		return result;
+	}
+	
+	// 회원탈퇴
+	@DeleteMapping("/delete")
+	public Map<String, Object> deleteUser(User user, HttpSession session) {
+		
+		// 세션에 저장되어있는 유저 id 가져오기
+		User loginUser = (User)session.getAttribute("loginUser");
+		int id = loginUser.getId();
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// delete user
+		int row = userBO.deleteUserbyId(id);
+		if (row > 0) {			
+			// 세션 제거
+			session.removeAttribute("loginUser");
+			
+			result.put("code", 100);
+			result.put("result", "success");
+		} else {			
+			result.put("code", 400);
+		}
+		
+		return result;
 	}
 	
 }

@@ -31,6 +31,11 @@ public interface UserDAO {
 	
 	//비밀번호 찾기 - 임시비밀번호 update event
 	public void updateUserPassword(User user);
+
+	// 비밀번호 수정 - 현재 비밀번호 일치여부 확인
+	public boolean isMatchedPassword(String currentPassword);
+	// 비밀번호 수정 - 새 비밀번호 update
+	public void updatePassword(@Param("loginid")String loginid, @Param("changedPassword") String changedPassword);
 	
 	public User findId(@Param("phonenumber")String phonenumber, @Param("email")String email);
 
@@ -40,5 +45,8 @@ public interface UserDAO {
 	
 	//call 페이지에서 연결된 상대방의 정보 가져오기 event
 	public User selectCallPageByUserid(int id);
+	
+	// 회원 탈퇴
+	public int deleteUserbyId(int id);
 
 }

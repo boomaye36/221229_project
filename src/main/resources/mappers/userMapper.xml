@@ -127,6 +127,7 @@
 		WHERE
 			`loginid` = #{loginid}
 	</update>
+	
 	<!-- 아이디 찾기 -->
 	<select id="findId" parameterType="com.project.user.model.User" resultType="com.project.user.model.User">
 	 	SELECT 
@@ -172,4 +173,31 @@
 		WHERE
 			`id` = #{id}
 	</select>
+	
+	<!-- 비밀번호 수정 - 현재 비밀번호 일치여부 확인 -->
+	<select id="isMatchedPassword" parameterType="string" resultType="boolean">
+		SELECT
+			COUNT(*)
+		FROM
+			`user`
+		WHERE
+			`password` = #{currentPassword}
+	</select>
+	
+	<!-- 비밀번호 수정 - 새 비밀번호 update -->
+	<update id="updatePassword" parameterType="map">
+		UPDATE `user`
+		SET
+			`password` = #{changedPassword}
+		WHERE
+			`loginid` = #{loginid}
+	</update>
+	
+	<!-- 회원 탈퇴 -->
+	<delete id="deleteUserbyId" parameterType="int">
+		DELETE FROM
+			`user`
+		WHERE
+			`id` = #{id}
+	</delete>
 </mapper>
