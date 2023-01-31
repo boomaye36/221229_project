@@ -75,4 +75,14 @@ public class MainBO {
 		
 		return mainDAO.selectRecentCheck(user_sendid);
 	}
+	
+	
+	
+	
+	
+	//매칭이력 event
+	public Recent getRecentUserBySendId(Recent recent) {
+		
+		return mainDAO.selectRecentUserBySendId(recent);
+	}
 }

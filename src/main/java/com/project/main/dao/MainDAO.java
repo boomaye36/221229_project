@@ -36,4 +36,7 @@ public interface MainDAO {
 	//응답받는사람 기준으로 상대방 정보 가져오기
 	public User selectRecentCheck(int user_sendid);
 	
+	//매칭이력 event
+	public Recent selectRecentUserBySendId(Recent recent);
+	
 }

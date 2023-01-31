@@ -125,4 +125,25 @@
 			recent.id DESC
 		LIMIT 1;
 	</select>
+	
+	
+	
+	<!-- 매칭이력 event -->
+	<select id="selectRecentUserBySendId" resultType="com.project.main.model.Recent" parameterType="com.project.main.model.Recent">
+		SELECT
+			id
+			,user_sendid
+			,user_receiveid
+			,createdat
+		FROM
+			`recent`
+		where 
+			user_sendid = #{user_sendid}
+		ORDER BY
+			createdat DESC
+		LIMIT 6;
+	
+	
+	
+	</select>
 </mapper>
