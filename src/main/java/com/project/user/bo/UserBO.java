@@ -55,12 +55,12 @@ public class UserBO {
 		String imagePath = null;
 		if (file != null) {
 			imagePath = fileManagerService.saveFile(file, user.getLoginid());
-			user.setProfilephoto(imagePath);
 			
 			// 업로드 성공시 기존 이미지 제거
 			if (imagePath != null && user.getProfilephoto() != null) {
 				fileManagerService.deleteFile(user.getProfilephoto());
 			}
+			user.setProfilephoto(imagePath);
 		}
 		
 		return userDAO.updateUserById(user);

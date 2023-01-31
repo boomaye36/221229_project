@@ -177,7 +177,7 @@ public class UserRestController {
 		
 		//user 객체에 아이디 셋팅해주기
 		user.setLoginid(loginUsers.getLoginid());
-		
+		user.setProfilephoto(loginUsers.getProfilephoto());
 		Map<String, Object> result = new HashMap<>();
 		int row  = userBO.updateUserbyId(user, file);
 		session.removeAttribute("loginUser");

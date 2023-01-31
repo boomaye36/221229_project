@@ -64,9 +64,8 @@
 			`area` = #{area}
 		,	
 			`intro` = #{intro}
+		, `profilephoto` = #{profilephoto}
 		,
-			`profilephoto` = #{profilephoto}
-		,	
 			`updatedat` = NOW()
 		WHERE `loginid` = #{loginid}
 	</update>
@@ -81,7 +80,10 @@
 			, `birth` = #{birth}
 			, `area` = #{area}
 			, `intro` = #{intro}
+			<if test="profilephoto != null || !profilephoto.equals('')">
 			, `profilephoto` = #{profilephoto}
+			</if>
+			
 			, `updatedat` = NOW()
 		WHERE
 			`loginid` = #{loginid}

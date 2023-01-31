@@ -130,14 +130,14 @@
 					<div class="call-history">
 						<div class="history-title">매칭이력</div>
 						<div class="history-content">
-							<c:forEach begin="1" end="6">
+							<c:forEach items="${list}" var="userList">
 								<!-- 매칭되었던 유저 리스트 -->
 								<div class="content-list d-flex justify-content-between">
 									<div class="user-profile-box">
 										<div class="user-img">
-											<img src="/static/img/no.png"> <!-- 기본이미지 -->
+											<img src="${empty userList.profilephoto ? '/static/img/no.png' : userList.profilephoto }"> <!-- 기본이미지 -->
 										</div>
-										<div class="user-nickname">최근통화상대닉네임</div>
+										<div class="user-nickname">${userList.nickname}</div>
 									</div>
 									<div class="util-box">
 										<div class="history">1분 전</div>
