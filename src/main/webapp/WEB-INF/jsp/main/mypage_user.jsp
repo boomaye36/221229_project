@@ -233,7 +233,12 @@ $(document).ready(function() {
 		
 		formData.append("area", area);
 		formData.append("intro", intro);
-		formData.append("file", $('#file')[0].files[0]);
+		
+		// 기존 파일 있을 때 수정 안할 경우 append되지 않게
+		if (file != '') {
+			formData.append("file", $('#file')[0].files[0]);
+			console.log(file);
+		}
 		
 		// ajax
 		$.ajax({
