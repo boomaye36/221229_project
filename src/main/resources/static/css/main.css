@@ -4,6 +4,9 @@
 @import "reset.css";
 
 /* common */
+.text-custom {
+	color: #ee0979 !important;
+}
 .btn-custom {
 	background: #ee0979;
 	color: #fff;
@@ -17,6 +20,40 @@
 }
 .dropdown-toggle::after {
 	display: none;
+}
+
+.btn-text {
+	border: none;
+	outline: none;
+	background: none;
+	cursor: pointer;
+	text-decoration: underline;
+	font-size: 14px;
+	color: #666;
+}
+.btn-text:focus {
+	border: none;
+	outline: none;
+}
+
+.icon-btn {
+	border: none;
+	outline: none;
+	color: #444;
+	padding: 10px;
+	width: fit-content;
+	border-radius: 50%;
+	border: 1px solid #ddd;
+	background: transparent;
+	cursor: pointer;
+}
+.icon-btn:hover {
+	background: #f3f3f3;
+	transition: all 100ms;
+}
+.icon-btn:focus {
+	border: 1px solid #ddd;
+	outline: none;
 }
 
 /* layout */
@@ -124,21 +161,6 @@ footer {
 .call-user-profile-box .user-profile .user-nickname {
 	margin-left: 10px;
 	font-weight: 600;
-}
-
-#camera-btn, #voice-btn {
-	border: none;
-	outline: none;
-	color: #444;
-	padding: 10px;
-	width: fit-content;
-	border-radius: 50%;
-	border: 1px solid #ddd;
-	background: transparent;
-}
-#camera-btn:focus, #voice-btn:focus {
-	border: 1px solid #ddd;
-	outline: none;
 }
 
 .call-area .call-check-status {
@@ -285,31 +307,44 @@ video {
 	width: 100%;
 	height: 40px;
 	font-size: 14px;
+	border: 1px solid #ddd;
+	padding: 0 5px;
+}
+.call-chat .input-box .chat-input:focus {
+	border: 1px solid #ddd;
+	outline: none;
 }
 .call-chat .input-box .chat-send-btn {
 	width: 50px;
 	font-size: 14px;
-	border: 1px solid #000;
+	border: 1px solid #ddd;
+	cursor: pointer;
+}
+.call-chat .input-box .chat-send-btn:focus {
+	border: 1px solid #ddd;
+	outline: none;
 }
 
 .call-history .history-title {
-	padding: 50px 0 0;
+	padding-top: 80px;
 	font-size: 30px;
 	font-weight: 600;
 }
 .call-history .history-content {
-	/* width: 50%; */
 	padding: 20px 0;
 	display: grid;
 	grid-template-columns: repeat(2, 50%);
 }
-.call-history .history-content .user-profile-box {
+.history-content .content-list {
+	padding: 5px 10px;
+}
+.history-content .user-profile-box {
 	display: flex;
 	align-items: center;
 }
 .user-profile-box .user-img {
-	max-width: 50px;
-	height: 50px;
+	max-width: 45px;
+	height: 45px;
 }
 .user-profile-box .user-img > img {
 	width: 100%;
@@ -317,12 +352,190 @@ video {
 	object-fit: cover;
 }
 .user-profile-box .user-nickname {
-	margin-left: 20px;
+	margin-left: 10px;
 }
-.call-history .history-content .btn-box {
+.history-content .util-box {
 	display: flex;
 	align-items: center;
 }
-.btn-box .history {
-	margin-right: 20px;
+.util-box .history {
+	margin-right: 15px;
+	font-size: 13px;
+	color: #999;
 }
+
+
+/* my page */
+.mypage-profile-area {
+	display: flex;
+	align-items: center;
+}
+.mypage-profile-area .img-box {
+	width: 250px;
+	height: 250px;
+	border-radius: 50%;
+	border: 2px solid #ee0979;
+}
+.mypage-profile-area .img-box > img {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	object-fit: cover;
+	padding: 3px;
+}
+
+.mypage-profile-area .info-box {
+	margin-left: 60px;
+	display: grid;
+	row-gap: 25px;
+}
+.mypage-profile-area .info-box .info .nickname {
+	font-size: 32px;
+	font-weight: 600;
+}
+.mypage-profile-area .info-box .info .loginid {
+	font-size: 18px;
+	color: #999;
+	margin-top: 15px;
+}
+.info-box .info.middle {
+	display: flex;
+	align-items: center;
+	font-size: 17px;
+	color: #333;
+}
+.info-box .info.middle .area, .info-box .info.middle .gender {
+	margin-left: 10px;
+}
+.info-box .info.middle .area:before, .info-box .info.middle .gender:before {
+	content: '|';
+	color: #ccc;
+	padding-right: 10px;
+}
+.info-box .info.bottom {
+	font-size: 17px;
+	color: #333;
+}
+.info-box .info.bottom .phonenumber {
+	display: flex;
+}
+.info-box .info.bottom .email {
+	margin-top: 10px;
+}
+
+.mypage-intro-area {
+	margin-top: 50px;
+	font-size: 17px;
+	color: #333;
+}
+.mypage-btn-area {
+	margin-top: 50px;
+	display: flex;
+}
+
+/* 마이페이지 - 내정보 수정 */
+.mypage-title-section {
+	display: flex;
+	justify-content: space-between;
+	align-items: end;
+}
+.mypage-title-section > .noti {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	font-weight: 400;
+	color: #666;
+}
+.mypage-title-section > .noti > .material-icons {
+	color: #999;
+	margin-right: 5px;
+}
+
+.mypage-title {
+	font-size: 26px;
+	font-weight: 600;
+}
+.mypage-subtitle {
+	margin-bottom: 30px;
+	font-size: 14px;
+	color: #666;
+}
+
+.mypage-input-area {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+.mypage-input-section {
+	width: 100%;
+	max-width: 360px;
+}
+
+.mypage-input-box {
+	display: grid;
+	row-gap: 8px;
+}
+.mypage-input-box:not(:last-child) {
+	margin-bottom: 20px;
+}
+
+.mypage-input-box .input-title {
+	font-size: 14px;
+	font-weight: 600;
+}
+.mypage-input-box .required {
+	color: #ee0979;
+}
+.mypage-input-box .noti {
+	color: red;
+	font-size: 12px;
+}
+.mypage-input-box .input-text {
+	color: #333;
+}
+.mypage-input-box input, .mypage-input-box select {
+	width: 100%;
+	max-width: 360px;
+	height: 48px;
+	padding: 0 10px;
+	box-sizing: border-box;
+	border: 1px solid #dadada;
+}
+.mypage-input-box input[type=number]:not(:first-child) {
+	margin-left: 10px;
+}
+.mypage-input-box input[type=file] {
+	height: 100%;
+	padding: 15px;
+}
+.mypage-input-box textarea {
+	width: 100%;
+	max-width: 360px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #dadada;
+}
+
+.mypage-input-box .profilephoto > img {
+	width: 100%;
+	max-width: 160px;
+	height: 160px;
+	object-fit: cover;
+	border-radius: 50%;
+}
+
+.mypage-util-section {
+	min-width: 150px;
+	margin-top: auto;
+}
+.mypage-util-box {
+	margin: 30px 0;
+}
+
+.mypage-btn-section {
+	max-width: 360px;
+	display: flex;
+	margin-top: 30px;
+}
+
+

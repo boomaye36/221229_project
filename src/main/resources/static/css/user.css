@@ -25,31 +25,42 @@
 	overflow: hidden;
 }
 
-.user-login .login-area {padding: 0 20px;
+.user-login .login-area {
+	padding: 0 20px;
 	position: absolute;
 	top:16vh;
 	left:50%;
 	transform:translateX(-50%);
 }
 
-.user-login .login-area .logo {padding: 0 0 70px;
+.user-login .login-area .logo {
+	/* 드래그 방지 */
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+	cursor: default;
+	padding-bottom: 50px;
 	font-size: 110px;
 	font-family: 'Gurajada', cursive;
-	color: #BB2649;
-	 /* text-shadow: 2px 4px 2px grey ; */ 
-	}
+	color: #fff;
+}
 	
 .user-login .login-area .user-loginbox, .user-login .login-area .user-button-box {
 	margin: 0 auto;
 }
 
 .user-login-content-box {
-	margin: auto; width:400px;
-	padding-top:35px;
-	height:450px;
+	margin: auto;
+	width: 400px;
+	min-height: 500px;
+	padding: 40px 0;
 	border: none;
 	border-radius: 20px;
 	background-color: white;
+	box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.20);
+	-webkit-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.20);
+	-moz-box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.20);
 }
 	
 .user-login-content {
@@ -57,7 +68,7 @@
 	width: 320px;
 }
 
-.user-loginbox >input {
+.user-loginbox > input {
 	width: 100%;
 	height: 48px;
 	padding: 0 10px;
@@ -67,37 +78,46 @@
 	background-color: white;
 	border: 1px solid #999999;
 }
-.user-loginbox > label { color : #999999;}
-.user-remember-check >input[type="checkbox"] {
-	display: none;
+
+.user-loginbox .checkbox {
+	font-size: 14px;
+	color: #999;
+	line-height: 21px;
 }
-.user-button-box .user-login-submit, .user-login-social {
-	color: #fff;
-	font-size: 16px;
+
+.user-button-box .user-login-submit, .user-button-box .user-login-social {
+	cursor: pointer;
 	width: 100%;
 	height: 48px;
-	padding: 0 10px;
+	margin-top: 5px;
+	text-align: center;
 	box-sizing: border-box;
 	border-radius: 6px;
 	border: none;
+	line-height: 48px;
+	font-size: 15px;
+	color: #fff;
+	
 }
-.user-button-box .user-login-submit{
-	background-color: black;
+.user-button-box > a {
+	display: block;
 }
-.user-button-box .user-login-social {
-	background-color: #03C75A;
-	margin-top : 5px;
-	text-align: center;
-	padding-top: 12px;
-}
- .user-button-box a:hover{
+.user-button-box > a:hover{
     text-decoration: none;
     color:#fff;
 }
-
+.user-button-box .user-login-submit {
+	background-color: #ee0979;
+}
+.user-button-box .user-login-social.naver {
+	background-color: #03C75A;
+}
+.user-button-box .user-login-social.google {
+	background-color: #4285F4;
+}
 .user-button-box .user-login-kakao {
-	width:100%;
-	margin-top : 5px;
+	width: 100%;
+	margin-top: 5px;
 }
 
 .user-find {text-align: center}
@@ -136,6 +156,7 @@
 .tos .tos-logo{
     /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
     font-size: 24px;
+    font-weight: 600;
 	color: #ee0979;
 	margin-bottom: 20px;
 	font-family: 'Roboto', sans-serif;
@@ -151,8 +172,9 @@ margin-bottom: 5px;
 }
 
 .tos-top { 
-	font-size: 25px;
-	margin-bottom: 40px;}
+	font-size: 22px;
+	margin-bottom: 40px;
+}
 .tos-middle, .tos-bottom {
 	font-size : 15px;
 }
@@ -192,6 +214,7 @@ margin-bottom: 5px;
 .signup .signup-logo{
     /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
     font-size: 24px;
+    font-weight: 600;
 	color: #ee0979;
 	margin-bottom: 20px;
 	font-family: 'Roboto', sans-serif;

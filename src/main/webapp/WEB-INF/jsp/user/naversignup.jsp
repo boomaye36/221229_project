@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 </head>
 <body>
 
@@ -22,7 +22,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	<!-- css -->
-	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/user.css">
 </head>
 <body class="signup-body">
 	
@@ -69,7 +69,7 @@
             <span><a href="#none">xxxxx World Corp.</a></span>
         </div>
     </div>
-    
+</body>
     
     
     

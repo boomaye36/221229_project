@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 	<!-- jquery : ajax, bootstrap, datepicker -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
 	
@@ -18,6 +18,8 @@
 	
 	<!-- css -->
 	<link href="/static/css/main.css" rel="stylesheet" />
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	
 </head>
 <body>
 	<div class="main-wrap">
@@ -30,7 +32,11 @@
 			<div class="container">
 				<!-- content -->
 				<div class="content">
-					친구추천
+				<c:forEach items="${userList}" var="user">
+					${user.nickname }
+					<button class="friend-add" data-user-id="${user.id}">친구추가</button>
+				</c:forEach>
+
 				</div>
 			</div>
 		</section>
@@ -39,4 +45,28 @@
 		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
+<script>
+
+$(document).ready(function(){
+	// 친구 추가 버튼 
+	$('.friend-add').on('click', function(){
+		let user_receiveid = $(this).data('user-id');
+
+		$.ajax({
+			type : 'post',
+			url : "/friend_insert",
+			data : {user_receiveid},
+			success:function(data){
+				if (data.code == 100){
+					alert("친구요청 보냄");
+					location.reload(true);
+				}
+			}
+		});
+	});
+
+});
+
+
+</script>
 </html>

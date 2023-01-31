@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 	<!-- jquery : ajax, bootstrap, datepicker -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
 	
@@ -14,7 +14,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	<!-- css -->
-	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/user.css">
 </head>
 <body class="signup-body">
 	
@@ -86,14 +86,10 @@
             <span><a href="#none">xxxxx World Corp.</a></span>
         </div>
     </div>
-    
-    
-    
-    
-    	
-     	
-    
 </body>
+
+
+
 <script type="text/javascript">
 // 핸드폰 숫자 방지 정규식
 var replaceNotInt = /[^0-9]/gi;

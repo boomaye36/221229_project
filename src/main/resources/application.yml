@@ -19,6 +19,11 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.ssl.enable: true
-
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+      
 server:
   port: 80
+  

@@ -1,5 +1,7 @@
 package com.project.main;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.main.bo.MainBO;
 import com.project.main.model.Recent;
+import com.project.main.model.Friend;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
 
@@ -18,6 +21,7 @@ public class MainController {
 	@Autowired
 	private UserBO userBO;
 	
+	@Autowired
 	private MainBO mainBO;
 	
 	// 메인페이지
@@ -31,27 +35,58 @@ public class MainController {
 	public String call(Recent recent,Model model, HttpSession session) {
 		User loginUser = (User) session.getAttribute("loginUser");
 		recent.setUser_sendid(loginUser.getId());
-		Recent list = mainBO.getRecentUserBySendId(recent);
+		List<User> list = mainBO.getRecentUserBySendId(recent);
 		model.addAttribute("list", list);
 		return "/main/call";
 	}
 	
 	// 친구추천
 	@GetMapping("/recommend")
-	public String recommend() {
+	public String recommend(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		List<User> userList = mainBO.getUserList(user);
+		model.addAttribute("userList", userList);
 		return "/main/recommend";
 	}
 	
 	//친구목록
 	@GetMapping("/friend")
-	public String friend() {
+	public String friend(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		int id = user.getId();
+		List<User> requestList = mainBO.getFriend(id);
+		List<User> friendList = mainBO.getRealFriend(id);
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("friendList", friendList);
+
 		return "/main/friend";
 	}
 	
 	// 내정보
 	@GetMapping("/mypage")
-	public String mypage() {
+	public String mypage(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", user);
+		
 		return "/main/mypage";
+	}
+	
+	// 내정보 수정
+	@GetMapping("/mypage/user")
+	public String mypageUser(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", user);
+		
+		return "/main/mypage_user";
+	}
+
+	// 비밀번호 수정
+	@GetMapping("/mypage/pwd")
+	public String mypagePwd(HttpSession session, Model model) {
+		User user = (User) session.getAttribute("loginUser");
+		model.addAttribute("user", user);
+		
+		return "/main/mypage_pwd";
 	}
 	
 	//로그아웃
@@ -67,12 +102,5 @@ public class MainController {
 	public String test() {
 		return "/main/test";
 	}
-	//remoteid model에 담아서 뷰로 넘김
-//	@GetMapping("/match")
-//	public String matched( @RequestParam("remoteid") String remoteid, Model model) {
-//		//model.addAttribute("localid", localid);
-//		model.addAttribute("remoteid", remoteid);
-//		return "/main/match";
-//		
-//	}
+	
 }

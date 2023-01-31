@@ -1,9 +1,12 @@
 package com.project.main.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.main.dao.MainDAO;
+import com.project.main.model.Friend;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
 import com.project.user.model.User;
@@ -77,12 +80,33 @@ public class MainBO {
 	}
 	
 	
-	
-	
-	
 	//매칭이력 event
-	public Recent getRecentUserBySendId(Recent recent) {
+	public List<User> getRecentUserBySendId(Recent recent) {
 		
 		return mainDAO.selectRecentUserBySendId(recent);
+	}
+	
+	// 친구 추천 목록
+	public List<User> getUserList(User user){
+		return mainDAO.selectUserList(user);
+	}
+	
+	// 친구 추가
+	public int addFriend(int user_sendid, int user_receiveid) {
+		return mainDAO.insertFriend(user_sendid, user_receiveid);
+	}
+	
+	//친구 요청 목록
+	public List<User> getFriend(int id){
+		return mainDAO.selectFriend(id);
+				
+	}
+	// 친구 목록 
+	public List<User> getRealFriend(int id){
+		return mainDAO.selectRealFriend(id);
+	}
+	// 친구 수락 / 거절 
+	public int updateFriend(int user_id, String confirm) {
+		return mainDAO.updateFriend(user_id, confirm);
 	}
 }

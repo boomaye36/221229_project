@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 <!-- jquery : ajax, bootstrap, datepicker -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"
 	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -61,8 +61,8 @@
 									</div>
 									<!-- 카메라/마이크 on/off 버튼 -->
 									<div class="d-flex">
-										<button id="camera-btn"><span class="material-icons">videocam_off</span></button>
-										<button id="voice-btn" class="ml-1"><span class="material-icons">mic_off</span></button>
+										<button id="camera-btn" class="icon-btn"><span class="material-icons">videocam_off</span></button>
+										<button id="voice-btn" class="icon-btn ml-1"><span class="material-icons">mic_off</span></button>
 									</div>
 								</div>
 								<div class="user-profile">
@@ -126,25 +126,23 @@
 						</div>
 					</div>
 					
+					<!-- 매칭 이력 -->	
 					<div class="call-history">
-						<!-- 매칭 이력 -->	
-						<div class="history-title">
-							매칭이력
-						</div>
-						
+						<div class="history-title">매칭이력</div>
 						<div class="history-content">
-							<c:forEach begin="1" end="4">
-								<div class="d-flex justify-content-between">
+							<c:forEach begin="1" end="6">
+								<!-- 매칭되었던 유저 리스트 -->
+								<div class="content-list d-flex justify-content-between">
 									<div class="user-profile-box">
 										<div class="user-img">
 											<img src="/static/img/no.png"> <!-- 기본이미지 -->
 										</div>
-										<div class="user-nickname">상대방닉네임</div>
+										<div class="user-nickname">최근통화상대닉네임</div>
 									</div>
-									<div class="btn-box">
+									<div class="util-box">
 										<div class="history">1분 전</div>
-										<button type="button" class="add-user-btn">친구추가</button>
-										<button type="button" class="block-user-btn">차단</button>
+										<button type="button" title="친구추가" class="icon-btn add-user-btn"><span class="material-icons">person_add</span></button>
+										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn"><span class="material-icons">block</span></button>
 									</div>
 								</div>		
 							</c:forEach>
@@ -206,7 +204,7 @@ $(document).ready(function(){
 		e.preventDefault();
 	};
 	
-	// 카메라 상태 함
+	// 카메라 상태 함수 
 	function setCamera(x, y){
 		navigator.mediaDevices.getUserMedia({video:x, audio:y})
 		.then(stream => {
@@ -216,7 +214,7 @@ $(document).ready(function(){
 	        videoElement.onloadedmetadata = () => videoElement.play();
 	    });
 	}
-	// 마이크 상태 정
+	// 마이크 상태 정보
 	var micstatus = null;
 	
 	//카메라 on / off
@@ -295,8 +293,6 @@ $(document).ready(function(){
 				,success : function(result) {
 					if(result.result === null) {
 						console.log("대기방 대기중")
-						setInnerHTML("매칭 대기중","");
-						
 						$('#call-btn').text('멈춤');
 					} else {
 						console.log("매칭");
@@ -323,15 +319,21 @@ $(document).ready(function(){
 					    const conn = peer.connect(remotePeerId);
 					    conn.on('open', function() {
 					    	// Receive messages
-					    	setInnerHTML('대기방에 입장하였습니다.','');  
-					    	
+					    	setInnerHTML('접속확인테스트','');  
 					    	$(document).on("click", "#call-btn", async function(){
-						   		conn.close();
+					    		var closeMessage = {
+			    						"type":"system",
+			    						"content":"close"
+			    				}
+				    			conn.send(closeMessage);
+						   		//conn.close();
+						   		
 						   		chatSend.onclick = function(e){
 						   			e.preventDefault();
 						    		}
 					    	});
 					    		
+					    	
 					    		chatSend.onclick = function(e){
 					    			e.preventDefault();
 					    			var chatContent = document.getElementsByClassName("chat-input")[0].value;
@@ -352,18 +354,15 @@ $(document).ready(function(){
 					    			setInnerHTML(data['nickName'],data['chatContent']);
 					    				}
 					    		else if (data['type']=='system'){
-					    			
+					    			if (data['content'] == "close"){
+					    				setInnerHTML("통화가 종료되었습니다","");
+					    				conn.close();
+					    		   		chatSend.onclick = function(e){
+					    		   			e.preventDefault();
+					    		    		}
+					    			}
 					    		}
 					    	});
-					    	
-					    	conn.on('close', function() { 
-					    		setInnerHTML('통화가 종료되었습니다.','');
-					    		peer.destroy();
-					    		chatSend.onclick = function(e){
-			    		   			e.preventDefault();
-			    		    		};
-					    	});
-					    	
 					      }); 
 					    
 					    
@@ -437,19 +436,32 @@ peer.on("call", call => {
 
 // 채팅 세팅
 peer.on('connection', function(conn) { 
-	setInnerHTML('상대가 입장하였습니다.','');
+	setInnerHTML('매칭확인테스트','');
 
 	conn.on('data',data=>{
+		console.log(data);
 		if (data['type']=='chatData'){
 		setInnerHTML(data['nickName'],data['chatContent']);
 		}
- 		else if (data['type']=='system'){
- 			
-		} 
+		else if (data['type']=='system'){
+			if (data['content'] == "close"){
+				setInnerHTML("통화가 종료되었습니다","");
+				conn.close();
+		   		chatSend.onclick = function(e){
+		   			e.preventDefault();
+		    		}
+			}
+		}
 	});
 	
 	$(document).on("click", "#call-btn", async function(){
-   		conn.close();
+		var closeMessage = {
+				"type":"system",
+				"content":"close"
+		}
+		conn.send(closeMessage);
+   		//conn.close();
+   		
    		chatSend.onclick = function(e){
    			e.preventDefault();
     		}
@@ -470,14 +482,6 @@ peer.on('connection', function(conn) {
 		}
 		document.getElementsByClassName("chat-input")[0].focus(); 
 	};
-	
-	conn.on('close', function() { 
-		setInnerHTML('통화가 종료되었습니다.','');
-		peer.destroy();
-		chatSend.onclick = function(e){
-   			e.preventDefault();
-    		};
-	});
 });
 
 

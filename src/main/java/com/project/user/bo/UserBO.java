@@ -50,6 +50,22 @@ public class UserBO {
 		
 	}
 	
+	// 마이페이지 회원정보 수정
+	public int updateUserbyId(User user, MultipartFile file) {
+		String imagePath = null;
+		if (file != null) {
+			imagePath = fileManagerService.saveFile(file, user.getLoginid());
+			user.setProfilephoto(imagePath);
+			
+			// 업로드 성공시 기존 이미지 제거
+			if (imagePath != null && user.getProfilephoto() != null) {
+				fileManagerService.deleteFile(user.getProfilephoto());
+			}
+		}
+		
+		return userDAO.updateUserById(user);
+	}
+	
 	//문자메세지 만들기
 	public String sendRandomMessage(String tel) {
 	    Naver_Sens_V2 message = new Naver_Sens_V2();
@@ -90,6 +106,15 @@ public class UserBO {
 	public void updateUserPassword(User user) {
 		userDAO.updateUserPassword(user);
 	}
+
+	// 비밀번호 수정 - 현재 비밀번호 일치여부 확인
+	public boolean isMatchedPassword(String currentPassword) {
+		return userDAO.isMatchedPassword(currentPassword);
+	}
+	// 비밀번호 수정 - 새 비밀번호 update
+	public void updatePassword(String loginid, String changedPassword) {
+		userDAO.updatePassword(loginid, changedPassword);
+	}
 	
 	public User findId(String phonenumber, String email) {
 		return userDAO.findId(phonenumber, email);
@@ -99,10 +124,14 @@ public class UserBO {
 	}
 	
 	
-	
 	//call 페이지에서 연결된 상대방의 정보 가져오기 event
 	public User findCallPageByUserid(int id) {
 		
 		return userDAO.selectCallPageByUserid(id);
+	}
+	
+	// 회원 탈퇴
+	public int deleteUserbyId(int id) {
+		return userDAO.deleteUserbyId(id);
 	}
 }

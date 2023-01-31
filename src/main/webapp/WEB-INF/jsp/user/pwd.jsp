@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>La destinee</title>
 	<!-- jquery : ajax, bootstrap, datepicker -->
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>  
 	
@@ -14,7 +14,7 @@
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 	<!-- css -->
-	<link rel="stylesheet" href="/static/css/style.css">
+	<link rel="stylesheet" href="/static/css/user.css">
 </head>
 <body class="pwd-body">
 	
@@ -28,13 +28,12 @@
         <hr>
         <p class="id-find">
         <span><a href="/user/sign-in">홈</a></span>
-        <span><a href="/user/pwd">비밀번호 찾기</a></span>
+        <span><a href="/user/id">아이디 찾기</a></span>
         <span><a href="/user/sign-up" >회원가입</a></span>
     	</p>
     </div>
-    
-    
 </body>
+
 <script type="text/javascript">
 	
 	//엔터키 비밀번호 찾기 클릭 event 
