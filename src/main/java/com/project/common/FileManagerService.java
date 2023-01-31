@@ -53,7 +53,7 @@ public class FileManagerService {
 		//return "/img" + directoryName + file.getOriginalFilename();
 	}
 	public void deleteFile(String imagePath) {
-		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/post/", ""));
+		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", ""));
 		if (Files.exists(path)) {
 			try {
 				Files.delete(path);
