@@ -22,7 +22,6 @@ import com.project.user.model.Mail;
 import com.project.user.model.User;
 
 @RestController
-@RequestMapping("/user")
 public class UserRestController {
 
 	@Autowired
@@ -33,7 +32,7 @@ public class UserRestController {
 
 
 	//회원가입 (필수정보) insert
-	@PostMapping("/user_insert")
+	@PostMapping("/user/user_insert")
 	public Map<String, Object> addUser(User user, HttpSession session) throws NoSuchAlgorithmException {
 		
 		//회원 비밀번호가 null이 아닐 때 암호화시킴
@@ -58,7 +57,7 @@ public class UserRestController {
 	}
 	
 	//회원가입 id 중복확인 event
-	@RequestMapping("/is_duplicated_id")
+	@RequestMapping("/user/is_duplicated_id")
 	public Map<String, Object> isDuplicatedId(@RequestParam("loginid") String loginid) {
 		Map<String, Object> result = new HashMap<>();
 		int existRowCount = userBO.existingLoginId(loginid);
@@ -74,7 +73,7 @@ public class UserRestController {
 	
 	
 	//로그인 아이디 및 비밀번호 일치 event
-	@PostMapping("/sign_in")
+	@PostMapping("/user/sign_in")
 	public Map<String, Object> signIn(User user, HttpSession session) throws NoSuchAlgorithmException {
 		
 		//암호화
@@ -97,7 +96,7 @@ public class UserRestController {
 	
 	
 	//추가 선택정보 회원가입 event
-	@PostMapping("/user_update")
+	@PostMapping("/user/user_update")
 	public Map<String, Object> userUpdate(User user,@RequestParam(value="file", required=false)MultipartFile file, HttpSession session){
 		Map<String, Object> result = new HashMap<>();
 		//세션객체 가져오기
@@ -121,7 +120,7 @@ public class UserRestController {
 	}
 	
 	//인증번호 보내기 event
-	@PostMapping("/sendMessage")
+	@PostMapping("/user/sendMessage")
 	public Map<String, Object> sendSMS(@RequestParam("phoneNumber")String phoneNumber, HttpSession session) {
 		String confirmNo = userBO.sendRandomMessage(phoneNumber);
 		session.setAttribute("confirmNo", confirmNo);
@@ -131,7 +130,7 @@ public class UserRestController {
 	}
 	
 	//인증번호 일치여부 event
-	@PostMapping("/confirmMessage")
+	@PostMapping("/user/confirmMessage")
 	public Map<String, Object> confirmSMS(@RequestParam("pnconfirm")String pnconfirm, @RequestParam("phoneNumber")String phoneNumber, HttpSession session) {
 	    String confirmNo = (String) session.getAttribute("confirmNo");
 		Map<String, Object> result = new HashMap<>();
@@ -155,7 +154,7 @@ public class UserRestController {
 	
 	
 	//비밀번호 찾기 - 이메일 보내기 event
-	@PostMapping("/sendEmail")
+	@PostMapping("/user/sendEmail")
 	public void sendEmail(User user) throws NoSuchAlgorithmException {
 		//메일 형식 만들기
 		Mail mail = sendEmail.createMailAndChangePassword(user);

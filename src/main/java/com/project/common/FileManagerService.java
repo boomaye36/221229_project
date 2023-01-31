@@ -19,10 +19,10 @@ public class FileManagerService {
 //	public static final String FILE_UPLOAD_PATH = "/Users/songhyeongeun/Desktop/코딩/spring/221229_project/clone/src/main/resources/static/img";
 	
 	//김기훈 서버 경로
-//	public static final String FILE_UPLOAD_PATH = "C:\\Users\\김기훈\\Desktop\\20221229\\images/";
+	public static final String FILE_UPLOAD_PATH = "C:\\Users\\김기훈\\Desktop\\20221229\\images/";
 	
 	//권예지 서버 경로
-	public static final String FILE_UPLOAD_PATH = "C:\\Users\\dkahs\\OneDrive\\_MEGA\\mega_team_221229\\project\\workspace\\images/";
+//	public static final String FILE_UPLOAD_PATH = "C:\\Users\\dkahs\\OneDrive\\_MEGA\\mega_team_221229\\project\\workspace\\images/";
 //	public static final String FILE_UPLOAD_PATH = "C:\\Users\\g1\\OneDrive\\_MEGA\\mega_team_221229\\project_home\\workspace\\images/";
 	
 	// input: 멀티파트 파일, userLoginId

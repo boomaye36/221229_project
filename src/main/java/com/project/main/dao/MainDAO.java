@@ -38,6 +38,9 @@ public interface MainDAO {
 	//응답받는사람 기준으로 상대방 정보 가져오기
 	public User selectRecentCheck(int user_sendid);
 	
+	//매칭이력 event
+	public List<User> selectRecentUserBySendId(Recent recent);
+	
 	public List<User> selectUserList(User user);
 
 	public int insertFriend(@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);

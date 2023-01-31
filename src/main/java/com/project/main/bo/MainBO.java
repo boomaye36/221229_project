@@ -79,6 +79,13 @@ public class MainBO {
 		return mainDAO.selectRecentCheck(user_sendid);
 	}
 	
+	
+	//매칭이력 event
+	public List<User> getRecentUserBySendId(Recent recent) {
+		
+		return mainDAO.selectRecentUserBySendId(recent);
+	}
+	
 	// 친구 추천 목록
 	public List<User> getUserList(User user){
 		return mainDAO.selectUserList(user);

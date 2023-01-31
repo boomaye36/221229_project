@@ -136,7 +136,7 @@ $(document).ready(function() {
 			// ajax
 			$.ajax({
 				type: "POST"
-				, url: "/user/mypage/pwd_update"
+				, url: "/mypage/pwd_update"
 				, data : {password, "changedPassword":changedPassword}
 				, success: function(data) {
 					if (data.result == true) {
@@ -144,7 +144,7 @@ $(document).ready(function() {
 						if (data.code == 100) {
 							// 성공
 							alert("비밀번호가 변경되었습니다");
-							location.reload();
+							location.href = "/mypage";
 						} else {
 							// 에러
 							alert("비밀번호 변경 실패");
@@ -171,7 +171,7 @@ $(document).ready(function() {
 		if (confirm('탈퇴시 정보는 복구되지 않습니다.\n정말로 탈퇴하시겠습니까?')) {
 			$.ajax({
 				type: 'delete'
-				, url: '/user/mypage/user_delete'
+				, url: '/mypage/user_delete'
 				
 				, success: function(data) {
 					if (data.code == 100) {

@@ -125,6 +125,27 @@
 			recent.id DESC
 		LIMIT 1;
 	</select>
+	
+	
+	
+	<!-- 매칭이력 event -->
+	<select id="selectRecentUserBySendId" resultType="com.project.user.model.User" parameterType="com.project.main.model.Recent">
+		SELECT
+			user.id
+			,user.loginid
+			,user.nickname
+			,user.profilephoto
+		FROM
+			`recent`
+		LEFT JOIN `user`
+		ON recent.user_receiveid = user.id
+		where 
+			recent.user_sendid = #{user_sendid}
+		ORDER BY
+			recent.createdat DESC
+		LIMIT 6;
+	</select>
+	
 	<!-- 친구 추천 목록 -->
 	<select id="selectUserList" resultType="com.project.user.model.User" parameterType="com.project.user.model.User">
 	SELECT

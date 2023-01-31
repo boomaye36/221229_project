@@ -243,7 +243,7 @@ $(document).ready(function() {
 		// ajax
 		$.ajax({
 			type : 'PUT'
-			, url : '/user/mypage/user_update'
+			, url : '/mypage/user_update'
 			, data : formData
 			, enctype : "multipart/form-data"
 			, processData: false 
@@ -251,8 +251,7 @@ $(document).ready(function() {
 			, success : function(data) {
 				if (data.code == 100){
 					alert("내 정보 수정이 완료되었습니다.");
-					location.reload();
-					
+					location.href = "/mypage";					
 				} else if (data.code == 400) {
 					alert('내 정보 수정에 실패하였습니다.')
 				}

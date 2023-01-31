@@ -3,6 +3,7 @@ package com.project.main.model;
 import java.util.Date;
 
 public class Recent {
+	
 	private int id;
 	private int user_sendid;
 	private int user_receiveid;
