@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.project.main.bo.MainBO;
+import com.project.main.model.Recent;
 import com.project.main.model.Friend;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
@@ -19,8 +20,10 @@ import com.project.user.model.User;
 public class MainController {
 	@Autowired
 	private UserBO userBO;
+	
 	@Autowired
 	private MainBO mainBO;
+	
 	// 메인페이지
 	@GetMapping("/main")
 	public String main() {
@@ -29,9 +32,11 @@ public class MainController {
 	
 	// 랜덤통화
 	@GetMapping("/call")
-	public String call(Model model, HttpSession session) {
+	public String call(Recent recent,Model model, HttpSession session) {
 		User loginUser = (User) session.getAttribute("loginUser");
-		
+		recent.setUser_sendid(loginUser.getId());
+		List<User> list = mainBO.getRecentUserBySendId(recent);
+		model.addAttribute("list", list);
 		return "/main/call";
 	}
 	
@@ -39,7 +44,8 @@ public class MainController {
 	@GetMapping("/recommend")
 	public String recommend(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
-		List<User> userList = mainBO.getUserList(user);
+		int id = user.getId();
+		List<User> userList = mainBO.getUserList(id);
 		model.addAttribute("userList", userList);
 		return "/main/recommend";
 	}
