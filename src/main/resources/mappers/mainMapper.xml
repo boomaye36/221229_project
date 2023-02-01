@@ -145,7 +145,10 @@
 			,a.loginid
 			,a.nickname
 			,a.profilephoto
-			, timestampdiff  (second, (b.`createdat`), NOW()) as time
+			, timestampdiff  (second, (b.`createdat`), NOW()) as second
+			, timestampdiff  (minute, (b.`createdat`), NOW()) as minute
+			, timestampdiff  (hour, (b.`createdat`), NOW()) as hour
+			, timestampdiff  (day, (b.`createdat`), NOW()) as day
 		FROM
 			`recent` as b
 		LEFT JOIN `user` as a

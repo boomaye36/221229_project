@@ -19,7 +19,10 @@ public class User {
 	private String state;
 	private Date createdat;
 	private Date updatedat;
-	private int time;
+	private int second;
+	private int minute;
+	private int hour;
+	private int day;
 	public int getId() {
 		return id;
 	}
@@ -110,13 +113,30 @@ public class User {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public int getTime() {
-		return time;
+	public int getSecond() {
+		return second;
 	}
-	public void setTime(int time) {
-		this.time = time;
+	public void setSecond(int second) {
+		this.second = second;
 	}
-	
+	public int getMinute() {
+		return minute;
+	}
+	public void setMinute(int minute) {
+		this.minute = minute;
+	}
+	public int getHour() {
+		return hour;
+	}
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+	public int getDay() {
+		return day;
+	}
+	public void setDay(int day) {
+		this.day = day;
+	}
 	
 	
 }
