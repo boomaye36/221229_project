@@ -142,7 +142,8 @@
 									<div class="util-box">
 										<div class="history">
 										<c:choose> 
-										<c:when test="${userList.time >= 3600}">${Math.floor(userList.time/3600)}시간 전</c:when> 
+										<c:when test="${userList.time >= 3600 * 24}">${Math.floor(userList.time / 3600 / 24)}일 전</c:when> 
+										<c:when test="${userList.time >= 3600 && userList.time < 3600 * 24}">${Math.floor(userList.time/3600)}시간 전</c:when> 
 										<c:when test="${userList.time < 3600 && userList.time >= 60}">${Math.floor(userList.time/60) * 10 /10}분 전</c:when> 
 										<c:when test="${userList.time < 60}">${userList.time}초 전</c:when> 
 										</c:choose> </div>
