@@ -16,7 +16,7 @@ public class FileManagerService {
 	private Logger log = LoggerFactory.getLogger(FileManagerService.class);
 	//실제 이미지가 저장될 경로(서버)
 	//송현근 서버 경로
-	public static final String FILE_UPLOAD_PATH = "/Users/songhyeongeun/Desktop/코딩/spring/221229_project/clone/src/main/resources/static/img";
+	public static final String FILE_UPLOAD_PATH = "/Users/songhyeongeun/Desktop/코딩/spring/221229_project/workspace/images/";
 	
 	//김기훈 서버 경로
 	//public static final String FILE_UPLOAD_PATH = "C:\\Users\\김기훈\\Desktop\\20221229\\images/";
@@ -50,8 +50,8 @@ public class FileManagerService {
 		}
 		// 성공 했으면 이미지 url path를 리턴한다. (WebMvConfig 에서 매핑한 이미지 path)
 		// http://localhost/images/palang_16205468764/sun.png
-		//return "/images/" + directoryName + file.getOriginalFilename();
-		return "/static/img" + directoryName + file.getOriginalFilename();
+		return "/images/" + directoryName + file.getOriginalFilename();
+		//return "/static/img" + directoryName + file.getOriginalFilename();
 	}
 	public void deleteFile(String imagePath) {
 		Path path = Paths.get(FILE_UPLOAD_PATH + imagePath.replace("/images/", ""));
