@@ -29,9 +29,9 @@
 		<section class="main-visual d-flex align-items-center">
 			<div class="container">
 				<h1>La destinee</h1>
-				<h2>다양한 사람들을 만나보세요!</h2>
+				<h2>더 많은 사람들이 함께 친구가 되고<br>함께 놀 수 있는 세상을 만들어 갑니다.</h2>
 				<div class="main-visual-btn-box text-center">
-					<a href="/call" class="btn btn-custom">랜덤화상채팅 시작!</a>
+					<a href="/call" class="btn btn-custom">랜덤화상채팅 시작</a>
 				</div>
 			</div>
 		</section>
@@ -42,36 +42,42 @@
             	<!-- content 1 -->
                 <div class="main-content d-flex align-items-center justify-content-between">
                     <div class="order-2">
-                        <div class="p-5"><img class="rounded-circle" src="https://picsum.photos/500" alt="image" /></div>
+                        <div class="p-5">
+                        	<a href="/call" class="img-link"><img class="rounded-circle" src="/static/img/main-img-01.jpg" alt="메인이미지1" /></a>
+                        </div>
                     </div>
                     <div class="order-1">
                         <div class="py-5">
-                            <h2 class="display-4 title">랜덤화상채팅</h2>
-                            <p>랜덤화상채팅 쓸 수 있어!</p>
+                            <h2 class="display-4 title">랜덤통화</h2>
+                            <p>실시간으로 기다림 없이 새로운 친구들을 만나보세요!</p>
                         </div>
                     </div>
                 </div>
                 <!-- content 2 -->
                 <div class="main-content d-flex align-items-center">
                     <div>
-                        <div class="py-5 pr-5"><img class="img-fluid rounded-circle" src="https://picsum.photos/500" alt="image" /></div>
+                        <div class="py-5 pr-5">
+                        	<a href="/recommend" class="img-link"><img class="img-fluid rounded-circle" src="/static/img/main-img-02.jpg" alt="메인이미지2" /></a>
+                        </div>
                     </div>
                     <div class="ml-5">
                         <div class="py-5">
-                            <h2 class="display-4 title">친구추천</h2>
-                            <p>친구추천 가능합니다.</p>
+                            <h2 class="display-4 title">추천친구</h2>
+                            <p>커뮤니티의 수많은 유저들 중 내 마음에 쏙 드는 유저를 찾고<br>직접 친구 요청을 보낼 수도 있습니다.</p>
                         </div>
                     </div>
                 </div>
                 <!-- content 3 -->
                 <div class="main-content d-flex align-items-center justify-content-between">
                     <div class="order-2">
-                        <div class="p-5"><img class="img-fluid rounded-circle" src="https://picsum.photos/500" alt="image" /></div>
+                        <div class="p-5">
+                        	<a href="/friend" class="img-link"><img class="img-fluid rounded-circle" src="/static/img/main-img-03.jpg" alt="메인이미지3" /></a>
+                        </div>
                     </div>
                     <div class="order-1">
                         <div class="py-5">
-                            <h2 class="display-4 title">친구와 채팅하기</h2>
-                            <p>친구와 채팅까지 할 수 있다.</p>
+                            <h2 class="display-4 title">라운지</h2>
+                            <p>바로 영상통화를 할 준비가 되지 않았다면,<br>destinee 라운지에서 친구와 1:1 대화를 시작해보세요.</p>
                         </div>
                     </div>
                 </div>

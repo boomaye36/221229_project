@@ -6,8 +6,8 @@
 		<a href="/main" class="logo">La destinee</a>
 		<ul class="menu d-flex align-items-center ml-5">
 			<li class="nav-item"><a href="/call" class="nav-link">랜덤통화</a></li>
-			<li class="nav-item"><a href="/recommend" class="nav-link">친구추천</a></li>
-			<li class="nav-item"><a href="/friend" class="nav-link">친구목록</a></li>
+			<li class="nav-item"><a href="/recommend" class="nav-link">추천친구</a></li>
+			<li class="nav-item"><a href="/friend" class="nav-link">라운지</a></li>
 		</ul>
 		<ul class="menu ml-auto d-flex align-items-center">
 			<li class="nav-item">
