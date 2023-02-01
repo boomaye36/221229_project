@@ -142,10 +142,10 @@
 									<div class="util-box">
 										<div class="history">
 										<c:choose> 
-										<c:when test="${userList.time >= 3600 * 24}">${Math.floor(userList.time / 3600 / 24)}일 전</c:when> 
-										<c:when test="${userList.time >= 3600 && userList.time < 3600 * 24}">${Math.floor(userList.time/3600)}시간 전</c:when> 
-										<c:when test="${userList.time < 3600 && userList.time >= 60}">${Math.floor(userList.time/60) * 10 /10}분 전</c:when> 
-										<c:when test="${userList.time < 60}">${userList.time}초 전</c:when> 
+ 										<c:when test="${userList.second >= 3600 * 24}">${userList.day}일 전</c:when> 
+										<c:when test="${userList.second >= 3600 && userList.second < 3600 * 24}">${userList.hour}시간 전</c:when> 
+										<c:when test="${userList.second < 3600 && userList.second >= 60}">${userList.minute}분 전</c:when> 
+										<c:when test="${userList.second < 60}">${userList.second}초 전</c:when> 
 										</c:choose> </div>
 										<button type="button" title="친구추가" class="icon-btn add-user-btn" data-recent-id="${userList.id}"><span class="material-icons">person_add</span></button>
 										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn" data-recent-id="${userList.id}"><span class="material-icons">block</span></button>
