@@ -53,4 +53,7 @@ public interface MainDAO {
 	
 	public int updateFriend(@Param("user_id")int user_id, @Param("confirm")String confirm);
 
+	
+	public int insertBlock(@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);
+
 }

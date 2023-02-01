@@ -37,7 +37,6 @@ public class MainRestController {
 		//세션 아이디 값 및 성별 세팅
 		wait.setUser_id(loginUser.getId());
 		wait.setUser_gender(loginUser.getGender());
-		
 		//대기방 추가메소드 호출
 		Wait response = mainBO.addWait(wait);
 		
@@ -129,6 +128,20 @@ public class MainRestController {
 		if (update > 0) {
 			result.put("code", 100);
 			
+		}
+		return result;
+	}
+	
+	// 차단 insert
+	@PostMapping("/block_insert")
+	public Map<String, Object> insertBlock(HttpSession session, @RequestParam int user_receiveid){
+		User loginUser = (User) session.getAttribute("loginUser");
+		int user_sendid = loginUser.getId();
+		int add = mainBO.addBlock(user_sendid, user_receiveid);
+		Map<String, Object> result = new HashMap<>();
+
+		if (add > 0) {
+			result.put("code", 100);
 		}
 		return result;
 	}

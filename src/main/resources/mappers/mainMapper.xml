@@ -47,6 +47,15 @@
 			(`user_gender` = #{preference} OR #{preference} = '모두')
 		AND
 			(`preference` = #{user_gender} OR `preference` = '모두')
+			<!-- 차단된 사람 가져오지않게 -->
+		AND
+			`id`
+		NOT IN
+			(SELECT `user_receiveid` FROM `block` where `user_sendid` = #{user_id})
+		AND
+			`id`
+		NOT IN
+			(SELECT `user_sendid` FROM `block` where `user_receiveid` = #{user_id})
 	</select>
 	<!-- recent 테이블 양방향 삽입 -->
 	<insert id="insertRecent" parameterType="com.project.main.model.Recent">
@@ -129,21 +138,34 @@
 	
 	
 	<!-- 매칭이력 event -->
+	
 	<select id="selectRecentUserBySendId" resultType="com.project.user.model.User" parameterType="com.project.main.model.Recent">
 		SELECT
-			user.id
-			,user.loginid
-			,user.nickname
-			,user.profilephoto
+			a.id
+			,a.loginid
+			,a.nickname
+			,a.profilephoto
+			, timestampdiff  (second, (b.`createdat`), NOW()) as time
 		FROM
-			`recent`
-		LEFT JOIN `user`
-		ON recent.user_receiveid = user.id
+			`recent` as b
+		LEFT JOIN `user` as a
+		ON b.user_receiveid = a.id
 		where 
-			recent.user_sendid = #{user_sendid}
+			b.user_sendid = #{user_sendid}
+	
+		AND
+			a.id
+		NOT IN
+			(SELECT `user_receiveid` FROM `block` where `user_sendid` = #{user_sendid})
+		AND
+			a.id
+		NOT IN
+			(SELECT `user_sendid` FROM `block` where `user_receiveid` = #{user_sendid})
+			
 		ORDER BY
-			recent.createdat DESC
+			b.createdat DESC
 		LIMIT 6;
+		
 	</select>
 	
 	<!-- 친구 추천 목록 -->
@@ -154,12 +176,26 @@
 		`user`
 	WHERE
 		`id`
+	<!-- 자기 자신 추천 안되게 -->
 	NOT IN 
 		(#{id})
+		
+	<!-- 친구요청 한 사람 추천 안되게 -->
 	AND
 		`id`
 	NOT IN
 		(SELECT `user_receiveid` FROM `friend` WHERE (`user_sendid` = #{id}) OR (`user_receiveid` = #{id}))
+	
+	<!-- 차단한 사람 추천 안되게 -->
+	AND
+		`id`
+	NOT IN
+		(SELECT `user_receiveid` FROM `block` where `user_sendid` = #{id})
+	AND
+		`id`
+	NOT IN
+		(SELECT `user_sendid` FROM `block` where `user_receiveid` = #{id})
+		
 	LIMIT 5
 	</select>
 	<insert id="insertFriend" parameterType="map">
@@ -178,6 +214,23 @@
 			#{user_receiveid},
 			'승인중',
 			NOW(),
+			NOW()
+		)
+	</insert>
+	
+	<!-- block 테이블 insert -->
+	<insert id="insertBlock" parameterType="map">
+		INSERT INTO
+			`block`
+		(
+			`user_sendid`
+			,`user_receiveid`
+			,`createdat`
+		)
+		VALUES
+		(
+			#{user_sendid},
+			#{user_receiveid},
 			NOW()
 		)
 	</insert>

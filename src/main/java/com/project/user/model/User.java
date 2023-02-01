@@ -19,6 +19,7 @@ public class User {
 	private String state;
 	private Date createdat;
 	private Date updatedat;
+	private int time;
 	public int getId() {
 		return id;
 	}
@@ -108,6 +109,12 @@ public class User {
 	}
 	public void setPath(String path) {
 		this.path = path;
+	}
+	public int getTime() {
+		return time;
+	}
+	public void setTime(int time) {
+		this.time = time;
 	}
 	
 	

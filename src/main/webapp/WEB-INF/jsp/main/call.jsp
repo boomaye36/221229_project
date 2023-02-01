@@ -140,9 +140,14 @@
 										<div class="user-nickname">${userList.nickname}</div>
 									</div>
 									<div class="util-box">
-										<div class="history">1분 전</div>
-										<button type="button" title="친구추가" class="icon-btn add-user-btn"><span class="material-icons">person_add</span></button>
-										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn"><span class="material-icons">block</span></button>
+										<div class="history">
+										<c:choose> 
+										<c:when test="${userList.time >= 3600}">${Math.floor(userList.time/3600)}시간 전</c:when> 
+										<c:when test="${userList.time < 3600 && userList.time >= 60}">${Math.floor(userList.time/60) * 10 /10}분 전</c:when> 
+										<c:when test="${userList.time < 60}">${userList.time}초 전</c:when> 
+										</c:choose> </div>
+										<button type="button" title="친구추가" class="icon-btn add-user-btn" data-recent-id="${userList.id}"><span class="material-icons">person_add</span></button>
+										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn" data-recent-id="${userList.id}"><span class="material-icons">block</span></button>
 									</div>
 								</div>		
 							</c:forEach>
@@ -196,8 +201,43 @@ function setInnerHTML(nickname, text) {
 const chatSend = document.getElementById("chatSend");
 const nickName = document.getElementById("userNickname").value;
 
+
 $(document).ready(function(){
 	
+	
+	// 수락 버튼 
+	$('.add-user-btn').on('click', function(){
+		let user_receiveid = $(this).data('recent-id');
+
+		$.ajax({
+			type : 'post',
+			url : "/friend_insert",
+			data : {user_receiveid},
+			success:function(data){
+				if (data.code == 100){
+					alert("친구요청 보냄");
+					location.reload(true);
+				}
+			}
+		});
+	});
+
+	
+	//거절 버튼
+	$('.block-user-btn').on('click', function(){
+		let user_receiveid = $(this).data('recent-id');
+		$.ajax({
+			type : 'post',
+			url : "/block_insert",
+			data : {user_receiveid},
+			success:function(data){
+				if (data.code == 100){
+					alert("차단완료");
+					location.reload(true);
+				}
+			}
+		});
+	});
 	
 	// 채팅 임시 세팅
 	chatSend.onclick = function(e){
@@ -215,7 +255,7 @@ $(document).ready(function(){
 	    });
 	}
 	// 마이크 상태 정보
-	var micstatus = null;
+	var micstatus = false;
 	
 	//카메라 on / off
 
@@ -244,7 +284,7 @@ $(document).ready(function(){
 		    $('#voice-btn > .material-icons').text("mic");
 		}
 		else if (($('#voice-btn > .material-icons').text() === "mic_off") && ($('#camera-btn > .material-icons').text() === "videocam")){
-			setCamera(false, false)
+			setCamera(false, micstatus)
 		    $('#voice-btn > .material-icons').text("mic");
 		}
 		else if (($('#voice-btn > .material-icons').text() === "mic") && ($('#camera-btn > .material-icons').text() === "videocam_off")){
@@ -269,7 +309,7 @@ $(document).ready(function(){
 			,error : function(){
 				
 			}
-		})
+		});
 	});
 	
 	//동적 클릭 이벤트

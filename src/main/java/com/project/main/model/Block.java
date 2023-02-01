@@ -2,8 +2,7 @@ package com.project.main.model;
 
 import java.util.Date;
 
-public class Recent {
-	
+public class Block {
 	private int id;
 	private int user_sendid;
 	private int user_receiveid;
@@ -34,5 +33,6 @@ public class Recent {
 	}
 	
 	
-	
+
 }
+

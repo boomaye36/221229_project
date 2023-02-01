@@ -35,6 +35,7 @@ public class MainController {
 	public String call(Recent recent,Model model, HttpSession session) {
 		User loginUser = (User) session.getAttribute("loginUser");
 		recent.setUser_sendid(loginUser.getId());
+		
 		List<User> list = mainBO.getRecentUserBySendId(recent);
 		model.addAttribute("list", list);
 		return "/main/call";
