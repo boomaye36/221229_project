@@ -21,10 +21,10 @@ public class GoogleLoginApi extends DefaultApi20 {
 //	        return "https://accounts.google.com/o/oauth2/token?"
 	    	return "https://oauth2.googleapis.com/token?"
 	        		
-	        		+ "code=4/0AWgavdcUzsPRpfTBEkn0YNpBg72sVZ1TEuaMzAEpJ9Dukie42gyNAW0Tg1oQy7pNqd_0zA"
-//	        		+ "&scope=https://www.googleapis.com/auth/androidpublisher"
-	        		+ "&client_id=10488992723-vs8585mi2nsc4tsim89vf8icpeukops0.apps.googleusercontent.com"
-	        		+ "&client_secret=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"
+	        		+ "code=http://localhost/redirect"
+	        		+ "&scope=https://www.googleapis.com/auth/userinfo.email"
+	        		+ "&client_id=233418186817-v6nlobapoh55eda8bsujrdiabo9p78d1.apps.googleusercontent.com"
+	        		+ "&client_secret=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"
 	        		+ "&redirect_uri=http://localhost/redirect"
 	        		+ "&grant_type=authorization_code";
 

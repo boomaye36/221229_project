@@ -1,6 +1,11 @@
 package com.project.user.bo;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -13,11 +18,13 @@ import com.github.scribejava.core.model.OAuthRequest;
 import com.github.scribejava.core.model.Response;
 import com.github.scribejava.core.model.Verb;
 import com.github.scribejava.core.oauth.OAuth20Service;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.project.util.GoogleLoginApi;
 @Service
 public class GoogleLoginBO {
-	private final static String CLIENT_ID = "10488992723-vs8585mi2nsc4tsim89vf8icpeukops0.apps.googleusercontent.com";
-	   private final static String CLIENT_SECRET = "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";
+	private final static String CLIENT_ID = "233418186817-v6nlobapoh55eda8bsujrdiabo9p78d1.apps.googleusercontent.com";
+	   private final static String CLIENT_SECRET = "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";
 	   private final static String REDIRECT_URI = "http://localhost/redirect";
 	   private final static String SESSION_STATE = "oauth_state";
 	   
@@ -79,4 +86,46 @@ public class GoogleLoginBO {
 		      Response response = request.send();
 		      return response.getBody();
 		   }
+	   
+	   public void getGoogleUserInfo(String access_Token) {
+			 //요청하는 클라이언트마다 가진 정보가 다를 수 있기에 HashMap타입으로 선언
+		    HashMap<String, Object> googleUserInfo = new HashMap<>();
+		    //String reqURL = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token="+access_Token;
+		    String reqURL = "https://www.googleapis.com/userinfo/v2/me?access_token="+access_Token;
+		    try {
+		        URL url = new URL(reqURL);
+		        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+		        //요청에 필요한 Header에 포함될 내용
+		        conn.setRequestProperty("Authorization", "Bearer " + access_Token);
+
+		        int responseCode = conn.getResponseCode();
+		        System.out.println("responseCode : "+responseCode);
+		        if(responseCode == 200){
+			        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			        
+			        String line = "";
+			        String result = "";
+			        
+			        while ((line = br.readLine()) != null) {
+			            result += line;
+			        }
+			        JsonParser parser = new JsonParser();
+			        System.out.println("result : "+result);
+			        JsonElement element = parser.parse(result);
+			        
+			        String name = element.getAsJsonObject().get("name").getAsString();
+			        String email = element.getAsJsonObject().get("email").getAsString();
+			        String id = "GOOGLE_"+element.getAsJsonObject().get("id").getAsString();
+			        
+			        googleUserInfo.put("name", name);
+			        googleUserInfo.put("email", email);
+			        googleUserInfo.put("id", id);
+			        
+			        System.out.println("login Controller : " + googleUserInfo);
+		        }
+		    } catch (IOException e) {
+		        e.printStackTrace();
+		    }
+	   }
 }

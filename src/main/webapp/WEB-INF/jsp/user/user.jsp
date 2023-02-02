@@ -66,7 +66,7 @@
 							<!-- 네이버 로그인 -->					
  							<a type="button" class="user-login-social naver" href="https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=HWYnGH9P3uPQNouoAvyz&state=STATE_STRING&redirect_uri=http://localhost/users/callback.do">네이버 로그인</a>
 							<!-- 구글 로그인 -->
-							<!-- <a type="button" class="user-login-social google" href="https://accounts.google.com/o/oauth2/v2/auth?client_id=10488992723-vs8585mi2nsc4tsim89vf8icpeukops0.apps.googleusercontent.com&redirect_uri=http://localhost/redirect&response_type=token&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&state=state_parameter_passthrough_value">구글 로그인</a> -->
+							<a type="button" class="user-login-social google" href="https://accounts.google.com/o/oauth2/v2/auth?client_id=233418186817-v6nlobapoh55eda8bsujrdiabo9p78d1.apps.googleusercontent.com&redirect_uri=http://localhost/redirect&response_type=code&scope=https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile&state=state_parameter_passthrough_value">구글 로그인</a>
 						</div>
 						<hr>
 						<!-- 아이디, 비밀번호찾기, 회원가입 -->
