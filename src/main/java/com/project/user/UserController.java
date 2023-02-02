@@ -120,14 +120,13 @@ public class UserController {
 	public String kakaoTest(@RequestParam("loginid") String loginid) {
 		String result = null;
 		int row = userBO.existingUserAddition(loginid);
-//		if (row > 0) {
-//			result = "/main/main";
-//		} else if (row == 0) {
-//
-//			result = "/user/signup_addition";
-//		}
-//		return result;
-		return "/main/main";
+		if (row > 0) {
+			result = "/main/main";
+		} else if (row == 0) {
+
+			result = "/user/user";
+		}
+		return result;
 	}
 
 	@RequestMapping(value = "/users/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
