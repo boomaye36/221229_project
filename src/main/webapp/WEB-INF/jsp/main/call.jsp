@@ -217,7 +217,6 @@ $(document).ready(function(){
 			success:function(data){
 				if (data.code == 100){
 					alert("친구요청 보냄");
-					location.reload(true);
 				}
 			}
 		});
@@ -234,7 +233,6 @@ $(document).ready(function(){
 			success:function(data){
 				if (data.code == 100){
 					alert("차단완료");
-					location.reload(true);
 				}
 			}
 		});
