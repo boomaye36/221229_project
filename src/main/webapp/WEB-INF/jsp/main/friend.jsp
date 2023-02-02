@@ -38,12 +38,34 @@
 						<button id="friend-yes" data-friend-id="${request.id}">수락</button>
 						<button id="friend-no" data-friend-id="${request.id}">거절</button>
 					</c:forEach>
-				<!--친구 수락된 목록 -->
+					<!--친구 수락된 목록 -->
 					<c:forEach items="${friendList}" var="friend">
 						${friend.nickname }
 					</c:forEach>
-				
-				
+					
+					<!-- 친구목록/채팅화면 -->
+					<div class="friend-chat-section">
+						<!-- 친구 영역 -->
+						<div class="friend-area">
+							<!-- 친구요청목록 -->
+							<!-- 친구목록 -->
+							<ul class="friend-list">
+								<li class="friend">
+									<button type="button" class="friend-btn">
+										<div class="inner">
+											<div class="img"><img src="/static/img/no.png" alt="프로필사진"></div>
+											<div class="cont">
+												<div class="user-nickname">닉네임</div>
+												<div class="user-chat">채팅 내용입니다. 채팅 내용입니다.</div>
+											</div>
+										</div>
+									</button>
+								</li>
+							</ul>
+						</div>
+						<!-- 채팅 영역 -->
+						<div class="chat-area"></div>
+					</div>
 				</div>
 			</div>
 		</section>
