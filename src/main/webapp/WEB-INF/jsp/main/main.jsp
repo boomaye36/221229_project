@@ -84,8 +84,14 @@
 			</div>
 		</section>
 		
+		<input type="hidden" value="${loginUser}" name="loginUser">
+		
 		<!-- footer -->
 		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
+
+<script type="text/javascript">
+
+</script>
 </html>
