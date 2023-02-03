@@ -33,24 +33,35 @@
 				<!-- content -->
 				<div class="content">
 					<!-- 친구 요청 목록 -->
-					<c:forEach items="${requestList}" var="request">
+					<%-- <c:forEach items="${requestList}" var="request">
 						${request.nickname }
-						<button id="friend-yes" data-friend-id="${request.id}">수락</button>
-						<button id="friend-no" data-friend-id="${request.id}">거절</button>
-					</c:forEach>
+						<button type="button" class="friend-yes" data-friend-id="${request.id}">수락</button>
+						<button type="button" class="friend-no" data-friend-id="${request.id}">거절</button>
+					</c:forEach> --%>
 					<!--친구 수락된 목록 -->
-					<c:forEach items="${friendList}" var="friend">
+					<%-- <c:forEach items="${friendList}" var="friend">
 						${friend.nickname }
-					</c:forEach>
+					</c:forEach> --%>
 					
-					<!-- 친구목록/채팅화면 -->
-					<div class="friend-chat-section">
+					<!-- 라운지 -->
+					<div class="lounge">
 						<!-- 친구 영역 -->
-						<div class="friend-area">
+						<div class="lounge-friend-area">
 							<!-- 친구요청목록 -->
+							<ul class="friend-request-list">
+								<c:forEach items="${requestList}" var="request">
+								<li class="list">
+									<div class="user-nickname">${request.nickname}</div>
+									<div class="btn-box">
+										<button type="button" class="friend-yes" data-friend-id="${request.id}">수락</button>
+										<button type="button" class="friend-no" data-friend-id="${request.id}">거절</button>
+									</div>
+								</li>
+								</c:forEach>
+							</ul>
 							<!-- 친구목록 -->
 							<ul class="friend-list">
-								<li class="friend">
+								<li class="list">
 									<button type="button" class="friend-btn">
 										<div class="inner">
 											<div class="img"><img src="/static/img/no.png" alt="프로필사진"></div>
@@ -63,8 +74,9 @@
 								</li>
 							</ul>
 						</div>
+						
 						<!-- 채팅 영역 -->
-						<div class="chat-area"></div>
+						<div class="lounge-chat-area">채팅영역</div>
 					</div>
 				</div>
 			</div>
@@ -77,7 +89,7 @@
 <script>
 $(document).ready(function(){
 	// 수락 버튼 
-	$('#friend-yes').on('click', function(){
+	$('.friend-yes').on('click', function(){
 		let user_id = $(this).data('friend-id');
 		let confirm = '수락';
 		$.ajax({
@@ -94,7 +106,7 @@ $(document).ready(function(){
 	});
 	
 	//거절 버튼
-	$('#friend-no').on('click', function(){
+	$('.friend-no').on('click', function(){
 		let user_id = $(this).data('friend-id');
 		let confirm = '거절';
 		$.ajax({
