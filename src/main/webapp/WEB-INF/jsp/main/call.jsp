@@ -206,10 +206,12 @@ const nickName = document.getElementById("userNickname").value;
 $(document).ready(function(){
 	
 	
+	
+	
+	
 	// 수락 버튼 
 	$('.add-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
-
 		$.ajax({
 			type : 'post',
 			url : "/friend_insert",
@@ -217,7 +219,6 @@ $(document).ready(function(){
 			success:function(data){
 				if (data.code == 100){
 					alert("친구요청 보냄");
-					location.reload(true);
 				}
 			}
 		});
@@ -227,17 +228,18 @@ $(document).ready(function(){
 	//거절 버튼
 	$('.block-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
-		$.ajax({
+		let button = $(this).prev().children().text();
+		/* $.ajax({
 			type : 'post',
 			url : "/block_insert",
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
 					alert("차단완료");
-					location.reload(true);
+					
 				}
 			}
-		});
+		}); */
 	});
 	
 	// 채팅 임시 세팅

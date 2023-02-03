@@ -26,7 +26,9 @@ public class MainController {
 	
 	// 메인페이지
 	@GetMapping("/main")
-	public String main() {
+	public String main(HttpSession session, Model model) {
+		User loginUser = (User) session.getAttribute("loginUser");
+		model.addAttribute("loginUser",loginUser);
 		return "/main/main";
 	}
 	
