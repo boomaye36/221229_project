@@ -48,31 +48,44 @@
 						<!-- 친구 영역 -->
 						<div class="lounge-friend-area">
 							<!-- 친구요청목록 -->
-							<ul class="friend-request-list">
-								<c:forEach items="${requestList}" var="request">
-								<li class="list">
-									<div class="user-nickname">${request.nickname}</div>
-									<div class="btn-box">
-										<button type="button" class="friend-yes" data-friend-id="${request.id}">수락</button>
-										<button type="button" class="friend-no" data-friend-id="${request.id}">거절</button>
+							<div class="friend-request-list">
+								<div class="list-title">친구요청</div>
+								<!-- 친구요청 있을 경우: list 반복문 노출 -->
+								<c:if test="${!empty requestList}">
+									<c:forEach items="${requestList}" var="request">
+									<div class="list">
+										<div class="user-box">
+											<div class="img"><img src="${empty request.profilephoto ? '/static/img/no.png' : request.profilephoto}"></div>
+											<div class="user-nickname">${request.nickname}</div>
+										</div>
+										<div class="btn-box">
+											<button type="button" class="friend-request-btn friend-yes" data-friend-id="${request.id}">수락</button>
+											<button type="button" class="friend-request-btn friend-no" data-friend-id="${request.id}">거절</button>
+										</div>
 									</div>
-								</li>
-								</c:forEach>
-							</ul>
+									</c:forEach>
+								</c:if>
+								<!-- 친구요청 없을 경우 -->
+								<c:if test="${empty requestList}">
+									<div class="empty-text">받은 친구 요청이 없습니다.</div>
+								</c:if>
+							</div>
 							<!-- 친구목록 -->
-							<ul class="friend-list">
-								<li class="list">
+							<div class="friend-list">
+								<c:forEach items="${friendList}" var="friend">
+								<div class="list">
 									<button type="button" class="friend-btn">
 										<div class="inner">
-											<div class="img"><img src="/static/img/no.png" alt="프로필사진"></div>
+											<div class="img"><img src="${empty friend.profilephoto ? '/static/img/no.png' : friend.profilephoto}"></div>
 											<div class="cont">
-												<div class="user-nickname">닉네임</div>
-												<div class="user-chat">채팅 내용입니다. 채팅 내용입니다.</div>
+												<div class="user-nickname">${friend.nickname}</div>
+												<div class="user-chat">채팅 내용입니다. 채팅 내용입니다. 채팅 내용입니다.</div>
 											</div>
 										</div>
 									</button>
-								</li>
-							</ul>
+								</div>
+								</c:forEach>
+							</div>
 						</div>
 						
 						<!-- 채팅 영역 -->
