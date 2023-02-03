@@ -206,20 +206,30 @@ const nickName = document.getElementById("userNickname").value;
 $(document).ready(function(){
 	
 	
+	
+	
+	
 	// 수락 버튼 
 	$('.add-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
+<<<<<<< HEAD
 		let addbtn = $(this);
 
+=======
+>>>>>>> origin/kihun
 		$.ajax({
 			type : 'post',
 			url : "/friend_insert",
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
+<<<<<<< HEAD
 					alert("친구요청을 보냈습니다.");
 					addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
 					addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
+=======
+					alert("친구요청 보냄");
+>>>>>>> origin/kihun
 				}
 			}
 		});
@@ -229,19 +239,29 @@ $(document).ready(function(){
 	//거절 버튼
 	$('.block-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
+<<<<<<< HEAD
 		let blockbtn = $(this);
 		
 		$.ajax({
+=======
+		let button = $(this).prev().children().text();
+		/* $.ajax({
+>>>>>>> origin/kihun
 			type : 'post',
 			url : "/block_insert",
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
+<<<<<<< HEAD
 					alert("차단되었습니다.");
 					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
+=======
+					alert("차단완료");
+					
+>>>>>>> origin/kihun
 				}
 			}
-		});
+		}); */
 	});
 	
 	// 채팅 임시 세팅
