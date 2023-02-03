@@ -34,7 +34,7 @@ public class PermissionInterceptor implements HandlerInterceptor{
 		if (user == null && uri.startsWith("/main") 
 			|| user ==null && uri.startsWith("/call") 
 			|| user == null && uri.startsWith("/recommand")
-			|| user == null && uri.startsWith("/friend")
+			|| user == null && uri.startsWith("/lounge")
 			|| user == null && uri.startsWith("/mypage")
 				) {
 			response.sendRedirect("/user/sign-in");

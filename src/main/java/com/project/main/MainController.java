@@ -51,8 +51,8 @@ public class MainController {
 		return "/main/recommend";
 	}
 	
-	//친구목록
-	@GetMapping("/friend")
+	// 라운지(친구목록)
+	@GetMapping("/lounge")
 	public String friend(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
 		int id = user.getId();
@@ -61,7 +61,7 @@ public class MainController {
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("friendList", friendList);
 
-		return "/main/friend";
+		return "/main/lounge";
 	}
 	
 	// 내정보
