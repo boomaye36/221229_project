@@ -102,9 +102,7 @@ public class MainController {
 	}
 	
 	//영상통화 테스트
-	@RequestMapping("/test")
-	public String test() {
-		return "/main/test";
-	}
-	
+	/*
+	 * @RequestMapping("/test") public String test() { return "/main/test"; }
+	 */	
 }

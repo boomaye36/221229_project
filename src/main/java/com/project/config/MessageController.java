@@ -1,67 +1,109 @@
 package com.project.config;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
+
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 @Controller
-@ServerEndpoint("/websocket")
+@ServerEndpoint("/websocket/{room}")
 public class MessageController {
-
 	
-	 private static final List<Session> session = new ArrayList<Session>();
-
+	
+	
+	 private static final List<Map<String, Object>> sessionList = new ArrayList<Map<String, Object>>();
+	 
+	 
 	    public MessageController() {
 //	        this.isSessionClosed();
 	    }
 
-	    @GetMapping("/test")
+	    
+	    
+	    @GetMapping("/test/{room}")
 	    public String index() {
+	    	
 	        return "/main/index";
 	    }
 
 	    @OnOpen
-	    public void open(Session newUser) {
+	    public void open(Session newUser, @PathParam("room") String room) {
 	        System.out.println("connected");
-	        session.add(newUser);
-	        System.out.println("현재 접속중인 유저 수 : " + session.size());
+	        Map<String, Object> map = new HashMap<String, Object>();
+			map.put("roomNum", room);
+			map.put("session", newUser);
+			sessionList.add(map);
+	        System.out.println(room + "방의 현재 접속중인 유저 수 : " + sessionList.size());
+	        System.out.println(sessionList);
+	    }
+	    
+	    @OnClose
+	    public void close(Session closeUser,  @PathParam("room") String room) {
+	    	System.out.println("closed");
+	    	// 세션리스트에서 유저 찾아서 삭제해야함 
+	    	for (int i = 0; i < sessionList.size(); i++) {
+	    		Map<String, Object> map = sessionList.get(i);
+	    		Session sess = (Session) map.get("session");
+	    		if (closeUser.equals(sess)) {
+	    			if (map.get("roomNum").equals(room)) {
+	    				sessionList.remove(map);
+	    				break;
+	    			}
+	    		}
+	    		sessionList.remove(map);
+	    	}
+	    	
+	        System.out.println(room +"방의 현재 접속중인 유저 수 : " + sessionList.size());
 	    }
 
 	    @OnMessage
-	    public void getMsg(Session recieveSession, String msg) {
-	        for (int i = 0; i < session.size(); i++) {
-	            if (! recieveSession.getId().equals(session.get(i).getId())) {
-	                try {
-	                    session.get(i).getBasicRemote().sendText("유저" + (Integer.parseInt(session.get(i).getId()) + 1) + " : " + msg);
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	            } else {
-	                try {
-	                    session.get(i).getBasicRemote().sendText("나 : " + msg);
-	                } catch (IOException e) {
-	                    e.printStackTrace();
-	                }
-	            }
+	    public void getMsg(Session recieveSession, String msg, @PathParam("room") String room) {
+	    	
+	        for (int i = 0; i < sessionList.size(); i++) {
+	        	
+	        	if (sessionList.get(i).get("roomNum").equals(room)) {
+	        	
+		        	Session sess = (Session) sessionList.get(i).get("session");
+		        	// 추가 수정 필요
+		        	try {
+						sess.getBasicRemote().sendText( "나 : " + msg);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	        	}
+				/*
+				 * if (! recieveSession.getId().equals(session.get(i).getId())) { try {
+				 * session.get(i).getBasicRemote().sendText("유저" +
+				 * (Integer.parseInt(session.get(i).getId()) + 1) + " : " + msg); } catch
+				 * (IOException e) { e.printStackTrace(); } } else { try {
+				 * session.get(i).getBasicRemote().sendText("나 : " + msg); } catch (IOException
+				 * e) { e.printStackTrace(); } }
+				 */
 	        }
 	    }
 
 	    @Scheduled(cron = "* * * * * *")
 	    private void isSessionClosed() {
-	        if (session.size() != 0) {
+	        if (sessionList.size() != 0) {
 	            try {
-	                System.out.println("! = " + session.size());
-	                for (int i = 0; i < session.size(); i++) {
-	                    if (! session.get(i).isOpen()) {
-	                        session.remove(i);
+	                System.out.println("! = " + sessionList.size());
+	                for (int i = 0; i < sessionList.size(); i++) {
+	                	Session sess = (Session) sessionList.get(i).get("session");
+	                    if (! sess.isOpen()) {
+	                    	sessionList.remove(i);
 	                    }
 	                }
 	            } catch (Exception e) {
