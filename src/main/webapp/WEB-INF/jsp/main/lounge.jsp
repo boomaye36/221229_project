@@ -48,15 +48,9 @@
 						<!-- 친구 영역 -->
 						<div class="lounge-friend-area">
 							<!-- 친구요청목록 -->
-<<<<<<< HEAD
-							<div class="friend-request-list">
-								<div class="list-title">친구요청</div>
-								<!-- 친구요청 있을 경우: list 반복문 노출 -->
-=======
 							<div class="friend-request-list p-3">
 								<div class="list-title">친구요청</div>
 								<!-- 친구요청 있을 경우: list 반복문 -->
->>>>>>> origin/yeji
 								<c:if test="${!empty requestList}">
 									<c:forEach items="${requestList}" var="request">
 									<div class="list">
@@ -71,22 +65,15 @@
 									</div>
 									</c:forEach>
 								</c:if>
-<<<<<<< HEAD
-								<!-- 친구요청 없을 경우 -->
-=======
 								<!-- 친구요청 없을 경우: 텍스트 노출 -->
->>>>>>> origin/yeji
 								<c:if test="${empty requestList}">
 									<div class="empty-text">받은 친구 요청이 없습니다.</div>
 								</c:if>
 							</div>
 							<!-- 친구목록 -->
 							<div class="friend-list">
-<<<<<<< HEAD
-=======
 								<div class="list-title pt-3 px-3">채팅목록</div>
 								<!-- 친구목록 있을경우: 채팅 list 반복문 -->
->>>>>>> origin/yeji
 								<c:forEach items="${friendList}" var="friend">
 								<div class="list">
 									<button type="button" class="friend-btn">
@@ -100,13 +87,10 @@
 									</button>
 								</div>
 								</c:forEach>
-<<<<<<< HEAD
-=======
 								<!-- 친구목록 없을 경우: 텍스트 노출 -->
 								<%-- <c:if test=""> --%>
 									<div class="empty-text">채팅 목록이 없습니다.</div>
 								<%-- </c:if> --%>
->>>>>>> origin/yeji
 							</div>
 						</div>
 						

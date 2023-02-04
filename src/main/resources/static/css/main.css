@@ -622,14 +622,8 @@ video {
 	font-weight: 600;
 }
 .lounge-friend-area .friend-request-list {
-<<<<<<< HEAD
-	height: 170px;
-	overflow-y: auto;
-	padding: 20px;
-=======
 	height: 165px;
 	overflow-y: auto;
->>>>>>> origin/yeji
 	border-bottom: 1px solid #dadada;
 }
 .lounge-friend-area .friend-request-list .list {
@@ -639,10 +633,7 @@ video {
 	padding: 10px 0;
 }
 .friend-request-list .list .user-box {
-<<<<<<< HEAD
-=======
 	width: calc(100% - 102px);
->>>>>>> origin/yeji
 	display: flex;
 	align-items: center;
 }
@@ -662,12 +653,9 @@ video {
 	height: 30px;
 	object-fit: cover;
 }
-<<<<<<< HEAD
-=======
 .friend-request-list .list .btn-box {
 	width: 102px;
 }
->>>>>>> origin/yeji
 
 .friend-request-btn {
 	cursor: pointer;
