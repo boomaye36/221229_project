@@ -209,6 +209,7 @@ $(document).ready(function(){
 	// 수락 버튼 
 	$('.add-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
+		let addbtn = $(this);
 
 		$.ajax({
 			type : 'post',
@@ -216,7 +217,9 @@ $(document).ready(function(){
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
-					alert("친구요청 보냄");
+					alert("친구요청을 보냈습니다.");
+					addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
+					addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
 				}
 			}
 		});
@@ -226,6 +229,8 @@ $(document).ready(function(){
 	//거절 버튼
 	$('.block-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
+		let blockbtn = $(this);
+		
 		$.ajax({
 			type : 'post',
 			url : "/block_insert",
@@ -233,6 +238,8 @@ $(document).ready(function(){
 			success:function(data){
 				if (data.code == 100){
 					alert("차단완료");
+					alert("차단되었습니다.");
+					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
 				}
 			}
 		});

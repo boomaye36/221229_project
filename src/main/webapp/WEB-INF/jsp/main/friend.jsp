@@ -41,6 +41,7 @@
 				<!--친구 수락된 목록 -->
 					<c:forEach items="${friendList}" var="friend">
 						${friend.nickname }
+						<button class="chat-btn" data-chat-id="${friend.id }">채팅하기</button>
 					</c:forEach>
 				
 				
