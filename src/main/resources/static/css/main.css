@@ -56,6 +56,13 @@
 	outline: none;
 }
 
+.empty-text {
+	font-size: 14px;
+	color: #999;
+	text-align: center;
+	line-height: 7;
+}
+
 /* layout */
 .main-wrap {
 	min-width: 1140px !important;
@@ -599,3 +606,128 @@ video {
 }
 
 
+/* 라운지 */
+.lounge {
+	display: flex;
+	height: calc(100vh - 293px);
+	border: 1px solid #dadada;
+}
+
+.lounge-friend-area {
+	width: 40%;
+	border-right: 1px solid #dadada;
+}
+.lounge-friend-area .list-title {
+	margin-bottom: 10px;
+	font-weight: 600;
+}
+.lounge-friend-area .friend-request-list {
+	height: 170px;
+	overflow-y: auto;
+	padding: 20px;
+	border-bottom: 1px solid #dadada;
+}
+.lounge-friend-area .friend-request-list .list {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 10px 0;
+}
+.friend-request-list .list .user-box {
+	display: flex;
+	align-items: center;
+}
+.friend-request-list .list .user-box .user-nickname {
+	margin-left: 12px;
+	font-size: 15px;
+}
+.friend-request-list .list .user-box .img {
+	width: 100%;
+	max-width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.friend-request-list .list .user-box .img > img {
+	width: 100%;
+	height: 30px;
+	object-fit: cover;
+}
+
+.friend-request-btn {
+	cursor: pointer;
+	border: none;
+	outline: none;
+	padding: 8px 10px;
+	border-radius: 16px;
+	font-size: 14px;
+	color: #fff;
+}
+.friend-request-btn:focus {
+	border: none;
+	outline: none;
+}
+.friend-request-btn.friend-yes {
+	background: #ee0979;
+}
+.friend-request-btn.friend-no {
+	background: #444;
+}
+
+.lounge-friend-area .friend-list {
+	height: calc(100% - 170px);
+	overflow-y: auto;
+}
+.friend-btn {
+	cursor: pointer;
+	display: block;
+	background: none;
+	border: none;
+	outline: none;
+	width: 100%;
+	padding: 15px 20px;
+}
+.friend-btn:focus {
+	border: none;
+	outline: none;
+}
+.friend-btn:hover {
+	background: #f3f3f3;
+}
+
+.friend-btn .inner {
+	display: flex;
+	align-items: center;
+}
+.friend-btn .inner .img {
+	width: 100%;
+	max-width: 55px;
+	height: 55px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+.friend-btn .inner .img > img {
+	width: 100%;
+	height: 55px;
+	object-fit: cover;
+}
+.friend-btn .inner .cont {
+	width: 100%;
+	margin-left: 15px;
+	text-align: left;
+	display: grid;
+	row-gap: 9px;
+}
+.friend-btn .inner .cont .user-nickname {
+	font-size: 15px;
+	font-weight: 600;
+}
+.friend-btn .inner .cont .user-chat {
+	font-size: 14px;
+	color: #666;
+	overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+
+.lounge-chat-area {
+	width: 60%;
+}

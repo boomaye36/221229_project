@@ -26,7 +26,9 @@ public class MainController {
 	
 	// 메인페이지
 	@GetMapping("/main")
-	public String main() {
+	public String main(HttpSession session, Model model) {
+		User loginUser = (User) session.getAttribute("loginUser");
+		model.addAttribute("loginUser",loginUser);
 		return "/main/main";
 	}
 	
@@ -51,8 +53,8 @@ public class MainController {
 		return "/main/recommend";
 	}
 	
-	//친구목록
-	@GetMapping("/friend")
+	// 라운지(친구목록)
+	@GetMapping("/lounge")
 	public String friend(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
 		int id = user.getId();
@@ -61,7 +63,7 @@ public class MainController {
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("friendList", friendList);
 
-		return "/main/friend";
+		return "/main/lounge";
 	}
 	
 	// 내정보
