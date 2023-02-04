@@ -237,6 +237,7 @@ $(document).ready(function(){
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
+					alert("차단완료");
 					alert("차단되었습니다.");
 					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
 				}
