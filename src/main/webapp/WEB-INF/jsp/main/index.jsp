@@ -43,7 +43,12 @@
 
         function sendMsg() {
             let content=document.querySelector('.content').value;
-            socket.send(content);
+            var sendData = {
+            		id : "유저",
+            		content : content
+            }
+            
+            socket.send(JSON.stringify(sendData));
         }
 </script>
 </html>
