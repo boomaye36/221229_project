@@ -206,17 +206,19 @@ const nickName = document.getElementById("userNickname").value;
 $(document).ready(function(){
 	
 	
-	
-	
-	
 	// 수락 버튼 
 	$('.add-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
+<<<<<<< HEAD
 <<<<<<< HEAD
 		let addbtn = $(this);
 
 =======
 >>>>>>> origin/kihun
+=======
+		let addbtn = $(this);
+
+>>>>>>> origin/yeji
 		$.ajax({
 			type : 'post',
 			url : "/friend_insert",
@@ -224,12 +226,18 @@ $(document).ready(function(){
 			success:function(data){
 				if (data.code == 100){
 <<<<<<< HEAD
+<<<<<<< HEAD
 					alert("친구요청을 보냈습니다.");
 					addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
 					addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
 =======
 					alert("친구요청 보냄");
 >>>>>>> origin/kihun
+=======
+					alert("친구요청을 보냈습니다.");
+					addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
+					addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
+>>>>>>> origin/yeji
 				}
 			}
 		});
@@ -240,6 +248,7 @@ $(document).ready(function(){
 	$('.block-user-btn').on('click', function(){
 		let user_receiveid = $(this).data('recent-id');
 <<<<<<< HEAD
+<<<<<<< HEAD
 		let blockbtn = $(this);
 		
 		$.ajax({
@@ -247,11 +256,17 @@ $(document).ready(function(){
 		let button = $(this).prev().children().text();
 		/* $.ajax({
 >>>>>>> origin/kihun
+=======
+		let blockbtn = $(this);
+		
+		$.ajax({
+>>>>>>> origin/yeji
 			type : 'post',
 			url : "/block_insert",
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
+<<<<<<< HEAD
 <<<<<<< HEAD
 					alert("차단되었습니다.");
 					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
@@ -259,9 +274,14 @@ $(document).ready(function(){
 					alert("차단완료");
 					
 >>>>>>> origin/kihun
+=======
+					alert("차단완료");
+					alert("차단되었습니다.");
+					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
+>>>>>>> origin/yeji
 				}
 			}
-		}); */
+		});
 	});
 	
 	// 채팅 임시 세팅
@@ -384,7 +404,7 @@ $(document).ready(function(){
 					    const conn = peer.connect(remotePeerId);
 					    conn.on('open', function() {
 					    	// Receive messages
-					    	setInnerHTML('접속확인테스트','');  
+					    	setInnerHTML('연결되었습니다','');  // 접속확인
 					    	$(document).on("click", "#call-btn", async function(){
 					    		var closeMessage = {
 			    						"type":"system",
@@ -420,7 +440,7 @@ $(document).ready(function(){
 					    				}
 					    		else if (data['type']=='system'){
 					    			if (data['content'] == "close"){
-					    				setInnerHTML("통화가 종료되었습니다","");
+					    				setInnerHTML("연결이 종료되었습니다","");
 					    				conn.close();
 					    		   		chatSend.onclick = function(e){
 					    		   			e.preventDefault();
@@ -501,7 +521,7 @@ peer.on("call", call => {
 
 // 채팅 세팅
 peer.on('connection', function(conn) { 
-	setInnerHTML('매칭확인테스트','');
+	setInnerHTML('매칭되었습니다',''); // 매칭확인
 
 	conn.on('data',data=>{
 		console.log(data);
@@ -510,7 +530,7 @@ peer.on('connection', function(conn) {
 		}
 		else if (data['type']=='system'){
 			if (data['content'] == "close"){
-				setInnerHTML("통화가 종료되었습니다","");
+				setInnerHTML("연결이 종료되었습니다","");
 				conn.close();
 		   		chatSend.onclick = function(e){
 		   			e.preventDefault();
