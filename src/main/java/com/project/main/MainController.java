@@ -109,4 +109,10 @@ public class MainController {
 		 return "/main/test"; 
 	}
 	 
+	 // SSE 테스트
+	 @RequestMapping("/ssetest")
+	 public String ssetest() {
+		 return "/main/sse_test";
+	 }
+	 
 }
