@@ -20,29 +20,29 @@ import com.project.user.model.User;
 public class MainController {
 	@Autowired
 	private UserBO userBO;
-	
+
 	@Autowired
 	private MainBO mainBO;
-	
+
 	// 메인페이지
 	@GetMapping("/main")
 	public String main(HttpSession session, Model model) {
 		User loginUser = (User) session.getAttribute("loginUser");
-		model.addAttribute("loginUser",loginUser);
+		model.addAttribute("loginUser", loginUser);
 		return "/main/main";
 	}
-	
+
 	// 랜덤통화
 	@GetMapping("/call")
-	public String call(Recent recent,Model model, HttpSession session) {
+	public String call(Recent recent, Model model, HttpSession session) {
 		User loginUser = (User) session.getAttribute("loginUser");
 		recent.setUser_sendid(loginUser.getId());
-		
+
 		List<User> list = mainBO.getRecentUserBySendId(recent);
 		model.addAttribute("list", list);
 		return "/main/call";
 	}
-	
+
 	// 친구추천
 	@GetMapping("/recommend")
 	public String recommend(HttpSession session, Model model) {
@@ -52,7 +52,7 @@ public class MainController {
 		model.addAttribute("userList", userList);
 		return "/main/recommend";
 	}
-	
+
 	// 라운지(친구목록)
 	@GetMapping("/lounge")
 	public String friend(HttpSession session, Model model) {
@@ -65,22 +65,22 @@ public class MainController {
 
 		return "/main/lounge";
 	}
-	
+
 	// 내정보
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
 		model.addAttribute("user", user);
-		
+
 		return "/main/mypage";
 	}
-	
+
 	// 내정보 수정
 	@GetMapping("/mypage/user")
 	public String mypageUser(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
 		model.addAttribute("user", user);
-		
+
 		return "/main/mypage_user";
 	}
 
@@ -89,20 +89,24 @@ public class MainController {
 	public String mypagePwd(HttpSession session, Model model) {
 		User user = (User) session.getAttribute("loginUser");
 		model.addAttribute("user", user);
-		
+
 		return "/main/mypage_pwd";
 	}
-	
-	//로그아웃
+
+	// 로그아웃
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
-		
+
 		session.removeAttribute("loginUser");
 		return "redirect:/user/sign-in";
 	}
+
+	// 영상통화 테스트
 	
-	//영상통화 테스트
-	/*
-	 * @RequestMapping("/test") public String test() { return "/main/test"; }
-	 */	
+	 @RequestMapping("/calltest") 
+	 public String test() { 
+	
+		 return "/main/test"; 
+	}
+	 
 }

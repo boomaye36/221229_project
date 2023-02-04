@@ -29,7 +29,6 @@ public class MessageController {
 	    public MessageController() {
 //	        this.isSessionClosed();
 	    }
-
 	    
 	    
 	    @GetMapping("/test/{room}")
@@ -45,7 +44,16 @@ public class MessageController {
 			map.put("roomNum", room);
 			map.put("session", newUser);
 			sessionList.add(map);
-	        System.out.println(room + "방의 현재 접속중인 유저 수 : " + sessionList.size());
+			
+	    	int roomSize = 0;
+	    	for (Map<String, Object> size:sessionList) {
+	    		String roomN = (String) size.get("roomNum");
+	    		if (roomN.equals(room)) {
+	    			roomSize ++;
+	    		}
+	    		
+	    	}
+	        System.out.println(room + "방의 현재 접속중인 유저 수 : " + roomSize);
 	        System.out.println(sessionList);
 	    }
 	    
@@ -64,8 +72,14 @@ public class MessageController {
 	    		}
 	    		sessionList.remove(map);
 	    	}
-	    	
-	        System.out.println(room +"방의 현재 접속중인 유저 수 : " + sessionList.size());
+	    	int roomSize = 0;
+	    	for (Map<String, Object> size:sessionList) {
+	    		String roomN = (String) size.get("roomNum");
+	    		if (roomN.equals(room)) {
+	    			roomSize ++;
+	    		}
+	    	}
+	        System.out.println(room + "방의 현재 접속중인 유저 수 : " + roomSize);
 	    }
 
 	    @OnMessage
