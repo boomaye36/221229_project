@@ -1,8 +1,5 @@
 package com.project.config;
 
-<<<<<<< HEAD
-import org.springframework.context.event.EventListener;
-=======
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,14 +13,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
->>>>>>> jaehyun
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.socket.messaging.SessionConnectEvent;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -188,9 +179,5 @@ public class MessageController {
 	            }
 	        }
 	    }
-<<<<<<< HEAD
-	    
-=======
-*/
->>>>>>> jaehyun
+*/	    
 }
