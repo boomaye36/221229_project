@@ -204,46 +204,43 @@ const nickName = document.getElementById("userNickname").value;
 
 
 $(document).ready(function(){
-	   
-	   
-	   // 수락 버튼 
-	   $('.add-user-btn').on('click', function(){
-	      let user_receiveid = $(this).data('recent-id');
-	      let addbtn = $(this);
+	 // 수락 버튼 
+    $('.add-user-btn').on('click', function(){
+       let user_receiveid = $(this).data('recent-id');
+       let addbtn = $(this);
 
-	      $.ajax({
-	         type : 'post',
-	         url : "/friend_insert",
-	         data : {user_receiveid},
-	         success:function(data){
-	            if (data.code == 100){
-	               alert("친구요청을 보냈습니다.");
-	               addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
-	               addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
-	            }
-	         }
-	      });
-	   });
+       $.ajax({
+          type : 'post',
+          url : "/friend_insert",
+          data : {user_receiveid},
+          success:function(data){
+             if (data.code == 100){
+                alert("친구요청을 보냈습니다.");
+                addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
+                addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
+             }
+          }
+       });
+    });
 
-	   
-	   //거절 버튼
-	   $('.block-user-btn').on('click', function(){
-	      let user_receiveid = $(this).data('recent-id');
-	      let blockbtn = $(this);
-	      
-	      $.ajax({
-	         type : 'post',
-	         url : "/block_insert",
-	         data : {user_receiveid},
-	         success:function(data){
-	            if (data.code == 100){
-	               alert("차단되었습니다.");
-	               blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
-	            }
-	         }
-	      });
-	   });
-	   
+    
+    //거절 버튼
+    $('.block-user-btn').on('click', function(){
+       let user_receiveid = $(this).data('recent-id');
+       let blockbtn = $(this);
+       
+       $.ajax({
+          type : 'post',
+          url : "/block_insert",
+          data : {user_receiveid},
+          success:function(data){
+             if (data.code == 100){
+                alert("차단되었습니다.");
+                blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
+             }
+          }
+       });
+    });
 	// 채팅 임시 세팅
 	chatSend.onclick = function(e){
 		e.preventDefault();
