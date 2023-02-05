@@ -237,6 +237,7 @@ $(document).ready(function(){
 			data : {user_receiveid},
 			success:function(data){
 				if (data.code == 100){
+					alert("차단완료");
 					alert("차단되었습니다.");
 					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
 				}
@@ -364,7 +365,7 @@ $(document).ready(function(){
 					    const conn = peer.connect(remotePeerId);
 					    conn.on('open', function() {
 					    	// Receive messages
-					    	setInnerHTML('접속확인테스트','');  
+					    	setInnerHTML('연결되었습니다','');  // 접속확인
 					    	$(document).on("click", "#call-btn", async function(){
 					    		var closeMessage = {
 			    						"type":"system",
@@ -400,7 +401,7 @@ $(document).ready(function(){
 					    				}
 					    		else if (data['type']=='system'){
 					    			if (data['content'] == "close"){
-					    				setInnerHTML("통화가 종료되었습니다","");
+					    				setInnerHTML("연결이 종료되었습니다","");
 					    				conn.close();
 					    		   		chatSend.onclick = function(e){
 					    		   			e.preventDefault();
@@ -481,7 +482,7 @@ peer.on("call", call => {
 
 // 채팅 세팅
 peer.on('connection', function(conn) { 
-	setInnerHTML('매칭확인테스트','');
+	setInnerHTML('매칭되었습니다',''); // 매칭확인
 
 	conn.on('data',data=>{
 		console.log(data);
@@ -490,7 +491,7 @@ peer.on('connection', function(conn) {
 		}
 		else if (data['type']=='system'){
 			if (data['content'] == "close"){
-				setInnerHTML("통화가 종료되었습니다","");
+				setInnerHTML("연결이 종료되었습니다","");
 				conn.close();
 		   		chatSend.onclick = function(e){
 		   			e.preventDefault();
