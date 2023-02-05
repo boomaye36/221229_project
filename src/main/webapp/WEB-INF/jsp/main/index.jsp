@@ -10,7 +10,7 @@
 	<input type="text" placeholder="보낼 메세지를 입력하세요." class="content">
     <button type="button" value="전송" class="sendBtn" onclick="sendMsg()">전송</button>
 
-
+	
 <div class="msgArea">
     <span>메세지</span>
     <div class="msgArea"></div>
@@ -20,8 +20,11 @@
 
 </body>
 <script>
-        const socket = new WebSocket("ws://localhost/websocket");
-
+        const pathname = window.location.pathname;
+        const room = pathname.split('/test/')[1];
+		console.log(room);
+        const socket = new WebSocket("ws://localhost/websocket/{"+room+"}");
+        
         socket.onopen = function (e) {
             console.log('open server!')
         };
@@ -40,7 +43,12 @@
 
         function sendMsg() {
             let content=document.querySelector('.content').value;
-            socket.send(content);
+            var sendData = {
+            		id : "유저",
+            		content : content
+            }
+            
+            socket.send(JSON.stringify(sendData));
         }
 </script>
 </html>

@@ -2,11 +2,13 @@ package com.project.main.bo;
 
 import java.util.List;
 
+import javax.management.Notification;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.common.NotificationService;
 import com.project.main.dao.MainDAO;
-import com.project.main.model.Friend;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
 import com.project.user.model.User;
@@ -112,5 +114,11 @@ public class MainBO {
 	
 	public int addBlock(int user_sendid, int user_receiveid) {
 		return mainDAO.insertBlock(user_sendid, user_receiveid);
+	}
+	
+	@Autowired
+	private NotificationService notificationService;
+	public void ssePush(String receiveid) {
+		notificationService.send(receiveid, "새로운 리뷰 요청이 도착했습니다!");
 	}
 }
