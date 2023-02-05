@@ -98,7 +98,7 @@ var swiper = new Swiper(".mySwiper", {
 
 $(document).ready(function(){
 	// 친구 추가 버튼 
-	$('.friend-add').on('click', function(){
+	$('.add').on('click', function(){
 		let user_receiveid = $(this).data('user-id');
 
 		$.ajax({

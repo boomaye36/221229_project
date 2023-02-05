@@ -113,12 +113,27 @@ public class MainRestController {
 	public Map<String, Object> insertFriend(HttpSession session, @RequestParam int user_receiveid ){
 		User loginUser = (User) session.getAttribute("loginUser");
 		int user_sendid = loginUser.getId();
-		int add = mainBO.addFriend(user_sendid, user_receiveid);
+		boolean friendCheck = mainBO.friendcheck(user_sendid, user_receiveid);
+		boolean realFriendCheck = mainBO.RealFriendCheck(user_sendid, user_receiveid);
 		Map<String, Object> result = new HashMap<>();
-
-		if (add > 0) {
-			result.put("code", 100);
+		//친구 목록에 존재하면서 승인중일 때 
+		if (friendCheck) {
+			result.put("code", 300);
 		}
+		//친구 목록에 존재하면서 수락일 때 
+		else if (realFriendCheck) {
+			result.put("code", 200);
+		}
+		//친구 테이블에 insert
+		else {
+			int add = mainBO.addFriend(user_sendid, user_receiveid);
+
+			if (add > 0) {
+				result.put("code", 100);
+			}
+		}
+		
+		
 		return result;
 	}
 	// 친구 수락/거절 여부에 따라 상태 업데이트

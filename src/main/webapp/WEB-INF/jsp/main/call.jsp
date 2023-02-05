@@ -137,7 +137,7 @@
 										<div class="user-img">
 											<img src="${empty userList.profilephoto ? '/static/img/no.png' : userList.profilephoto }"> <!-- 기본이미지 -->
 										</div>
-										<div class="user-nickname">${userList.nickname}</div>
+										<div class="user-nickname">${userList.nickname} ${userList.confirm }</div>
 									</div>
 									<div class="util-box">
 										<div class="history">
@@ -147,8 +147,8 @@
 										<c:when test="${userList.second < 3600 && userList.second >= 60}">${userList.minute}분 전</c:when> 
 										<c:when test="${userList.second < 60}">${userList.second}초 전</c:when> 
 										</c:choose> </div>
-										<button type="button" title="친구추가" class="icon-btn add-user-btn" data-recent-id="${userList.id}"><span class="material-icons">person_add</span></button>
-										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn" data-recent-id="${userList.id}"><span class="material-icons">block</span></button>
+										<button type="button" title="친구추가" class="icon-btn add-user-btn" data-recent-id="${userList.id}" ><span class="material-icons">person_add</span></button>
+										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn" data-recent-id="${userList.id}" ><span class="material-icons">block</span></button>
 									</div>
 								</div>		
 							</c:forEach>
@@ -208,12 +208,24 @@ $(document).ready(function(){
     $('.add-user-btn').on('click', function(){
        let user_receiveid = $(this).data('recent-id');
        let addbtn = $(this);
-
+	   /* let confirm = $(this).data('confirm');
+	   alert(confirm);
+	   if (confirm == "수락"){
+		   alert("이미 친구인상대입니다.")
+		   return false;
+	   } */
        $.ajax({
           type : 'post',
           url : "/friend_insert",
           data : {user_receiveid},
           success:function(data){
+        	 if (data.code == 200){
+        		 alert("이미 친구인 상대입니다.");
+        	 }
+        	 if (data.code == 300){
+        		 alert("이미 친구요청을 보낸 상대입니다.");
+        	 }
+        	 
              if (data.code == 100){
                 alert("친구요청을 보냈습니다.");
                 addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리

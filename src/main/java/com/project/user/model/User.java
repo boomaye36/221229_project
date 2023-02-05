@@ -23,6 +23,14 @@ public class User {
 	private int minute;
 	private int hour;
 	private int day;
+	private String confirm;
+	
+	public String getConfirm() {
+		return confirm;
+	}
+	public void setConfirm(String confirm) {
+		this.confirm = confirm;
+	}
 	public int getId() {
 		return id;
 	}

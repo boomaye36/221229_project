@@ -80,8 +80,7 @@
 										<div class="inner">
 											<div class="img"><img src="${empty friend.profilephoto ? '/static/img/no.png' : friend.profilephoto}"></div>
 											<div class="cont">
-												<div class="user-nickname">${friend.nickname}
-												</div>
+												<div class="user-nickname">${friend.nickname}</div>
 												<div class="user-chat">채팅 내용입니다. 채팅 내용입니다. 채팅 내용입니다.</div>
 											</div>
 										</div>
