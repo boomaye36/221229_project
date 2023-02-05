@@ -816,3 +816,69 @@ video {
 	border-width: 1px 0 0;
 	outline: none;
 }
+
+
+.recommend-outer {
+	 position: relative;
+     height: 100%;
+     min-height : calc(100vh - 133px);
+     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+     font-size: 14px;
+     display: flex;
+     justify-content: center;
+     background: url("/static/img/recommend-bg.jpg") center center;
+     background-size: cover;
+     padding: 100px 0;
+}
+
+.swiper {
+  width: 450px;
+  height: 650px;
+}
+
+.swiper-slide {
+  border-radius: 18px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #000;
+  background: #fff;
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.2);
+}
+.swiper-slide-shadow {
+	opacity: 0 !important;
+}
+
+.swiper-img {
+	width: 100%;
+	height: 80%;
+	object-fit : cover;
+}
+.swiper-user-info {
+	margin: 15px 20px 0;
+	display: flex;
+	color: #222;
+}
+.swiper-btn-box {
+	display: flex;
+	align-items: center;
+	margin-top: 15px;
+}
+.swiper-btn-box .friend-btn {
+	display: inline-block;
+	padding: 0;
+}
+.swiper-btn-box .friend-btn:hover {
+	background: none;
+}
+
+.swiper-btn-box .add .material-icons {
+	color : #ee0979;
+	font-size: 55px;
+}
+
+.swiper-btn-box .block .material-icons,.swiper-btn-box .pass .material-icons {
+	color: #333;
+	font-size: 45px;
+}
