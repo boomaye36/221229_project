@@ -1,8 +1,10 @@
 package com.project.config;
 
+import org.springframework.context.event.EventListener;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.socket.messaging.SessionConnectEvent;
 
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
@@ -69,4 +71,5 @@ public class MessageController {
 	            }
 	        }
 	    }
+	    
 }

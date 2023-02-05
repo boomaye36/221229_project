@@ -22,7 +22,7 @@ public class FileManagerService {
 	public static final String FILE_UPLOAD_PATH = "C:\\Users\\김기훈\\Desktop\\20221229\\images/";
 	
 	//권예지 서버 경로
-	public static final String FILE_UPLOAD_PATH = "C:\\Users\\dkahs\\Desktop\\github\\mega_team_221229\\project\\workspace\\images/";
+//	public static final String FILE_UPLOAD_PATH = "C:\\Users\\dkahs\\Desktop\\github\\mega_team_221229\\project\\workspace\\images/";
 //	public static final String FILE_UPLOAD_PATH = "C:\\Users\\dkahs\\OneDrive\\_MEGA\\mega_team_221229\\project\\workspace\\images/";
 //	public static final String FILE_UPLOAD_PATH = "C:\\Users\\g1\\OneDrive\\_MEGA\\mega_team_221229\\project_home\\workspace\\images/";
 	
