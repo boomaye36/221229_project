@@ -80,7 +80,7 @@
 			, `birth` = #{birth}
 			, `area` = #{area}
 			, `intro` = #{intro}
-			<if test="profilephoto != null || !profilephoto.equals('')">
+			<if test="profilephoto != null">
 			, `profilephoto` = #{profilephoto}
 			</if>
 			

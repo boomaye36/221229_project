@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,12 +19,16 @@
 	<!-- material icons -->
 	<link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
 	
+	<!-- swiper -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+	<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+	
 	<!-- css -->
 	<link href="/static/css/main.css" rel="stylesheet" />
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	
 </head>
-<body>
+<body class="bodytest">
 	<div class="main-wrap">
 	
 		<!-- navigation -->
@@ -29,23 +36,65 @@
 		
 		<!-- contents -->
 		<section class="content-area">
-			<div class="container">
-				<!-- content -->
-				<div class="content">
-				<c:forEach items="${userList}" var="user">
-					${user.nickname }
-					<button class="friend-add" data-user-id="${user.id}">친구추가</button>
-				</c:forEach>
-
-				</div>
-			</div>
+			
+				<div class="recommend-outer">
+					<!-- Swiper -->
+					<div class="swiper mySwiper">
+					    <div class="swiper-wrapper">
+					    	<c:forEach items="${userList}" var="user">
+					    		<div class="swiper-slide">
+					    			<img src="${empty user.profilephoto ? '/static/img/no.png' : user.profilephoto}" alt="유저이미지" class="swiper-img">
+					    			<div class="swiper-user-info">
+						    			<div class="user-info-nickname">${user.nickname}</div>
+					    				<c:if test="${not empty user.birth}">
+						    				<div class="user-info-birth">
+						    					&nbsp;&nbsp;|&nbsp;&nbsp;
+						    					<fmt:formatDate value="${user.birth}" pattern="yy"/>년생
+						    				</div>
+					    				</c:if>
+					    				<c:if test="${not empty user.area}">
+						    				<div class="user-info-area">
+						    					&nbsp;&nbsp;|&nbsp;&nbsp;
+						    					${user.area}
+						    				</div>
+					    				</c:if>
+					    				
+					    			</div>
+					    			<div class="swiper-btn-box">
+						    			<button class="friend-btn pass" data-user-id="${user.id}">
+						    				<span class="material-icons">cancel</span>
+						    			</button>
+						    			<button class="friend-btn add" data-user-id="${user.id}">
+						    				<span class="material-icons">favorite</span>
+						    			</button>
+						    			<button class="friend-btn block" data-user-id="${user.id}">
+						    				<span class="material-icons">remove_circle</span>
+						    			</button>
+					    			</div>
+					    		</div>
+					    	</c:forEach>
+					    </div>
+					 </div>
+				 </div>
+				  
 		</section>
 		
 		<!-- footer -->
 		<jsp:include page="../include/footer.jsp" />
 	</div>
 </body>
+
+	
+
+
+
 <script>
+<!-- Initialize Swiper -->
+var swiper = new Swiper(".mySwiper", {
+  effect: "cards",
+  grabCursor: true,
+});
+
 
 $(document).ready(function(){
 	// 친구 추가 버튼 
