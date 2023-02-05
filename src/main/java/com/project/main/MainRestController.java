@@ -115,6 +115,7 @@ public class MainRestController {
 		int user_sendid = loginUser.getId();
 		boolean friendCheck = mainBO.friendcheck(user_sendid, user_receiveid);
 		boolean realFriendCheck = mainBO.RealFriendCheck(user_sendid, user_receiveid);
+		
 		Map<String, Object> result = new HashMap<>();
 		//친구 목록에 존재하면서 승인중일 때 
 		if (friendCheck) {
@@ -127,7 +128,6 @@ public class MainRestController {
 		//친구 테이블에 insert
 		else {
 			int add = mainBO.addFriend(user_sendid, user_receiveid);
-
 			if (add > 0) {
 				result.put("code", 100);
 			}
