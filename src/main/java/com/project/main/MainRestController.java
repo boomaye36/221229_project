@@ -113,6 +113,7 @@ public class MainRestController {
 	public Map<String, Object> insertFriend(HttpSession session, @RequestParam int user_receiveid ){
 		User loginUser = (User) session.getAttribute("loginUser");
 		int user_sendid = loginUser.getId();
+		
 		int add = mainBO.addFriend(user_sendid, user_receiveid);
 		Map<String, Object> result = new HashMap<>();
 

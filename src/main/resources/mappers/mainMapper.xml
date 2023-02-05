@@ -198,7 +198,7 @@
 		`id`
 	NOT IN
 		(SELECT `user_sendid` FROM `block` where `user_receiveid` = #{id})
-		
+	ORDER BY rand()	
 	LIMIT 5
 	</select>
 	<insert id="insertFriend" parameterType="map">

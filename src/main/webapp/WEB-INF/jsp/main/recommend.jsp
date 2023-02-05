@@ -41,7 +41,8 @@
 					<!-- Swiper -->
 					<div class="swiper mySwiper">
 					    <div class="swiper-wrapper">
-					    	<c:forEach items="${userList}" var="user">
+					    	<c:set var="number" value="0" />
+					    	<c:forEach items="${userList}" var="user" varStatus="status">
 					    		<div class="swiper-slide">
 					    			<img src="${empty user.profilephoto ? '/static/img/no.png' : user.profilephoto}" alt="유저이미지" class="swiper-img">
 					    			<div class="swiper-user-info">
@@ -72,7 +73,10 @@
 						    			</button>
 					    			</div>
 					    		</div>
+					    		<c:set var="number" value="${number + 1}" /> 
 					    	</c:forEach>
+					    	<input type="hidden" value="${number}" class="lastindex">
+					    	
 					    </div>
 					 </div>
 				 </div>
@@ -93,29 +97,68 @@
 var swiper = new Swiper(".mySwiper", {
   effect: "cards",
   grabCursor: true,
+  
 });
 
 
 $(document).ready(function(){
 	// 친구 추가 버튼 
-	$('.friend-add').on('click', function(){
+	$('.add').on('click', function(){
 		let user_receiveid = $(this).data('user-id');
-
 		$.ajax({
-			type : 'post',
-			url : "/friend_insert",
-			data : {user_receiveid},
-			success:function(data){
+			type : 'post'
+			,url : "/friend_insert"
+			,data : {user_receiveid}
+			,success:function(data){
 				if (data.code == 100){
-					alert("친구요청 보냄");
-					location.reload(true);
+					alert("친구 신청이 되었습니다.");
 				}
 			}
 		});
+		var index = swiper.activeIndex + 1;
+		swiper.slideTo(index);
+		var lastindex = $('.lastindex').val();
+		if ( index == lastindex) {
+			location.reload();
+		}
+		
 	});
-
+	
+	//친구 차단 버튼
+	$('.block').on('click', function(){
+		let user_receiveid = $(this).data('user-id');
+		$.ajax({
+			type : 'post'
+			,url : "/block_insert"
+			,data : {user_receiveid}
+			,success:function(data){
+				if (data.code == 100){
+					alert("차단되었습니다.");
+				}
+			}
+		});
+		
+		var index = swiper.activeIndex + 1;
+		swiper.slideTo(index);
+		var lastindex = $('.lastindex').val();
+		if ( index == lastindex) {
+			location.reload();
+		}
+		
+	})
+	
+	
+	//친구 패스 버튼
+	$('.pass').on('click', function(){
+		var index = swiper.activeIndex + 1;
+		swiper.slideTo(index);
+		var lastindex = $('.lastindex').val();
+		if ( index == lastindex) {
+			location.reload();
+		}
+	})
+	
+	
 });
-
-
 </script>
 </html>
