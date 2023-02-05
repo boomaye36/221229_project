@@ -36,18 +36,22 @@ public class NotificationService {
 
 	// 4
         // 클라이언트가 미수신한 Event 목록이 존재할 경우 전송하여 Event 유실을 예방
+       
+        /*
         if (!lastEventId.isEmpty()) {
             Map<String, Object> events = emitterRepository.findAllEventCacheStartWithId(String.valueOf(userId));
             events.entrySet().stream()
                   .filter(entry -> lastEventId.compareTo(entry.getKey()) < 0)
                   .forEach(entry -> sendToClient(emitter, entry.getKey(), entry.getValue()));
         }
-
+		*/
+        
+        
         return emitter;
     }
 
     // 3
-    private void sendToClient(SseEmitter emitter, String id, Object data) {
+    private void sendToClient(SseEmitter emitter, String id, String data) {
         try {
             emitter.send(SseEmitter.event()
                                    .id(id)
