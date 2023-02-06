@@ -1,6 +1,7 @@
 package com.project.main;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -113,26 +114,27 @@ public class MainRestController {
 	public Map<String, Object> insertFriend(HttpSession session, @RequestParam int user_receiveid ){
 		User loginUser = (User) session.getAttribute("loginUser");
 		int user_sendid = loginUser.getId();
-		Map<String, Object> result = new HashMap<>();
+		boolean friendCheck = mainBO.friendcheck(user_sendid, user_receiveid);
+		boolean realFriendCheck = mainBO.RealFriendCheck(user_sendid, user_receiveid);
 		
-		//친구인지 아닌지
-		Boolean friend = mainBO.checkFriend(user_sendid, user_receiveid);
-		if( friend == true) {
-			result.put("code" ,500);
-		}
-		//나한테 친구 요청을 보낸건지
-		Boolean askfriend = mainBO.checkAskFriend(user_sendid, user_receiveid);
-		if(askfriend == true) {
-			mainBO.updateFriend(user_sendid, "수락");
+		Map<String, Object> result = new HashMap<>();
+		//친구 목록에 존재하면서 승인중일 때 
+		if (friendCheck) {
 			result.put("code", 300);
 		}
-		
-		//그것도 아니면 친구 추가
-		int add = mainBO.addFriend(user_sendid, user_receiveid);
-
-		if (add > 0) {
-			result.put("code", 100);
+		//친구 목록에 존재하면서 수락일 때 
+		else if (realFriendCheck) {
+			result.put("code", 200);
 		}
+		//친구 테이블에 insert
+		else {
+			int add = mainBO.addFriend(user_sendid, user_receiveid);
+			if (add > 0) {
+				result.put("code", 100);
+			}
+		}
+		
+		
 		return result;
 	}
 	// 친구 수락/거절 여부에 따라 상태 업데이트
@@ -165,6 +167,19 @@ public class MainRestController {
 	public void pushSSE(@RequestParam String receiveid) {
 		mainBO.ssePush(receiveid);
 	}
+	
+	
+	//친구 추가 event
+	@GetMapping("/friend_get")
+	public Map<String ,Object> getFriend(HttpSession session) {
+		User user = (User) session.getAttribute("loginUser");
+		int id = user.getId();
+		Map<String, Object> result = new HashMap<>();
+		List<User> userList = mainBO.getUserList(id);
+		result.put("userList", userList);
+		return result;
+	}
+	
 	
 	
 }
