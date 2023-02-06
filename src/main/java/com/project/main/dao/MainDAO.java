@@ -55,5 +55,15 @@ public interface MainDAO {
 
 	
 	public int insertBlock(@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);
+	
+	
+	//친구인지 아닌지
+	public Boolean selectCheckFriend(@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);
+	
+	//친구 요청 보냈는지 아닌지
+	public Boolean selectAskFriend(@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);
+	
+	
+	
 
 }

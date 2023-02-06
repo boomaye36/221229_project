@@ -112,6 +112,15 @@ public class MainBO {
 		return mainDAO.updateFriend(user_id, confirm);
 	}
 	
+	//친구인지 아닌지
+	public Boolean checkFriend(int user_sendid, int user_receiveid) {
+		return mainDAO.selectCheckFriend(user_sendid, user_receiveid);
+	}
+	//친구요청을 보냈는지 아닌지
+	public Boolean checkAskFriend(int user_sendid, int user_receiveid) {
+		return mainDAO.selectAskFriend(user_sendid, user_receiveid);
+	}
+	
 	public int addBlock(int user_sendid, int user_receiveid) {
 		return mainDAO.insertBlock(user_sendid, user_receiveid);
 	}

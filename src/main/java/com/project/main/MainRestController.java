@@ -113,9 +113,22 @@ public class MainRestController {
 	public Map<String, Object> insertFriend(HttpSession session, @RequestParam int user_receiveid ){
 		User loginUser = (User) session.getAttribute("loginUser");
 		int user_sendid = loginUser.getId();
-		
-		int add = mainBO.addFriend(user_sendid, user_receiveid);
 		Map<String, Object> result = new HashMap<>();
+		
+		//친구인지 아닌지
+		Boolean friend = mainBO.checkFriend(user_sendid, user_receiveid);
+		if( friend == true) {
+			result.put("code" ,500);
+		}
+		//나한테 친구 요청을 보낸건지
+		Boolean askfriend = mainBO.checkAskFriend(user_sendid, user_receiveid);
+		if(askfriend == true) {
+			mainBO.updateFriend(user_sendid, "수락");
+			result.put("code", 300);
+		}
+		
+		//그것도 아니면 친구 추가
+		int add = mainBO.addFriend(user_sendid, user_receiveid);
 
 		if (add > 0) {
 			result.put("code", 100);
@@ -152,4 +165,6 @@ public class MainRestController {
 	public void pushSSE(@RequestParam String receiveid) {
 		mainBO.ssePush(receiveid);
 	}
+	
+	
 }
