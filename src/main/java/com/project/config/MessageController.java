@@ -1,5 +1,9 @@
 package com.project.config;
 
+<<<<<<< HEAD
+=======
+import org.springframework.context.event.EventListener;
+>>>>>>> origin/master
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +17,13 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+<<<<<<< HEAD
+=======
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.springframework.scheduling.annotation.Scheduled;
+>>>>>>> origin/master
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -179,5 +190,13 @@ public class MessageController {
 	            }
 	        }
 	    }
+<<<<<<< HEAD
 */	    
+=======
+	    
+*/
+>>>>>>> origin/master
 }
+
+	    
+
