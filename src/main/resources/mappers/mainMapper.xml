@@ -295,6 +295,7 @@
 			`user_sendid` = #{user_id}
 	
 	</update>
+	
 	<!-- friend 테이블에 존재하는지 -->
 	<select id="isFriend" parameterType="map" resultType="boolean">
 		SELECT 

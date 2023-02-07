@@ -1,6 +1,7 @@
 package com.project.main;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -166,4 +167,19 @@ public class MainRestController {
 	public void pushSSE(@RequestParam String receiveid) {
 		mainBO.ssePush(receiveid);
 	}
+	
+	
+	//친구 추가 event
+	@GetMapping("/friend_get")
+	public Map<String ,Object> getFriend(HttpSession session) {
+		User user = (User) session.getAttribute("loginUser");
+		int id = user.getId();
+		Map<String, Object> result = new HashMap<>();
+		List<User> userList = mainBO.getUserList(id);
+		result.put("userList", userList);
+		return result;
+	}
+	
+	
+	
 }

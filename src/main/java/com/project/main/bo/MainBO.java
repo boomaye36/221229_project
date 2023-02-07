@@ -117,6 +117,7 @@ public class MainBO {
 		return mainDAO.updateFriend(user_id, confirm);
 	}
 	
+	
 	public int addBlock(int user_sendid, int user_receiveid) {
 		return mainDAO.insertBlock(user_sendid, user_receiveid);
 	}
