@@ -2,11 +2,13 @@ package com.project.main.bo;
 
 import java.util.List;
 
+import javax.management.Notification;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.common.NotificationService;
 import com.project.main.dao.MainDAO;
-import com.project.main.model.Friend;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
 import com.project.user.model.User;
@@ -93,6 +95,11 @@ public class MainBO {
 	
 	// 친구 추가
 	public int addFriend(int user_sendid, int user_receiveid) {
+		String confirm = "수락";
+		// 상대방이 나에게 친구신청을 했으면 바로 친구로 등록
+		if (mainDAO.isFriend(user_sendid, user_receiveid)) {
+			return mainDAO.updateFriend(user_receiveid, confirm);
+		}
 		return mainDAO.insertFriend(user_sendid, user_receiveid);
 	}
 	
@@ -110,7 +117,21 @@ public class MainBO {
 		return mainDAO.updateFriend(user_id, confirm);
 	}
 	
+	
 	public int addBlock(int user_sendid, int user_receiveid) {
 		return mainDAO.insertBlock(user_sendid, user_receiveid);
 	}
+	public boolean RealFriendCheck (int user_sendid, int user_receiveid) {
+		return mainDAO.RealFriendCheck(user_sendid, user_receiveid);
+	}
+	
+	public boolean friendcheck (int user_sendid, int user_receiveid) {
+		return mainDAO.friendcheck(user_sendid, user_receiveid);
+	}
+	@Autowired
+	private NotificationService notificationService;
+	public void ssePush(String receiveid) {
+		notificationService.send(receiveid, "새로운 리뷰 요청이 도착했습니다!");
+	}
+	
 }

@@ -137,7 +137,7 @@
 										<div class="user-img">
 											<img src="${empty userList.profilephoto ? '/static/img/no.png' : userList.profilephoto }"> <!-- 기본이미지 -->
 										</div>
-										<div class="user-nickname">${userList.nickname}</div>
+										<div class="user-nickname">${userList.nickname} ${userList.confirm }</div>
 									</div>
 									<div class="util-box">
 										<div class="history">
@@ -147,8 +147,8 @@
 										<c:when test="${userList.second < 3600 && userList.second >= 60}">${userList.minute}분 전</c:when> 
 										<c:when test="${userList.second < 60}">${userList.second}초 전</c:when> 
 										</c:choose> </div>
-										<button type="button" title="친구추가" class="icon-btn add-user-btn" data-recent-id="${userList.id}"><span class="material-icons">person_add</span></button>
-										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn" data-recent-id="${userList.id}"><span class="material-icons">block</span></button>
+										<button type="button" title="친구추가" class="icon-btn add-user-btn" data-recent-id="${userList.id}" ><span class="material-icons">person_add</span></button>
+										<button type="button" title="차단" class="icon-btn ml-1 block-user-btn" data-recent-id="${userList.id}" ><span class="material-icons">block</span></button>
 									</div>
 								</div>		
 							</c:forEach>
@@ -204,47 +204,55 @@ const nickName = document.getElementById("userNickname").value;
 
 
 $(document).ready(function(){
-	
-	
-	// 수락 버튼 
-	$('.add-user-btn').on('click', function(){
-		let user_receiveid = $(this).data('recent-id');
-		let addbtn = $(this);
+	 // 수락 버튼 
+    $('.add-user-btn').on('click', function(){
+       let user_receiveid = $(this).data('recent-id');
+       let addbtn = $(this);
+	   /* let confirm = $(this).data('confirm');
+	   alert(confirm);
+	   if (confirm == "수락"){
+		   alert("이미 친구인상대입니다.")
+		   return false;
+	   } */
+       $.ajax({
+          type : 'post',
+          url : "/friend_insert",
+          data : {user_receiveid},
+          success:function(data){
+        	 if (data.code == 200){
+        		 alert("이미 친구인 상대입니다.");
+        	 }
+        	 if (data.code == 300){
+        		 alert("이미 친구요청을 보낸 상대입니다.");
+        	 }
+        	 
+             if (data.code == 100){
+                alert("친구요청을 보냈습니다.");
+                addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
+                addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
+             }
+          }
+       });
+    });
 
-		$.ajax({
-			type : 'post',
-			url : "/friend_insert",
-			data : {user_receiveid},
-			success:function(data){
-				if (data.code == 100){
-					alert("친구요청을 보냈습니다.");
-					addbtn.attr('disabled', true); // 친구추가 완료시 disabled 처리
-					addbtn.children().text('check'); // 아이콘 체크모양으로 바꾸기
-				}
-			}
-		});
-	});
-
-	
-	//거절 버튼
-	$('.block-user-btn').on('click', function(){
-		let user_receiveid = $(this).data('recent-id');
-		let blockbtn = $(this);
-		
-		$.ajax({
-			type : 'post',
-			url : "/block_insert",
-			data : {user_receiveid},
-			success:function(data){
-				if (data.code == 100){
-					alert("차단완료");
-					alert("차단되었습니다.");
-					blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
-				}
-			}
-		});
-	});
-	
+    
+    //거절 버튼
+    $('.block-user-btn').on('click', function(){
+       let user_receiveid = $(this).data('recent-id');
+       let blockbtn = $(this);
+       
+       $.ajax({
+          type : 'post',
+          url : "/block_insert",
+          data : {user_receiveid},
+          success:function(data){
+             if (data.code == 100){
+                alert("차단되었습니다.");
+                blockbtn.parent().parent().remove(); // 현재 차단한 줄을 삭제
+             }
+          }
+       });
+    });
 	// 채팅 임시 세팅
 	chatSend.onclick = function(e){
 		e.preventDefault();
@@ -365,7 +373,7 @@ $(document).ready(function(){
 					    const conn = peer.connect(remotePeerId);
 					    conn.on('open', function() {
 					    	// Receive messages
-					    	setInnerHTML('연결되었습니다','');  // 접속확인
+					    	setInnerHTML('접속확인테스트','');  
 					    	$(document).on("click", "#call-btn", async function(){
 					    		var closeMessage = {
 			    						"type":"system",
@@ -401,7 +409,7 @@ $(document).ready(function(){
 					    				}
 					    		else if (data['type']=='system'){
 					    			if (data['content'] == "close"){
-					    				setInnerHTML("연결이 종료되었습니다","");
+					    				setInnerHTML("통화가 종료되었습니다","");
 					    				conn.close();
 					    		   		chatSend.onclick = function(e){
 					    		   			e.preventDefault();
@@ -482,7 +490,7 @@ peer.on("call", call => {
 
 // 채팅 세팅
 peer.on('connection', function(conn) { 
-	setInnerHTML('매칭되었습니다',''); // 매칭확인
+	setInnerHTML('매칭확인테스트','');
 
 	conn.on('data',data=>{
 		console.log(data);
@@ -491,7 +499,7 @@ peer.on('connection', function(conn) {
 		}
 		else if (data['type']=='system'){
 			if (data['content'] == "close"){
-				setInnerHTML("연결이 종료되었습니다","");
+				setInnerHTML("통화가 종료되었습니다","");
 				conn.close();
 		   		chatSend.onclick = function(e){
 		   			e.preventDefault();

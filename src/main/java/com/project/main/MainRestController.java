@@ -1,6 +1,7 @@
 package com.project.main;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -112,12 +114,27 @@ public class MainRestController {
 	public Map<String, Object> insertFriend(HttpSession session, @RequestParam int user_receiveid ){
 		User loginUser = (User) session.getAttribute("loginUser");
 		int user_sendid = loginUser.getId();
-		int add = mainBO.addFriend(user_sendid, user_receiveid);
+		boolean friendCheck = mainBO.friendcheck(user_sendid, user_receiveid);
+		boolean realFriendCheck = mainBO.RealFriendCheck(user_sendid, user_receiveid);
+		
 		Map<String, Object> result = new HashMap<>();
-
-		if (add > 0) {
-			result.put("code", 100);
+		//친구 목록에 존재하면서 승인중일 때 
+		if (friendCheck) {
+			result.put("code", 300);
 		}
+		//친구 목록에 존재하면서 수락일 때 
+		else if (realFriendCheck) {
+			result.put("code", 200);
+		}
+		//친구 테이블에 insert
+		else {
+			int add = mainBO.addFriend(user_sendid, user_receiveid);
+			if (add > 0) {
+				result.put("code", 100);
+			}
+		}
+		
+		
 		return result;
 	}
 	// 친구 수락/거절 여부에 따라 상태 업데이트
@@ -145,4 +162,24 @@ public class MainRestController {
 		}
 		return result;
 	}
+	
+	@RequestMapping("/sse_push_test")
+	public void pushSSE(@RequestParam String receiveid) {
+		mainBO.ssePush(receiveid);
+	}
+	
+	
+	//친구 추가 event
+	@GetMapping("/friend_get")
+	public Map<String ,Object> getFriend(HttpSession session) {
+		User user = (User) session.getAttribute("loginUser");
+		int id = user.getId();
+		Map<String, Object> result = new HashMap<>();
+		List<User> userList = mainBO.getUserList(id);
+		result.put("userList", userList);
+		return result;
+	}
+	
+	
+	
 }

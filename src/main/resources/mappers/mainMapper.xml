@@ -145,14 +145,19 @@
 			,a.loginid
 			,a.nickname
 			,a.profilephoto
-			, timestampdiff  (second, (b.`createdat`), NOW()) as second
+<!-- 			,confirm
+ -->			, timestampdiff  (second, (b.`createdat`), NOW()) as second
 			, timestampdiff  (minute, (b.`createdat`), NOW()) as minute
 			, timestampdiff  (hour, (b.`createdat`), NOW()) as hour
 			, timestampdiff  (day, (b.`createdat`), NOW()) as day
+			
 		FROM
 			`recent` as b
 		LEFT JOIN `user` as a
 		ON b.user_receiveid = a.id
+		<!--  JOIN `friend` as c
+		ON c.user_receiveid = a.id -->
+		
 		where 
 			b.user_sendid = #{user_sendid}
 	
@@ -198,7 +203,7 @@
 		`id`
 	NOT IN
 		(SELECT `user_sendid` FROM `block` where `user_receiveid` = #{id})
-		
+	ORDER BY RAND()	
 	LIMIT 5
 	</select>
 	<insert id="insertFriend" parameterType="map">
@@ -290,4 +295,44 @@
 			`user_sendid` = #{user_id}
 	
 	</update>
+	
+	<!-- friend 테이블에 존재하는지 -->
+	<select id="isFriend" parameterType="map" resultType="boolean">
+		SELECT 
+			COUNT(1)
+		FROM
+			`friend`
+		WHERE
+			`user_sendid` = #{user_receiveid}
+			AND
+			`user_receiveid` = #{user_sendid}
+	</select>
+	<!-- 수락된 친구 조회  -->
+	<select id="RealFriendCheck" parameterType="map" resultType="boolean">
+		SELECT 
+			COUNT(1)
+		FROM
+			`friend`
+		WHERE
+			`user_sendid` = #{user_sendid}
+			AND
+			`user_receiveid` = #{user_receiveid}
+			AND 
+			`confirm` = '수락'
+	</select>
+	<!-- 내가 초대한 친구 목록 중 승인중 조회-->
+	<select id="friendcheck" parameterType="map" resultType="boolean">
+		SELECT 
+			COUNT(1)
+		FROM
+			`friend`
+		WHERE
+			`user_sendid` = #{user_sendid}
+			AND
+			`user_receiveid` = #{user_receiveid}
+			AND
+			`confirm` = '승인중'
+	</select>
+	
+	
 </mapper>
