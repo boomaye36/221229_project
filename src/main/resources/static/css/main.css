@@ -742,12 +742,13 @@ video {
 }
 .msg-box .receive-user {
 	width: fit-content;
-	max-width: 350px;
+	max-width: 400px;
 	display: flex;
 	align-items: center;
 	padding: 5px 0;
 	margin-left: 16px;
 	line-height: 1.2;
+	overflow:auto;
 }
 .msg-box .receive-user .user-img {
 	width: 100%;
@@ -765,6 +766,8 @@ video {
 	padding: 8px 10px;
 	border: 1px solid #dadada;
 	border-radius: 16px;
+	word-break:break-all;
+	max-width: 300px;
 }
 .msg-box .created-at {
 	text-align: center;
@@ -773,17 +776,27 @@ video {
 	color: #666;
 }
 .msg-box .send-user {
+	display: flex;
 	width: fit-content;
-	max-width: 350px;
+	max-width: 380px;
 	margin-left: auto;
 	margin-right: 16px;
 	padding: 5px 0;
 	line-height: 1.2;
+	overflow:auto;
 }
 .msg-box .send-user .chat-content {
 	padding: 8px 10px;
 	background: #ececec;
 	border-radius: 16px;
+	word-break:break-all;
+	max-width: 315px;
+}
+.msg-box .chat-timestamp {
+	font-size: 13px;
+	width: 65px;
+	display: flex;
+	align-items: flex-end;
 }
 
 .lounge-chat-area .input-box {

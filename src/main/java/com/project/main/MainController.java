@@ -65,6 +65,23 @@ public class MainController {
 
 		return "/main/lounge";
 	}
+	
+    @GetMapping("/lounge/chat/{room}")
+    public String Chat(HttpSession session, Model model) {
+    	User user = (User) session.getAttribute("loginUser");
+		int id = user.getId();
+		List<User> requestList = mainBO.getFriend(id);
+		List<User> friendList = mainBO.getRealFriend(id);
+		model.addAttribute("requestList", requestList);
+		model.addAttribute("friendList", friendList);
+		
+		// 채팅 방 넘버와 접속된 유저 확인 - 채팅방이 없거나 내 userid가 채팅방에 맞지 않다면 리다이렉트
+		
+		// 상대 id model에 할당 - 받는 유저 아이디 할당에 필요함
+		
+		
+        return "/main/chat";
+    }
 
 	// 내정보
 	@GetMapping("/mypage")
