@@ -24,7 +24,14 @@ public class User {
 	private int hour;
 	private int day;
 	private String confirm;
+	private int friendId;
 	
+	public int getFriendId() {
+		return friendId;
+	}
+	public void setFriendId(int friendId) {
+		this.friendId = friendId;
+	}
 	public String getConfirm() {
 		return confirm;
 	}
