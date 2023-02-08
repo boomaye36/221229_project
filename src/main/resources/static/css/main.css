@@ -744,7 +744,7 @@ video {
 	width: fit-content;
 	max-width: 400px;
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	padding: 5px 0;
 	margin-left: 16px;
 	line-height: 1.2;
@@ -791,6 +791,7 @@ video {
 	border-radius: 16px;
 	word-break:break-all;
 	max-width: 315px;
+	height: calc(100%);
 }
 .msg-box .chat-timestamp {
 	font-size: 13px;

@@ -76,7 +76,7 @@
 								<!-- 친구목록 있을경우: 채팅 list 반복문 -->
 								<c:forEach items="${friendList}" var="friend">
 								<div class="list">
-									<button type="button" class="friend-btn">
+									<button type="button" class="friend-btn" data-room-number="${friend.friendId}">
 										<div class="inner">
 											<div class="img"><img src="${empty friend.profilephoto ? '/static/img/no.png' : friend.profilephoto}"></div>
 											<div class="cont">
@@ -183,6 +183,12 @@ $(document).ready(function(){
 				}
 			}
 		});
+	});
+	
+	// 채팅방 입장
+	$('.friend-btn').on('click', function() {
+		let room = $(this).data('room-number');
+		location.href="/lounge/chat/"+room;
 	});
 	
 	// 채팅 설정

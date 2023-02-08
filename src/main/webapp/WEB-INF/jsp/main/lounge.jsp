@@ -76,7 +76,7 @@
 								<!-- 친구목록 있을경우: 채팅 list 반복문 -->
 								<c:forEach items="${friendList}" var="friend">
 								<div class="list">
-									<button type="button" class="friend-btn">
+									<button type="button" class="friend-btn" data-room-number="${friend.friendId }">
 										<div class="inner">
 											<div class="img"><img src="${empty friend.profilephoto ? '/static/img/no.png' : friend.profilephoto}"></div>
 											<div class="cont">
@@ -94,29 +94,34 @@
 							</div>
 						</div>
 						
+						
 						<!-- 채팅 영역 -->
+						
 						<div class="lounge-chat-area">
 							<!-- 메시지 영역 -->
-							<div class="msg-box">
-							    <!-- 상대방 메시지 -->
+							<!-- <div class="msg-box">
+							    상대방 메시지
 							    <div class="receive-user">
 							    	<div class="user-img mr-2"><img src="/static/img/no.png"></div>
 							    	<div class="chat-content">상대방이 보낸 채팅 내용</div>
 							    </div>
-							    <!-- 보낸 시간 -->
+							    보낸 시간
 							    <div class="created-at">2023/02/04 14:44</div>
-							    <!-- 내 메시지 -->
+							    내 메시지
 							    <div class="send-user">
 							    	<div class="chat-content">내가 보낸 채팅 내용</div>
 							    </div>
-							</div>
+							</div> -->
 							
 							<!-- 메시지 전송 영역 -->
-							<div class="input-box">
+						<!-- 	<div class="input-box">
 								<input type="text" placeholder="보낼 메세지를 입력하세요." class="content">
 								<button type="button" value="전송" class="send-btn">전송</button>
 							</div>
 						</div>
+						 -->
+						
+						
 					</div>
 				</div>
 			</div>
@@ -160,6 +165,12 @@ $(document).ready(function(){
 				}
 			}
 		});
+	});
+	
+	// 채팅방 입장
+	$('.friend-btn').on('click', function() {
+		let room = $(this).data('room-number');
+		location.href="/lounge/chat/"+room;
 	});
 });
 </script>

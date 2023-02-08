@@ -260,28 +260,26 @@
 	</select>
 	
 	<!-- 친구 수락 목록 -->
-	<select id="selectRealFriend" resultType="map" parameterType="com.project.user.model.User">
-		SELECT
-			*
+	<select id="selectRealFriend" resultType="com.project.user.model.User" parameterType="com.project.user.model.User">
+ 		SELECT
+			a.*,
+			b.id as friendId
 		FROM
-			`user`
+			`friend` as b
+		LEFT JOIN `user` as a
+			ON b.user_sendid = a.id
 		WHERE
-			`id`
-		IN
-			(SELECT  `user_sendid` FROM `friend`
-				WHERE
-					`user_receiveid` = #{id}
-				AND
-					`confirm` = '수락')
-		OR
-			`id`
-		IN
-			(SELECT `user_receiveid` FROM `friend`
-				WHERE
-					`user_sendid` = #{id}
-				AND
-				 	`confirm` = '수락')
-			
+			b.confirm = '수락' AND b.user_receiveid = #{id} 
+		UNION
+		SELECT
+			a.*,
+			b.id as friendId
+		FROM
+			`friend` as b
+		LEFT JOIN `user` as a
+			ON b.user_receiveid = a.id
+		WHERE
+			b.confirm = '수락' AND b.user_sendid = #{id} 
 			
 	</select>
 	
