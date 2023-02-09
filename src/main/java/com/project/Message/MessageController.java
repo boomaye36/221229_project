@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
@@ -22,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.Message.model.Chat;
 
 @Controller
 @ServerEndpoint("/websocket/{room}")
@@ -76,11 +76,11 @@ public class MessageController {
 	    
 	    
 	    @SuppressWarnings("unchecked")
-		public Map<String, String> msgConvert(String msg){
+    	public Chat msgConvert(String msg){
 	    	ObjectMapper mapper = new ObjectMapper();
-	    	Map<String, String> msgMap = new HashMap<>();
+	    	Chat msgMap = new Chat();
 			try {
-				msgMap = mapper.readValue(msg, Map.class);
+				msgMap = mapper.readValue(msg, Chat.class);
 			} catch (JsonMappingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -94,11 +94,9 @@ public class MessageController {
 	    @OnMessage
 	    public void getMsg(Session recieveSession, String msg, @PathParam("room") String room) throws JsonMappingException, JsonProcessingException {
 	    	
-	    	Map<String, String> msgMap = msgConvert(msg);
+	    	Chat msgMap = msgConvert(msg);
 	    	
 	    	System.out.println(msg);
-	    	String content = msgMap.get("content");
-	    	System.out.println(content);
 	    	
 	    	List<Object> sessionList = sessionMap.get(room);
 	    	
