@@ -72,7 +72,7 @@
 							</div>
 							<!-- 친구목록 -->
 							<div class="friend-list">
-								<div class="list-title pt-3 px-3">채팅목록</div>
+								<div class="list-title pt-3 px-3">친구목록</div>
 								<!-- 친구목록 있을경우: 채팅 list 반복문 -->
 								<c:forEach items="${friendList}" var="friend">
 								<div class="list">
@@ -81,16 +81,16 @@
 											<div class="img"><img src="${empty friend.profilephoto ? '/static/img/no.png' : friend.profilephoto}"></div>
 											<div class="cont">
 												<div class="user-nickname">${friend.nickname}</div>
-												<div class="user-chat">채팅 내용입니다. 채팅 내용입니다. 채팅 내용입니다.</div>
+												<div class="user-chat"><!-- 채팅 내용 --></div>
 											</div>
 										</div>
 									</button>
 								</div>
 								</c:forEach>
 								<!-- 친구목록 없을 경우: 텍스트 노출 -->
-								<%-- <c:if test=""> --%>
+								<c:if test="${empty friendList}">
 									<div class="empty-text">채팅 목록이 없습니다.</div>
-								<%-- </c:if> --%>
+								</c:if>
 							</div>
 						</div>
 						
@@ -99,16 +99,16 @@
 							<!-- 메시지 영역 -->
 							<div class="msg-box">
 							    <!-- 상대방 메시지 -->
-							    <div class="receive-user">
+							    <!-- <div class="receive-user">
 							    	<div class="user-img mr-2"><img src="/static/img/no.png"></div>
 							    	<div class="chat-content">상대방이 보낸 채팅 내용</div>
-							    </div>
+							    </div> -->
 							    <!-- 보낸 시간 -->
-							    <div class="created-at">2023/02/04 14:44</div>
+							    <!-- <div class="created-at">2023/02/04 14:44</div> -->
 							    <!-- 내 메시지 -->
-							    <div class="send-user">
+							    <!-- <div class="send-user">
 							    	<div class="chat-content">내가 보낸 채팅 내용</div>
-							    </div>
+							    </div> -->
 							</div>
 							
 							<!-- 메시지 전송 영역 -->
@@ -117,6 +117,7 @@
 								<button type="button" value="전송" class="send-btn" id="sendChatBtn">전송</button>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>

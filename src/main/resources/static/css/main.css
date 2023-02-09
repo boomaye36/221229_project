@@ -781,7 +781,7 @@ video {
 	max-width: 380px;
 	margin-left: auto;
 	margin-right: 16px;
-	padding: 5px 0;
+	padding: 6px 0;
 	line-height: 1.2;
 	overflow:auto;
 }
@@ -798,6 +798,9 @@ video {
 	width: 65px;
 	display: flex;
 	align-items: flex-end;
+}
+.msg-box .receive-user .chat-timestamp {
+	justify-content: flex-end;
 }
 
 .lounge-chat-area .input-box {
