@@ -1,18 +1,22 @@
 package com.project.main;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.common.StringUtil;
 import com.project.main.bo.MainBO;
-import com.project.main.model.Recent;
 import com.project.main.model.Friend;
+import com.project.main.model.Recent;
 import com.project.user.bo.UserBO;
 import com.project.user.model.User;
 
@@ -67,7 +71,8 @@ public class MainController {
 	}
 	
     @GetMapping("/lounge/chat/{room}")
-    public String Chat(HttpSession session, Model model) {
+    public String Chat(HttpSession session, Model model,
+    		@PathVariable("room") Optional<String> room) {
     	User user = (User) session.getAttribute("loginUser");
 		int id = user.getId();
 		List<User> requestList = mainBO.getFriend(id);
@@ -75,13 +80,32 @@ public class MainController {
 		model.addAttribute("requestList", requestList);
 		model.addAttribute("friendList", friendList);
 		
+		// Optional 로 받은 room id가 null이 아닌 숫자인지 확인 후 int 변환
+		String StringRoomNumber = room.orElse("");
+		if (StringRoomNumber == "" || ! StringUtil.isNumeric(StringRoomNumber)) {
+			return "redirect:/lounge";
+		} 
+		int roomNum = Integer.parseInt(StringRoomNumber);
+		
+		// room id 로 friend 테이블 호출 > 
 		// 채팅 방 넘버와 접속된 유저 확인 - 채팅방이 없거나 내 userid가 채팅방에 맞지 않다면 리다이렉트
+		Friend friend = mainBO.getFriendById(roomNum);
 		
-		// 상대 id model에 할당 - 받는 유저 아이디 할당에 필요함
-		
+		int opponentId = 0;
+		if (ObjectUtils.isEmpty(friend)) {
+			return "redirect:/lounge";
+		} else if (id ==friend.getUser_sendid()) {
+			opponentId = friend.getUser_receiveid();
+		} else if (id == friend.getUser_receiveid()){
+			opponentId = friend.getUser_sendid();
+		} else {
+			return "redirect:/lounge";
+		}
+		model.addAttribute("opponentId", opponentId);
 		
         return "/main/chat";
     }
+
 
 	// 내정보
 	@GetMapping("/mypage")

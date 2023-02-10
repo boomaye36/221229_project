@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.common.NotificationService;
 import com.project.main.dao.MainDAO;
+import com.project.main.model.Friend;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
 import com.project.user.model.User;
@@ -134,4 +135,8 @@ public class MainBO {
 		notificationService.send(receiveid, "새로운 리뷰 요청이 도착했습니다!");
 	}
 	
+	// 친구테이블 id로 불러오기
+	public Friend getFriendById(int id) {
+		return mainDAO.selectFriendById(id);
+	}
 }

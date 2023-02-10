@@ -43,6 +43,9 @@
 						${friend.nickname }
 					</c:forEach> --%>
 					
+					<input type="hidden" value="${sessionScope.loginUser.id}" id="userId">
+					<input type="hidden" value="${opponentId}" id="opponentId">
+					
 					<!-- 라운지 -->
 					<div class="lounge">
 						<!-- 친구 영역 -->
@@ -128,11 +131,12 @@
 		
 	</div>
 	
-	<input type="hidden" value="${sessionScope.loginUser.id}" id="userId">
+	
 </body>
 <script>
 
 const userId = document.getElementById("userId").value;
+const opponentId = document.getElementById("opponentId").value;
 
 function setInnerHTML(sender, content, time) {
 	const msgBox = document.getElementsByClassName("msg-box")[0];
@@ -225,7 +229,7 @@ $(document).ready(function(){
 	        let now = new Date();
 	        var sendData = {
 	        		user_sendid : userId,
-	        		user_receiveid : "받는 유저",
+	        		user_receiveid : opponentId,
 	        		content : content,
 	        		createdat : now
 	        	}	

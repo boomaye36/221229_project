@@ -62,5 +62,5 @@ public interface MainDAO {
 	
 	public boolean friendcheck (@Param("user_sendid") int user_sendid, @Param("user_receiveid") int user_receiveid);
 
-
+	public Friend selectFriendById(int id);
 }

@@ -332,5 +332,14 @@
 			`confirm` = '승인중'
 	</select>
 	
+	<!-- 친구 테이블id 조회 -->
+	<select id="selectFriendById" parameterType="int" resultType="com.project.main.model.Friend">
+		SELECT
+			* 
+		FROM
+			`friend`
+		WHERE
+			`id` = #{id}
+	</select>
 	
 </mapper>
