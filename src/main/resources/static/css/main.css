@@ -626,6 +626,19 @@ video {
 	overflow-y: auto;
 	border-bottom: 1px solid #dadada;
 }
+.lounge-friend-area .friend-request-list::-webkit-scrollbar {
+	width: 13px;
+}
+.lounge-friend-area .friend-request-list::-webkit-scrollbar-thumb {
+	background-color: silver;
+    box-shadow: inset 0px 0px 5px white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.lounge-friend-area .friend-request-list::-webkit-scrollbar-track  {
+	background-color: white;
+}
 .lounge-friend-area .friend-request-list .list {
 	display: flex;
 	justify-content: space-between;
@@ -680,6 +693,19 @@ video {
 .lounge-friend-area .friend-list {
 	height: calc(100% - 170px);
 	overflow-y: auto;
+}
+.lounge-friend-area .friend-list::-webkit-scrollbar {
+	width: 13px;
+}
+.lounge-friend-area .friend-list::-webkit-scrollbar-thumb {
+	background-color: silver;
+    box-shadow: inset 0px 0px 5px white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.lounge-friend-area .friend-list::-webkit-scrollbar-track  {
+	background-color: white;
 }
 .friend-btn {
 	cursor: pointer;
@@ -740,6 +766,20 @@ video {
 	overflow-y: auto;
 	font-size: 14px;
 }
+.lounge-chat-area .msg-box::-webkit-scrollbar {
+	width: 15px;
+}
+.lounge-chat-area .msg-box::-webkit-scrollbar-thumb {
+	background-color: grey;
+    box-shadow: inset 0px 0px 5px white;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.lounge-chat-area .msg-box::-webkit-scrollbar-track  {
+	background-color: white;
+}
+
 .msg-box .receive-user {
 	width: fit-content;
 	max-width: 400px;

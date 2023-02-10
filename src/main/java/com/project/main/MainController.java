@@ -70,7 +70,7 @@ public class MainController {
 		return "/main/lounge";
 	}
 	
-    @GetMapping("/lounge/chat/{room}")
+    @GetMapping(value={"/lounge/chat/{room}","/lounge/chat/"})
     public String Chat(HttpSession session, Model model,
     		@PathVariable("room") Optional<String> room) {
     	User user = (User) session.getAttribute("loginUser");

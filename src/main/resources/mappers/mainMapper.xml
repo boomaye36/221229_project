@@ -280,7 +280,8 @@
 			ON b.user_receiveid = a.id
 		WHERE
 			b.confirm = '수락' AND b.user_sendid = #{id} 
-			
+		ORDER BY friendId
+		
 	</select>
 	
 	<update id="updateFriend" parameterType="com.project.main.model.Friend">

@@ -138,9 +138,9 @@
 const userId = document.getElementById("userId").value;
 const opponentId = document.getElementById("opponentId").value;
 
+const msgBox = document.getElementsByClassName("msg-box")[0];
+
 function setInnerHTML(sender, content, time) {
-	const msgBox = document.getElementsByClassName("msg-box")[0];
-	
 	var eh = msgBox.clientHeight + msgBox.scrollTop; // 스크롤 현재 높이
 	var isScroll = msgBox.scrollHeight <= eh;
 	if (sender == userId ){
@@ -237,6 +237,7 @@ $(document).ready(function(){
 	        document.getElementById("chatContent").value = null;
     	}
     	document.getElementById("chatContent").focus();
+    	msgBox.scrollTop = msgBox.scrollHeight;
     });
 
     document.getElementById("chatContent").addEventListener("keyup", function(e){
