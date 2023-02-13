@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.Message.dao.ChatDAO">
+	<insert id="insertChat" parameterType="com.project.Message.model.Chat">
+		INSERT INTO `chat`
+		(
+			`user_sendid`
+			,`user_receiveid`
+			,`content`
+			,`createdat`
+		)
+		VALUES
+		(
+			#{user_sendid}
+			,#{user_receiveid}
+			,#{content}
+			,#{createdat}
+		)
+	</insert>
+	
+	<select id="selectChatList" parameterType="map" resultType="com.project.Message.model.Chat">
+		SELECT * 
+		FROM (
+		SELECT 
+			`id`
+			,`user_sendid`
+			,`user_receiveid`
+			,`content`
+			,`createdat`
+		FROM
+			`chat`
+		WHERE
+			(`user_sendid` = #{userid} AND `user_receiveid` = #{opponentid}) OR
+			(`user_sendid` = #{opponentid} AND `user_receiveid` = #{userid})
+		ORDER BY `id`
+		DESC LIMIT #{chatLogSize} ) log
+		ORDER BY id ASC
+		
+	</select>
+</mapper>

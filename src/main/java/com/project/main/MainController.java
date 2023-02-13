@@ -1,5 +1,6 @@
 package com.project.main;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.project.Message.model.Chat;
 import com.project.common.StringUtil;
 import com.project.main.bo.MainBO;
 import com.project.main.model.Friend;
@@ -91,17 +93,20 @@ public class MainController {
 		// 채팅 방 넘버와 접속된 유저 확인 - 채팅방이 없거나 내 userid가 채팅방에 맞지 않다면 리다이렉트
 		Friend friend = mainBO.getFriendById(roomNum);
 		
-		int opponentId = 0;
+		int opponentid = 0;
 		if (ObjectUtils.isEmpty(friend)) {
 			return "redirect:/lounge";
 		} else if (id ==friend.getUser_sendid()) {
-			opponentId = friend.getUser_receiveid();
+			opponentid = friend.getUser_receiveid();
 		} else if (id == friend.getUser_receiveid()){
-			opponentId = friend.getUser_sendid();
+			opponentid = friend.getUser_sendid();
 		} else {
 			return "redirect:/lounge";
 		}
-		model.addAttribute("opponentId", opponentId);
+		List<Chat> chatlog = new ArrayList<>();
+		chatlog = mainBO.getChatList(id, opponentid);
+		model.addAttribute("opponentId", opponentid);
+		model.addAttribute("chatlog",chatlog);
 		
         return "/main/chat";
     }

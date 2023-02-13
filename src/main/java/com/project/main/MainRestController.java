@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.project.Message.bo.ChatBO;
+import com.project.Message.model.Chat;
 import com.project.main.bo.MainBO;
 import com.project.main.model.Recent;
 import com.project.main.model.Wait;
@@ -180,6 +182,16 @@ public class MainRestController {
 		return result;
 	}
 	
+	@Autowired
+	private ChatBO chatBO;
+	
+	@PostMapping("/send_chat")
+	public Map<String, Object> sendChat(Chat chat){
+		Map<String, Object> result = new HashMap<>();
+		int row = chatBO.addChat(chat);
+		result.put("insert", row);
+		return result;
+	}
 	
 	
 }

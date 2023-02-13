@@ -2,11 +2,11 @@ package com.project.main.bo;
 
 import java.util.List;
 
-import javax.management.Notification;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.Message.bo.ChatBO;
+import com.project.Message.model.Chat;
 import com.project.common.NotificationService;
 import com.project.main.dao.MainDAO;
 import com.project.main.model.Friend;
@@ -138,5 +138,11 @@ public class MainBO {
 	// 친구테이블 id로 불러오기
 	public Friend getFriendById(int id) {
 		return mainDAO.selectFriendById(id);
+	}
+	
+	@Autowired
+	private ChatBO chatBO;
+	public List<Chat> getChatList(int userid, int opponentid){
+		return chatBO.getChatList(userid, opponentid);
 	}
 }

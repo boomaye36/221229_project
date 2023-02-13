@@ -16,33 +16,25 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.Message.bo.ChatBO;
 import com.project.Message.model.Chat;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
-@ServerEndpoint("/websocket/{room}")
+@ServerEndpoint(value="/websocket/{room}",configurator = ServerEndpointConfigurator.class)
 
 
 public class MessageController {
 	
 	private static final Map<String, List<Object>> sessionMap = new HashMap<>();
+	private final ChatBO chatBO;
 	
-	 
-	    public MessageController() {
-//	        this.isSessionClosed();
-	    }
-	    
-	    
-	    @GetMapping("/test/{room}")
-	    public String index() {
-	    	
-	        return "/main/index";
-	    }
-
 	    @OnOpen
 	    public void open(Session newUser, @PathParam("room") String room) {
 	        System.out.println("connected");
@@ -78,9 +70,9 @@ public class MessageController {
 	    @SuppressWarnings("unchecked")
     	public Chat msgConvert(String msg){
 	    	ObjectMapper mapper = new ObjectMapper();
-	    	Chat msgMap = new Chat();
+	    	Chat chat = new Chat();
 			try {
-				msgMap = mapper.readValue(msg, Chat.class);
+				chat = mapper.readValue(msg, Chat.class);
 			} catch (JsonMappingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -88,22 +80,33 @@ public class MessageController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	    	return msgMap;
+	    	return chat;
+	    }
+	    
+	    public int uploadChat(Chat chat) {
+	    	int row = 0;
+	    	try {
+	    		row = chatBO.addChat(chat);
+	    	} catch (NullPointerException e) {
+	    		e.printStackTrace();
+	    	}
+	    	return row; 
 	    }
 	    
 	    @OnMessage
 	    public void getMsg(Session recieveSession, String msg, @PathParam("room") String room) throws JsonMappingException, JsonProcessingException {
 	    	
-	    	Chat msgMap = msgConvert(msg);
-	    	
 	    	System.out.println(msg);
-	    	
+	    	Chat chat = msgConvert(msg);
+	    	int row = chatBO.addChat(chat);
+
+	    	if (row <1) {
+	    		System.out.println("db 업로드 에러");
+	    	}
+	    
 	    	List<Object> sessionList = sessionMap.get(room);
 	    	
-	    	
 	    	for (int i = 0; i < sessionList.size(); i++) {
-	        	
-	        	
 		        	Session sess = (Session) sessionList.get(i);
 		        	// 추가 수정 필요
 		        	try {

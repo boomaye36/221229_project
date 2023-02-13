@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,6 +102,28 @@
 						<div class="lounge-chat-area">
 							<!-- 메시지 영역 -->
 							<div class="msg-box">
+							
+							<c:forEach items="${chatlog}" var="log">
+							<c:choose>
+								<c:when test="${log.user_sendid eq opponentId}">
+									<div class="receive-user">
+										<input type="hidden" class="chat-id" value="${log.id}">
+							    		<div class="user-img mr-2"><img src="/static/img/no.png"></div>
+							    		<div class="chat-content">${log.content}</div>
+							    		<c:set var="now" value="${log.createdat }" />
+							    		<div class="chat-timestamp"><div><fmt:formatDate value="${now}" pattern="a h:mm" type="date"/></div></div>
+							    	</div>
+								</c:when>
+								<c:otherwise>
+									<div class="send-user">
+										<input type="hidden" class="chat-id" value="${log.id}">
+										<c:set var="now" value="${log.createdat }" />
+							    		<div class="chat-timestamp"><div><fmt:formatDate value="${now}" pattern="a h:mm" type="date"/></div></div>
+							    		<div class="chat-content">${log.content}</div>
+							    	</div>
+								</c:otherwise>
+							</c:choose>
+							</c:forEach>
 							    <!-- 상대방 메시지 -->
 							    <!-- <div class="receive-user">
 							    	<div class="user-img mr-2"><img src="/static/img/no.png"></div>
@@ -209,6 +232,11 @@ $(document).ready(function(){
     socket.onerror = function (e){
         console.log(e);
     }
+	
+    socket.onclose = function (e){
+    	console.log('close server!');
+    	msgBox.innerHTML += "<div class='w-100 text-center'>연결이 중단되었습니다.</div>";
+    };
     
     socket.onmessage = function (e) {
         console.log(e.data);
@@ -220,7 +248,7 @@ $(document).ready(function(){
 		let sender = jsondata.user_sendid;
 		setInnerHTML(sender,content, hhmm);
     }
-	
+    
     let sendChatBtn = document.getElementById("sendChatBtn");
     sendChatBtn.addEventListener("click", 
     function() {
@@ -233,6 +261,22 @@ $(document).ready(function(){
 	        		content : content,
 	        		createdat : now
 	        	}	
+	        /* $.ajax({
+	        	type : 'post',
+				url : "/send_chat",
+				data : {
+	        		user_sendid : userId,
+	        		user_receiveid : opponentId,
+	        		content : content,
+	        		createdat : now
+	        	},
+				success:function(data){
+					console.log("업로드"+data.insert);
+				},
+				error:function(){
+					console.log("에러발생");
+				}
+	        }); */
 	        socket.send(JSON.stringify(sendData));
 	        document.getElementById("chatContent").value = null;
     	}
