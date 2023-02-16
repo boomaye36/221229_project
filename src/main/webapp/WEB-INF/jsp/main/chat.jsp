@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -103,38 +104,41 @@
 							<!-- 메시지 영역 -->
 							<div class="msg-box">
 							
-							<c:forEach items="${chatlog}" var="log">
+							<c:set var="datecompare" value="0"/>
+							
 							<c:choose>
-								<c:when test="${log.user_sendid eq opponentId}">
-									<div class="receive-user">
-										<input type="hidden" class="chat-id" value="${log.id}">
-							    		<div class="user-img mr-2"><img src="/static/img/no.png"></div>
-							    		<div class="chat-content">${log.content}</div>
-							    		<c:set var="now" value="${log.createdat }" />
-							    		<div class="chat-timestamp"><div><fmt:formatDate value="${now}" pattern="a h:mm" type="date"/></div></div>
-							    	</div>
-								</c:when>
-								<c:otherwise>
-									<div class="send-user">
-										<input type="hidden" class="chat-id" value="${log.id}">
-										<c:set var="now" value="${log.createdat }" />
-							    		<div class="chat-timestamp"><div><fmt:formatDate value="${now}" pattern="a h:mm" type="date"/></div></div>
-							    		<div class="chat-content">${log.content}</div>
-							    	</div>
-								</c:otherwise>
+							<c:when test="${fn:length(chatlog) == 0}">
+								<input type="hidden" class="no-chat-data">  <!-- 추가 로딩 방지 -->
+							</c:when>
+							<c:otherwise>
+								<c:forEach items="${chatlog}" var="log" varStatus="status">
+									<c:set var="timestamp" value="${log.createdat }" />
+									<fmt:formatDate value="${timestamp}" var="logDate" pattern="yyyy-MM-dd" type="date"/>
+										<input type="hidden" name="chat-id" value="${log.id}" data-date="${logDate}">  <!-- chat DB id, createdat 정보 저장 -->
+									<c:if test="${datecompare ne logDate}">
+										<div class="date-change w-100 text-center">
+										<fmt:formatDate value="${timestamp}" pattern="M월 d일" type="date"/>
+										<c:set var="datecompare" value="${logDate}"/>	
+										</div>
+									</c:if>
+									<c:choose>
+										<c:when test="${log.user_sendid eq opponentId}">
+											<div class="receive-user">
+									    		<div class="user-img mr-2"><img src="/static/img/no.png"></div>
+									    		<div class="chat-content">${log.content}</div>
+									    		<div class="chat-timestamp"><div><fmt:formatDate value="${timestamp}" pattern="a h:mm" type="date"/></div></div>
+									    	</div>
+										</c:when>
+										<c:otherwise>
+											<div class="send-user">
+									    		<div class="chat-timestamp"><div><fmt:formatDate value="${timestamp}" pattern="a h:mm" type="date"/></div></div>
+									    		<div class="chat-content">${log.content}</div>
+									    	</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:otherwise>
 							</c:choose>
-							</c:forEach>
-							    <!-- 상대방 메시지 -->
-							    <!-- <div class="receive-user">
-							    	<div class="user-img mr-2"><img src="/static/img/no.png"></div>
-							    	<div class="chat-content">상대방이 보낸 채팅 내용</div>
-							    </div> -->
-							    <!-- 보낸 시간 -->
-							    <!-- <div class="created-at">2023/02/04 14:44</div> -->
-							    <!-- 내 메시지 -->
-							    <!-- <div class="send-user">
-							    	<div class="chat-content">내가 보낸 채팅 내용</div>
-							    </div> -->
 							</div>
 							
 							<!-- 메시지 전송 영역 -->
@@ -179,6 +183,9 @@ function setInnerHTML(sender, content, time) {
 
 
 $(document).ready(function(){
+	
+	msgBox.scrollTop = msgBox.scrollHeight;
+	
 	// 수락 버튼 
 	$('.friend-yes').on('click', function(){
 		let user_id = $(this).data('friend-id');
@@ -201,7 +208,7 @@ $(document).ready(function(){
 		let user_id = $(this).data('friend-id');
 		let confirm = '거절';
 		$.ajax({
-			type : 'post',
+			type : "post",
 			url : "/friend_update",
 			data : {user_id, confirm},
 			success:function(data){
@@ -238,20 +245,35 @@ $(document).ready(function(){
     	msgBox.innerHTML += "<div class='w-100 text-center'>연결이 중단되었습니다.</div>";
     };
     
+    // DB 에서 불러온 날짜 저장. 없다면 현재날짜  
+    let oldDate = new Date();
+    var chatLog = document.getElementsByName("chat-id");
+    if (! chatLog.length < 1){
+    	oldDate = new Date(chatLog[chatLog.length - 1].dataset['date']); 
+    	}	
+    
+    // 메시지 받음 
     socket.onmessage = function (e) {
-        console.log(e.data);
+    	console.log(e.data);
         var jsondata = JSON.parse(e.data);
-        let time = new Date(jsondata.createdat);	// 날짜 비교용으로 string으로 나누기 전에 date 포멧에 할당
-        let timeString = time.toLocaleTimeString();
-        let hhmm = timeString.substring(0,timeString.length-3);
-		let content = jsondata.content;
-		let sender = jsondata.user_sendid;
+        var time = new Date(jsondata.createdat);	// 날짜 비교용으로 string으로 나누기 전에 date 포멧에 할당
+        var timeString = time.toLocaleTimeString();
+        var hhmm = timeString.substring(0,timeString.length-3);
+        var content = jsondata.content;
+        var sender = jsondata.user_sendid;
+		if ( oldDate.getYear() != time.getYear() || oldDate.getMonth() != time.getMonth() || oldDate.getDate() != time.getDate()) {
+			var month = time.getMonth() + 1;
+			msgBox.innerHTML += "<div class='date-change w-100 text-center'>"+ month + "월 "+ time.getDate() +"일</div>";
+		}
+		oldDate = time;
 		setInnerHTML(sender,content, hhmm);
     }
     
+    // 메시지 보냄
     let sendChatBtn = document.getElementById("sendChatBtn");
     sendChatBtn.addEventListener("click", 
     function() {
+    	msgBox.scrollTop = msgBox.scrollHeight;
     	let content =  document.getElementById("chatContent").value;
     	if (content != ""){
 	        let now = new Date();
@@ -261,32 +283,74 @@ $(document).ready(function(){
 	        		content : content,
 	        		createdat : now
 	        	}	
-	        /* $.ajax({
-	        	type : 'post',
-				url : "/send_chat",
-				data : {
-	        		user_sendid : userId,
-	        		user_receiveid : opponentId,
-	        		content : content,
-	        		createdat : now
-	        	},
-				success:function(data){
-					console.log("업로드"+data.insert);
-				},
-				error:function(){
-					console.log("에러발생");
-				}
-	        }); */
 	        socket.send(JSON.stringify(sendData));
 	        document.getElementById("chatContent").value = null;
     	}
     	document.getElementById("chatContent").focus();
-    	msgBox.scrollTop = msgBox.scrollHeight;
     });
 
     document.getElementById("chatContent").addEventListener("keyup", function(e){
     	if ( e.keyCode == 13){
     		sendChatBtn.click();		
+    	}
+    });
+    
+    // 스크롤 최상단으로 이동시 채팅 추가 로딩 발생
+    msgBox.addEventListener('scroll',function(){
+    	if (msgBox.scrollTop == 0){
+			if (document.getElementsByClassName("no-chat-data").length > 0 ){	
+			} else {
+	    		var chatLog = document.getElementsByName("chat-id");
+	    	    if (chatLog.length > 0){
+	    	    	chatId = chatLog[0].value;
+					
+	    	    	var beforeHeight = msgBox.scrollHeight;
+	    	    	
+	    	    	$.ajax({
+	    	    		type:"post" ,
+	    	    		url:"/read_chat",
+	    	    		data: { userId, opponentId, chatId},
+	    	    		success:function(data){
+							if (data.code == 300){
+								msgBox.insertAdjacentHTML('afterbegin','<input type="hidden" class="no-chat-data">');	// 받아온 채팅로그가 없다면 추가 로딩 방지 
+								return false;
+							} else if (data.code == 100) {
+								
+								var firstDateChange = document.getElementsByClassName("date-change")[0];
+								    firstDateChange.remove();
+								  
+								for (var log in data.chatlog){
+									
+									var time = new Date(data.chatlog[log].createdat);
+									var content = data.chatlog[log].content;
+								    var timeString = time.toLocaleTimeString();
+								    var hhmm = timeString.substring(0,timeString.length-3);
+								    oldDate = new Date(chatLog[0].dataset['date']);
+								    if ( oldDate.getYear() != time.getYear() || oldDate.getMonth() != time.getMonth() || oldDate.getDate() != time.getDate()) {
+										var month = oldDate.getMonth() + 1;
+										msgBox.insertAdjacentHTML('afterbegin', "<div class='date-change w-100 text-center'>"+ month + "월 "+ oldDate.getDate() +"일</div>");
+									}
+									msgBox.insertAdjacentHTML('afterbegin','<input type="hidden" name="chat-id">');
+									chatLog[0].value = data.chatlog[log].id;
+									chatLog[0].dataset.date = time;
+									
+									if (data.chatlog[log].user_sendid == userId ){
+										msgBox.insertAdjacentHTML('afterbegin', '<div class="send-user"><div class="chat-timestamp"><div>' + hhmm + '</div></div><div class="chat-content">'+ content +'</div></div>');
+									} else {
+										msgBox.insertAdjacentHTML('afterbegin', '<div class="receive-user"><div class="user-img mr-2"><img src="/static/img/no.png"></div><div class="chat-content">'+ content +'</div><div class="chat-timestamp"><div>' + hhmm + '</div></div></div>');
+									}
+								}
+								var month = time.getMonth() + 1;
+								msgBox.insertAdjacentHTML('afterbegin', "<div class='date-change w-100 text-center'>"+ month + "월 "+ time.getDate() +"일</div>");
+							}    	    			
+	    	    		},
+	    	    		complete: function(){
+    	    			msgBox.scrollTop = msgBox.scrollHeight - beforeHeight;
+	    	    		}
+    	    		}); // ajax 종료
+    	    	}	
+			}
+			
     	}
     });
 });

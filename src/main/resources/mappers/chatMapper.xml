@@ -39,4 +39,21 @@
 		ORDER BY id ASC
 		
 	</select>
+	<select id="selectChatListByChatId" parameterType="map" resultType="com.project.Message.model.Chat">
+		SELECT 
+			`id`
+			,`user_sendid`
+			,`user_receiveid`
+			,`content`
+			,`createdat`
+		FROM
+			`chat`
+		WHERE
+			`id`  <![CDATA[ < ]]> #{chatid} AND (
+			(`user_sendid` = #{userid} AND `user_receiveid` = #{opponentid}) OR
+			(`user_sendid` = #{opponentid} AND `user_receiveid` = #{userid})  )
+			
+		ORDER BY `id`
+		DESC LIMIT #{chatLogSize}
+	</select>
 </mapper>

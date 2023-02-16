@@ -1,5 +1,6 @@
 package com.project.main;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,16 +183,19 @@ public class MainRestController {
 		return result;
 	}
 	
-	@Autowired
-	private ChatBO chatBO;
-	
-	@PostMapping("/send_chat")
-	public Map<String, Object> sendChat(Chat chat){
+	@PostMapping("/read_chat")
+	public Map<String, Object> getChatLogById(
+			@RequestParam int userId,@RequestParam int opponentId,@RequestParam int chatId){
 		Map<String, Object> result = new HashMap<>();
-		int row = chatBO.addChat(chat);
-		result.put("insert", row);
+		List<Chat> chatlog = new ArrayList<>();
+		chatlog = mainBO.getChatListByChatId(userId, opponentId, chatId);
+		if (chatlog.size() == 0 ) {
+			result.put("code", 300);
+		} else {
+			result.put("code", 100);
+			result.put("chatlog", chatlog);
+		}
 		return result;
 	}
-	
 	
 }

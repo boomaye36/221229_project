@@ -12,6 +12,12 @@ public interface ChatDAO {
 	public int insertChat(Chat chat);
 	
 	public List<Chat> selectChatList(@Param("userid") int userid, 
-			@Param("opponentid") int opponentid,@Param("chatLogSize") int chatLogSize);
+			@Param("opponentid") int opponentid,
+			@Param("chatLogSize") int chatLogSize);
+
+	public List<Chat> selectChatListByChatId(@Param("userid") int userid, 
+			@Param("opponentid") int opponentid,
+			@Param("chatid") int chatid,
+			@Param("chatLogSize") int chatLogSize);
 	
 }

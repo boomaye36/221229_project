@@ -815,6 +815,10 @@ video {
 	font-size: 13px;
 	color: #666;
 }
+.msg-box .date-change{
+	height: 40px;
+	padding: 12px;
+}
 .msg-box .send-user {
 	display: flex;
 	width: fit-content;

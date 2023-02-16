@@ -145,4 +145,8 @@ public class MainBO {
 	public List<Chat> getChatList(int userid, int opponentid){
 		return chatBO.getChatList(userid, opponentid);
 	}
+	
+	public List<Chat> getChatListByChatId(int userid, int opponentid, int chatId){
+		return chatBO.getChatListByChatId(userid, opponentid, chatId);
+	}
 }

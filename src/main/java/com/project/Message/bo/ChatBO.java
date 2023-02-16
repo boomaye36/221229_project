@@ -18,8 +18,12 @@ public class ChatBO {
 		return chatDAO.insertChat(chat);
 	}
 	
-	private static final int chatLogSize = 10; 
+	private static final int chatLogSize = 5; 
 	public List<Chat> getChatList(int userid, int opponentid){
 		return chatDAO.selectChatList(userid, opponentid,chatLogSize);
+	}
+	
+	public List<Chat> getChatListByChatId(int userid, int opponentid, int chatid){
+		return chatDAO.selectChatListByChatId(userid, opponentid, chatid, chatLogSize);
 	}
 }
